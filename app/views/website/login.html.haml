@@ -1,0 +1,11 @@
+%h1 Login Page
+
+= form_tag login_path do
+
+  = label :user, :email, 'Email'
+  = text_field :email, 'email'
+
+  = label :user, :password, 'Password'
+  = password_field :password, 'password'
+
+  = submit_tag 'Login'
