@@ -1,0 +1,29 @@
+%h2 All Users
+
+%table.table-striped.col-md-10#users
+  %thead
+    %tr
+      %th First
+      %th Last
+      %th Email
+      %th Team
+      %th Skillset
+      %th SID
+      %th Facebook
+      %th LinkedIn
+      %th Privileges
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.first
+        %td= movie.last
+        %td= movie.email
+        %td= movie.team
+        %td= user.skillset
+        %td= user.sid
+        %td= user.facebook
+        %td= user.linkedin
+        %td= user.privileges
+        / %td= link_to "More about #{movie.title}", user_path
+
