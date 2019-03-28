@@ -1,12 +1,26 @@
 Rails.application.routes.draw do
 
+  # verb 'uri', to: 'controller#action', as: 'name'
+  # can refer to as name_path
+
+  get '/', to: 'users#home', as: 'home'
+
   get 'users', to: 'users#index', as: 'users'
 
   get 'users/:id', to: 'users#show', as: 'user'
 
-  get 'users/forgot', to: 'users#forgot', as: 'forgot'
+  get 'users/login', to: 'users#login', as: 'login_page'
+
+  post 'users/login', to: 'users#login', as: 'login'
+
+  get 'users/forgot', to: 'users#forgot', as: 'forgot_page'
+
+  post 'users/forgot', to: 'users#forgot', as: 'forgot'
+
+  get 'users/create', to: 'users#create', as: 'create_page'
 
   post 'users/create', to: 'users#create', as: 'create'
+
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.

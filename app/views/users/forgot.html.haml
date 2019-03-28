@@ -1,10 +1,10 @@
 %h1 Forgot Password
 
-= form_tag forgot_tag do
+= form_tag forgot_path do
 
   = label :user, :username, 'Username'
   = text_field :user, 'username'
 
   = submit_tag 'Submit'
 
-= link_to 'Back', create_path
+= link_to 'Back', create_page_path
