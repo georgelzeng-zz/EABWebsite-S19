@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 
   def home
     if current_user
-      @message = "Hello, #{current_user.email}!"
+      if !flash[:notice].blank?
+        @message = flash[:notice]
+      else
+        @message = "Hello, #{current_user.email}!"
+      end
     else
       @message = "You aren't logged in!"
     end

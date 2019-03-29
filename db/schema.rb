@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20190329064103) do
     t.string   "linkedinLstring"
     t.string   "facebook"
     t.string   "privileges"
+    t.string   "code"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
