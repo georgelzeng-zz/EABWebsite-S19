@@ -1,3 +1,4 @@
+%h2 Home
 = link_to 'Login', new_user_session_path
 = link_to 'Create New Account', create_page_path
 = link_to 'Logout', destroy_user_session_path, :method => :delete
@@ -6,6 +7,8 @@
   %li
     Message:
     = @message
+
+= button_to 'Search Users', users_path(), :method => :get
 
 / home page content to fill in later.
 / can be static

@@ -17,13 +17,12 @@
     - @users.each do |user|
       %tr
         %td= user.first
-        %td= movie.last
-        %td= movie.email
-        %td= movie.team
+        %td= user.last
+        %td= user.email
+        %td= user.team
         %td= user.skillset
         %td= user.sid
         %td= user.facebook
-        %td= user.linkedin
+        %td= user.linkedinLstring
         %td= user.privileges
-        / %td= link_to "More about #{movie.title}", user_path
-
+        %td= link_to "More about #{user.first}", user_path(user)
