@@ -1,5 +1,11 @@
-= link_to 'Login', login_page_path
+= link_to 'Login', new_user_session_path
 = link_to 'Create New Account', create_page_path
+= link_to 'Logout', destroy_user_session_path, :method => :delete
+
+%ul#details
+  %li
+    Message:
+    = @message
 
 / home page content to fill in later.
 / can be static
