@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   # verb 'uri', to: 'controller#action', as: 'name'
   # can refer to as name_path
 
