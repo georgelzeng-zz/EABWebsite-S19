@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get 'users/create', to: 'users#create', as: 'create_page'
 
-  post 'users/create', to: 'users#create', as: 'create'
+  post 'users/create', to: 'users/registrations#create', as: 'create'
 
   resources :users
 

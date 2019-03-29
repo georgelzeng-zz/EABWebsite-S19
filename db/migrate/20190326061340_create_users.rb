@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :linkedinLstring
       t.string :facebook
       t.string :privileges
+      t.string :code
 
       t.timestamps null: false
     end
