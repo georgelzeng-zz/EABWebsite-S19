@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+
   def home
   end
 
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def login
-  end 
+  end
 
   def forgot
   end
