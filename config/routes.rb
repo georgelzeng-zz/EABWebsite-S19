@@ -29,8 +29,6 @@ Rails.application.routes.draw do
 
   post 'users/create', to: 'users/registrations#create', as: 'create'
 
-  resources :users
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
