@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def show
     if current_user
-      if params[:id] = "sign_out"
+      if params[:id] == "sign_out"
         sign_out current_user
         return
       end
