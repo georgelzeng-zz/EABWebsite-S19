@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   # verb 'uri', to: 'controller#action', as: 'name'
   # can refer to as name_path
 
