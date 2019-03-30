@@ -23,6 +23,10 @@ class UsersController < ApplicationController
 
   def show
     if current_user
+      if params[:id] = "sign_out"
+        sign_out current_user
+        return
+      end
       @message = "Hello, #{current_user.email}!"
       id = params[:id] # retrieve movie ID from URI route
       @user = User.find(id) # look up movie by unique ID
