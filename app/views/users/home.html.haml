@@ -1,4 +1,6 @@
 %h2 Home
+= javascript_include_tag "application"
+
 = link_to 'Login', new_user_session_path
 = link_to 'Create New Account', new_user_registration_path
 = link_to 'Logout', destroy_user_session_path, :method => :delete
