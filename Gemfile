@@ -40,6 +40,7 @@ group :development, :test do
   gem 'byebug'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3', '1.3.11'
+  gem 'foreman'
 end
 
 group :development do
