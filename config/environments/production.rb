@@ -76,4 +76,11 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.assets.debug = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'mailer@domain.net'}
+  config.action_mailer.default_url_options = {:host => "secret-river-68890.herokuapp.com"}
+  config.action_mailer.delivery_method = :sendmail
 end
