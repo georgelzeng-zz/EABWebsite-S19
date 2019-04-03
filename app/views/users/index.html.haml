@@ -1,10 +1,14 @@
+= simple_form_for :search, url: users_path, method: "GET", html: { class: 'form-inline' } do |f|
+  = f.input :name, input_html: {value: ""}
+  = f.submit "Search", class: "btn btn-primary"
+
 %h2 All Users
 
 %table.table-striped.col-md-10#users
   %thead
     %tr
-      %th= link_to "First", :sort => "first"
-      %th= link_to "Last", :sort => "last"
+      %th First
+      %th Last
       %th Email
       %th Team
       %th Skillset
