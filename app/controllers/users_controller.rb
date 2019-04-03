@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       if !flash[:notice].blank?
         @message = flash[:notice]
       else
-        @message = "Hello, #{current_user.email}!"
+        @message = "Hello, #{current_user.first}!"
       end
     else
       @message = "You aren't logged in!"
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def index
     if current_user
-      @message = "Hello, #{current_user.email}!"
+      @message = "Hello, #{current_user.first}!"
       @users = User.all
     else
       redirect_to home_path
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def show
     if current_user
-      @message = "Hello, #{current_user.email}!"
+      @message = "Hello, #{current_user.first}!"
       id = params[:id] # retrieve movie ID from URI route
       @user = User.find(id) # look up movie by unique ID
     else
