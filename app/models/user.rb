@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
 	validates :sid, uniqueness: true
 	validates :first, :last, :email, :sid, presence: true
   validate :correct_access_code
-  @@registration_code = "Michael"
-  @@admin_code = "Michael Wu"
+  @@registration_code = ENV["ACCESS_CODE"]
+  @@admin_code = ENV["ADMIN_CODE"]
 
   def correct_access_code
     if self.code != @@registration_code && self.code != @@admin_code
