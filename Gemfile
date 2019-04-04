@@ -6,8 +6,6 @@ gem 'rails', '4.2.10'
 
 gem 'devise'
 
-gem 'cancancan'
-
 gem "haml-rails"
 
 gem 'simple_form'

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
   post 'users/create', to: 'users/registrations#create', as: 'create'
 
+  get 'admin', to: 'users#admin_index', as: 'users_admin'
+
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
