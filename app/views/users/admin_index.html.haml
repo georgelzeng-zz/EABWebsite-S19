@@ -3,7 +3,7 @@
   = f.submit "Search", class: "btn btn-primary"
 
 - if current_user.admin?
-  =link_to 'Admin View', users_admin_path
+  =link_to 'Regular View', users_path
 
 %h2 All Users
 
@@ -12,6 +12,7 @@
     %tr
       %th First
       %th Last
+      %th Email
       %th Team
       %th Skillset
       %th SID
@@ -24,6 +25,7 @@
       %tr
         %td= user.first
         %td= user.last
+        %td= user.email
         %td= user.team
         %td= user.skillset
         %td= user.sid
