@@ -29,7 +29,6 @@ Please feel free to use a different markup language if you do not plan to run
 
 {<img src="https://travis-ci.org/georgelzeng/EABWebsite-S19.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/georgelzeng/EABWebsite-S19]
 
-<a href="https://codeclimate.com/github/georgelzeng/EABWebsite-S19/maintainability"><img src="https://api.codeclimate.com/v1/badges/bfc752df097bcfd919b4/maintainability" /></a>
+{<img src="https://api.codeclimate.com/v1/badges/bfc752df097bcfd919b4/maintainability" />}[https://codeclimate.com/github/georgelzeng/EABWebsite-S19/maintainability]
 
-
-<a href="https://codeclimate.com/github/georgelzeng/EABWebsite-S19/test_coverage"><img src="https://api.codeclimate.com/v1/badges/bfc752df097bcfd919b4/test_coverage" /></a>
+{<img src="https://api.codeclimate.com/v1/badges/bfc752df097bcfd919b4/test_coverage" />}[https://codeclimate.com/github/georgelzeng/EABWebsite-S19/test_coverage]
