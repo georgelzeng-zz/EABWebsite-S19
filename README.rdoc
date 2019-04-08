@@ -1,5 +1,7 @@
 == README
 
+Link to our Web App: https://entrepreneurs-at-berkeley.herokuapp.com/
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
