@@ -27,9 +27,9 @@ class User < ActiveRecord::Base
       if !search.strip.include? " "
         # if member -- currently the only option
         @results = [] | 
-          User.where("lower(first) = lower(?)", "#{search}") |
-          User.where("lower(last) = lower(?)", "#{search}") |
-          User.where("lower(team) = lower(?)", "#{search}")
+          User.where("lower(first) = lower(?)", "#{search}").order(:first) |
+          User.where("lower(last) = lower(?)", "#{search}").order(:first) |
+          User.where("lower(team) = lower(?)", "#{search}").order(:first)
       else
         # split search string for full name search exact match or backwards
         search = search.split(" ")
@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
         User.where("lower(last) = lower(?)", "#{search[0]}"))
       end
     else
-      all
+      all.order(:first)
     end
   end
 

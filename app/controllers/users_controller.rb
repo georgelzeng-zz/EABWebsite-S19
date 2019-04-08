@@ -26,7 +26,8 @@ class UsersController < ApplicationController
   def admin_index
     if current_user.admin?
       @message = "Hello, #{current_user.first}!"
-      @users = User.all
+      # set allowed view params tbd
+      @users = User.search(params[:search])
     else
       redirect_to users_path
     end
