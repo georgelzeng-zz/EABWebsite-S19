@@ -8,8 +8,6 @@ gem 'devise'
 
 gem "haml-rails"
 
-gem 'simple_form'
-
 gem 'figaro'
 
 # Use SCSS for stylesheets
