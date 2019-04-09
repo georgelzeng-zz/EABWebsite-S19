@@ -17,6 +17,9 @@ class UsersController < ApplicationController
     if current_user
       @message = "Hello, #{current_user.first}!"
       @users = User.search(params[:search])
+      if @users.empty? & params[:search].nil?
+        redirect_to users_path, alert: "No results found! Try keyword(s) again."
+      end
     else
       redirect_to home_path
     end
