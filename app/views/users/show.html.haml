@@ -1,4 +1,6 @@
 %h2 Show
+
+= image_tag @user.image.url(:medium)
 %h3 Details about #{@user.first} #{@user.last}
 
 %ul#details
@@ -10,4 +12,5 @@
     = @user.sid
 
 = link_to 'Search Users', users_path
+= link_to 'Edit User', edit_page_path(@user)
 = link_to 'Home', home_path

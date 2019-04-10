@@ -1,0 +1,16 @@
+# single test suite, non-parallel build.
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=4fabcf4e9a4c7b969ad33fa9ae08b545f666062a7bf880e316b33759d0dea7b2
+language: ruby
+rvm:
+  - 2.4.0
+before_script:
+  - test-report-latest-dawin-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
