@@ -10,6 +10,8 @@ gem "haml-rails"
 
 gem 'figaro'
 
+gem 'simple_form'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem "paperclip", "~> 6.0.0"
 # bootstrap for HTML & CSS
 gem 'bootstrap'
-gem 'jquery-rails'
+
 
 
 # Use ActiveModel has_secure_password
