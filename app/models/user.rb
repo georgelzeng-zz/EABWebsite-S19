@@ -19,9 +19,6 @@ class User < ActiveRecord::Base
     self.code == @@admin_code
   end
 
-  @member_only = ["first", "last", "team"]
-  @admin_only = ["first", "last", "email", "team"]
-
   def self.search(search)
     if !search.blank?
       if !search.strip.include? " "
@@ -34,9 +31,14 @@ class User < ActiveRecord::Base
         # split search string for full name search exact match or backwards
         search = search.split(" ")
         @results = (User.where("lower(first) = lower(?)", "#{search[0]}") &
-        User.where("lower(last) = lower(?)", "#{search[1]}")) |
-        (User.where("lower(first) = lower(?)", "#{search[1]}") &
-        User.where("lower(last) = lower(?)", "#{search[0]}"))
+          User.where("lower(last) = lower(?)", "#{search[1]}") &
+          User.where("lower(team) = lower(?)", "#{search[2]}")) |
+          (User.where("lower(first) = lower(?)", "#{search[1]}") |
+          User.where("lower(last) = lower(?)", "#{search[2]}") &
+          User.where("lower(team) = lower(?)", "#{search[0]}")) |
+          (User.where("lower(first) = lower(?)", "#{search[2]}") |
+          User.where("lower(last) = lower(?)", "#{search[1]}") &
+          User.where("lower(team) = lower(?)", "#{search[0]}"))
       end
     else
       all.order(:first)
