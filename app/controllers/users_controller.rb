@@ -16,20 +16,7 @@ class UsersController < ApplicationController
   def index
     if current_user
       @message = "Hello, #{current_user.first}!"
-      @users = User.all
-
-      @search = params["search"]
-
-      if @search.present?
-        @name = @search["name"]
-        if !@name.blank?
-          @users = User.where("lower(first) = lower(?)", "#{@name}")
-          if @users.empty?
-            @message = "No results for #{@name}."
-            redirect_to users_path
-          end
-        end
-      end
+      @users = User.search(params[:search])
     else
       redirect_to home_path
     end
@@ -39,20 +26,8 @@ class UsersController < ApplicationController
   def admin_index
     if current_user.admin?
       @message = "Hello, #{current_user.first}!"
-      @users = User.all
-
-      @search = params["search"]
-
-      if @search.present?
-        @name = @search["name"]
-        if !@name.blank?
-          @users = User.where("lower(first) = lower(?)", "#{@name}")
-          if @users.empty?
-            @message = "No results for #{@name}."
-            redirect_to users_admin_path
-          end
-        end
-      end
+      # set allowed view params tbd
+      @users = User.search(params[:search])
     else
       redirect_to users_path
     end

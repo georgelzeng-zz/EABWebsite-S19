@@ -23,4 +23,29 @@ class User < ActiveRecord::Base
   def admin?
     self.code == @@admin_code
   end
+
+  @member_only = ["first", "last", "team"]
+  @admin_only = ["first", "last", "email", "team"]
+
+  def self.search(search)
+    if !search.blank?
+      if !search.strip.include? " "
+        # if member -- currently the only option
+        @results = [] | 
+          User.where("lower(first) = lower(?)", "#{search}").order(:first) |
+          User.where("lower(last) = lower(?)", "#{search}").order(:first) |
+          User.where("lower(team) = lower(?)", "#{search}").order(:first)
+      else
+        # split search string for full name search exact match or backwards
+        search = search.split(" ")
+        @results = (User.where("lower(first) = lower(?)", "#{search[0]}") &
+        User.where("lower(last) = lower(?)", "#{search[1]}")) |
+        (User.where("lower(first) = lower(?)", "#{search[1]}") &
+        User.where("lower(last) = lower(?)", "#{search[0]}"))
+      end
+    else
+      all.order(:first)
+    end
+  end
+
 end
