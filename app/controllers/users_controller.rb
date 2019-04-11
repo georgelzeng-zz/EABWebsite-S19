@@ -43,6 +43,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    if current_user
+      id = params[:id]
+      @user = User.find(id)
+    end
+  end
+
   def login
   end
 

@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   resources :posts
   devise_for :users, controllers: {
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
   # verb 'uri', to: 'controller#action', as: 'name'
   # can refer to as name_path
@@ -27,7 +28,12 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'users#admin_index', as: 'users_admin'
 
-  resources :users
+  get 'users/edit', to: 'users/registrations#edit', as: 'edit_page'
+  # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
+
+  # post 'users/:id/edit', to: 'users#edit', as: 'edit'
+
+  # resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
