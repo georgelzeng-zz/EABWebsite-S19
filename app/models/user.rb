@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
         @access = []
         if admin
           @access = 
-            User.where("sid = (?).to_s", "#{search}".order(:first)) |
-            User.where("lower(email) = lower(?)", "#{search}".order(:first))  
+            User.where("email = lower(?)", "#{search}").order(:first) |  
+            User.where("sid = ?", "#{search}").order(:first)
         end
 
         @results =
