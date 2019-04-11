@@ -1,7 +1,49 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
+
+  <%= image_tag @user.image.url(:medium) %>
+
+  <div><%= f.label :image %><br />
+      <%= f.file_field :image %>
+  </div>
+
+  <div><%= f.label :first %><br />
+      <%= f.text_field :first, autofocus: true %>
+  </div>
+  <div><%= f.label :last %><br />
+      <%= f.text_field :last, autofocus: true %>
+  </div>
+
+  <div><%= f.label :team %><br />
+      <%= f.text_field :team, autofocus: true %>
+  </div>
+
+  <div><%= f.label :major %><br />
+      <%= f.text_field :major, autofocus: true %>
+  </div>
+
+  <div><%= f.label :Year %><br />
+      <%= f.text_field :year, autofocus: true %>
+  </div>
+
+  <div><%= f.label :SID %><br />
+      <%= f.text_field :sid, autofocus: true %>
+  </div>
+
+  <div><%= f.label :skillset %><br />
+      <%= f.text_field :skillset, autofocus: true %>
+  </div>
+
+  <div><%= f.label :LinkedIn %><br />
+      <%= f.text_field :linkedinLstring, autofocus: true %>
+  </div>
+
+  <div><%= f.label :Facebook %><br />
+      <%= f.text_field :facebook, autofocus: true %>
+  </div>
+
 
   <div class="field">
     <%= f.label :email %><br />

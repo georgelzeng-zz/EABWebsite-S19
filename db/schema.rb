@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190329064103) do
+ActiveRecord::Schema.define(version: 20190410080626) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20190329064103) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer  "year"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
