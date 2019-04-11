@@ -92,6 +92,8 @@ When /^I register my "(.*)" as "(.*)"$/ do |field, value|
     value = User.admin_code
   elsif value == "the access code"
     value = User.registration_code
+  elsif value == "not the admin code"
+    value = User.admin_code + 'nonsense'
   end
 
   @visitor = @visitor.merge(field.to_sym => value)
