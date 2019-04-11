@@ -24,21 +24,27 @@ class User < ActiveRecord::Base
     self.code == @@admin_code
   end
 
+
+  @member = ["first", "last", "team"]
+  @admin_only = ["email", "sid"]
+
   def self.search(search, admin)
     if !search.blank?
       if !search.strip.include? " "
         # if member -- currently the only option
-        @access = []
+        @access, @results = [], []
+
         if admin
-          @access =
-            User.where("email = lower(?)", "#{search}").order(:first) |
-            User.where("sid = ?", "#{search}").order(:first)
+          for col in @admin_only
+            @access = @access |
+              User.where("#{col} = lower(?)", "#{search}").order(:first) 
+          end
         end
 
-        @results =
-          User.where("lower(first) = lower(?)", "#{search}").order(:first) |
-          User.where("lower(last) = lower(?)", "#{search}").order(:first) |
-          User.where("lower(team) = lower(?)", "#{search}").order(:first)
+        for col in @member
+          @results = @results | 
+            User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
+        end        
 
         @results = @results | @access
 
@@ -46,30 +52,24 @@ class User < ActiveRecord::Base
         # split search string for full name search exact match or backwards
         # phrase search for ease of member usage only
         search = search.split(" ")
-#zeng george kiwi
+
+        name_first = User.where("lower(first) = lower(?)", "#{search[0]}")
+        name_next = User.where("lower(first) = lower(?)", "#{search[1]}")
+        name_last = User.where("lower(first) = lower(?)", "#{search[2]}")
+
+        lname_first = User.where("lower(last) = lower(?)", "#{search[0]}")
+        lname_next = User.where("lower(last) = lower(?)", "#{search[1]}")
+        lname_last = User.where("lower(last) = lower(?)", "#{search[2]}")
+
+        team_first = User.where("lower(team) = lower(?)", "#{search[0]}")
+        team_last = User.where("lower(team) = lower(?)", "#{search[2]}")
+
         @results =
-          (User.where("lower(first) = lower(?)", "#{search[0]}") &
-          User.where("lower(last) = lower(?)", "#{search[1]}") &
-          User.where("lower(team) = lower(?)", "#{search[2]}")) |
-
-          (User.where("lower(first) = lower(?)", "#{search[0]}") &
-          User.where("lower(last) = lower(?)", "#{search[1]}")) |
-
-          (User.where("lower(first) = lower(?)", "#{search[1]}") &
-          User.where("lower(last) = lower(?)", "#{search[0]}") |
-          User.where("lower(team) = lower(?)", "#{search[2]}")) |
-
-          (User.where("lower(first) = lower(?)", "#{search[1]}") &
-          User.where("lower(last) = lower(?)", "#{search[0]}") &
-          User.where("lower(team) = lower(?)", "#{search[2]}")) |
-
-          (User.where("lower(first) = lower(?)", "#{search[1]}") |
-          User.where("lower(last) = lower(?)", "#{search[2]}") &
-          User.where("lower(team) = lower(?)", "#{search[0]}")) |
-
-          (User.where("lower(first) = lower(?)", "#{search[2]}") |
-          User.where("lower(last) = lower(?)", "#{search[1]}") &
-          User.where("lower(team) = lower(?)", "#{search[0]}"))
+          (name_first & lname_next & team_last) |
+          (name_first & lname_next) |
+          (lname_first & name_next | team_last) |
+          (name_next | lname_last & team_first) |
+          (name_last | lname_next & team_first)
       end
     else
       all.order(:first)
