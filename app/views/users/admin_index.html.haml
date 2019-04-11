@@ -3,7 +3,7 @@
 
 %h2 All Users
 
-= form_tag(users_path, :method => 'GET') do
+= form_tag(users_admin_path, :method => 'GET') do
   = text_field_tag(:search, params[:search])
   = submit_tag "Search", name: nil
 

@@ -31,8 +31,11 @@ class UsersController < ApplicationController
       @message = "Hello, #{current_user.first}!"
       # set allowed view params tbd
       @users = User.search(params[:search], true)
+      if @users.empty? & params[:search].nil?
+        redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
+      end
     else
-      redirect_to users_path
+      redirect_to home_path
     end
   end
 
