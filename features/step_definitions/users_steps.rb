@@ -69,6 +69,10 @@ Given /^I exist as an unconfirmed user$/ do
   create_unconfirmed_user
 end
 
+Given /^I start signing up with valid user data$/ do
+  create_visitor
+end
+
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
   create_visitor
@@ -77,6 +81,22 @@ end
 
 When /^I sign out$/ do
   visit '/users/sign_out'
+end
+
+When /^I sign up$/ do
+  sign_up
+end
+
+When /^I register my "(.*)" as "(.*)"$/ do |field, value|
+  if value == "the admin code"
+    value = User.admin_code
+  elsif value == "the access code"
+    value = User.registration_code
+  elsif value == "not the admin code"
+    value = User.admin_code + 'nonsense'
+  end
+
+  @visitor = @visitor.merge(field.to_sym => value)
 end
 
 When /^I sign up with valid user data$/ do
@@ -173,6 +193,10 @@ When /^I look at the list of users$/ do
 end
 
 ### THEN ###
+Then /^I should be an admin$/ do
+  expect(@user.admin?).to be(true)
+end
+
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"

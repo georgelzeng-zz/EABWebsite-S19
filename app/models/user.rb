@@ -11,8 +11,16 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 
-  @@registration_code = "Michael"
+  @@registration_code = ENV["ACCESS_CODE"]
   @@admin_code = ENV["ADMIN_CODE"]
+
+  def self.registration_code
+    @@registration_code
+  end
+
+  def self.admin_code
+    @@admin_code
+  end
 
   def correct_access_code
     if self.code != @@registration_code && self.code != @@admin_code
@@ -30,8 +38,8 @@ class User < ActiveRecord::Base
         # if member -- currently the only option
         @access = []
         if admin
-          @access = 
-            User.where("email = lower(?)", "#{search}").order(:first) |  
+          @access =
+            User.where("email = lower(?)", "#{search}").order(:first) |
             User.where("sid = ?", "#{search}").order(:first)
         end
 
@@ -46,7 +54,7 @@ class User < ActiveRecord::Base
         # split search string for full name search exact match or backwards
         # phrase search for ease of member usage only
         search = search.split(" ")
-        @results = 
+        @results =
           (User.where("lower(first) = lower(?)", "#{search[0]}") &
           User.where("lower(last) = lower(?)", "#{search[1]}") &
           User.where("lower(team) = lower(?)", "#{search[2]}")) |
