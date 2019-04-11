@@ -1,11 +1,11 @@
-= simple_form_for :search, url: users_path, method: "GET", html: { class: 'form-inline' } do |f|
-  = f.input :name, input_html: {value: ""}
-  = f.submit "Search", class: "btn btn-primary"
-
 - if current_user.admin?
   =link_to 'Regular View', users_path
 
 %h2 All Users
+
+= form_tag(users_path, :method => 'GET') do
+  = text_field_tag(:search, params[:search])
+  = submit_tag "Search", name: nil
 
 %table.table-striped.col-md-10#users
   %thead
@@ -32,6 +32,5 @@
         %td= user.facebook
         %td= user.linkedinLstring
         %td= user.privileges
-        %td= link_to "More about #{user.first}", user_path(user)
 
 = link_to 'Back', home_path

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def index
     if current_user
       @message = "Hello, #{current_user.first}!"
-      @users = User.search(params[:search])
+      @users = User.search(params[:search], false)
       if @users.empty? & params[:search].nil?
         redirect_to users_path, alert: "No results found! Try keyword(s) again."
       end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     if current_user.admin?
       @message = "Hello, #{current_user.first}!"
       # set allowed view params tbd
-      @users = User.search(params[:search])
+      @users = User.search(params[:search], true)
     else
       redirect_to users_path
     end

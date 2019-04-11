@@ -19,18 +19,30 @@ class User < ActiveRecord::Base
     self.code == @@admin_code
   end
 
-  def self.search(search)
+  def self.search(search, admin)
     if !search.blank?
       if !search.strip.include? " "
         # if member -- currently the only option
-        @results = [] | 
+        @access = []
+        if admin
+          @access = 
+            User.where("sid = (?).to_s", "#{search}".order(:first)) |
+            User.where("lower(email) = lower(?)", "#{search}".order(:first))  
+        end
+
+        @results =
           User.where("lower(first) = lower(?)", "#{search}").order(:first) |
           User.where("lower(last) = lower(?)", "#{search}").order(:first) |
           User.where("lower(team) = lower(?)", "#{search}").order(:first)
+
+        @results = @results | @access
+
       else
         # split search string for full name search exact match or backwards
+        # phrase search for ease of member usage only
         search = search.split(" ")
-        @results = (User.where("lower(first) = lower(?)", "#{search[0]}") &
+        @results = 
+          (User.where("lower(first) = lower(?)", "#{search[0]}") &
           User.where("lower(last) = lower(?)", "#{search[1]}") &
           User.where("lower(team) = lower(?)", "#{search[2]}")) |
           (User.where("lower(first) = lower(?)", "#{search[1]}") |
