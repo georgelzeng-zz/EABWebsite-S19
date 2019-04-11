@@ -233,3 +233,35 @@ Then /^I should see my name$/ do
   create_user
   page.should have_content @user[:name]
 end
+
+# possibly all belongs in web_steps
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create!(user)
+  end
+end
+
+Then /(.*) seed users should exist/ do | n_seeds |
+  User.count.should be n_seeds.to_i + 1
+end
+
+Then /I should see all the users/ do
+  # Make sure that all the movies in the app are visible in the table
+  User.all.each do |user|
+    step %{I should see "#{user.first}"}
+  end
+end
+
+When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
+  fill_in(field, :with => value)
+end
+
+Given /^(?:|I )am on the users page$/ do
+  visit '/users?'
+end
+
+Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
+  #  ensure that that e1 occurs before e2.
+  #  page.body is the entire content of the page as a string.
+  expect(page.body.index(e1) < page.body.index(e2))
+end

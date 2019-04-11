@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
         # if member -- currently the only option
         @access = []
         if admin
-          @access = 
-            User.where("email = lower(?)", "#{search}").order(:first) |  
+          @access =
+            User.where("email = lower(?)", "#{search}").order(:first) |
             User.where("sid = ?", "#{search}").order(:first)
         end
 
@@ -46,13 +46,27 @@ class User < ActiveRecord::Base
         # split search string for full name search exact match or backwards
         # phrase search for ease of member usage only
         search = search.split(" ")
-        @results = 
+#zeng george kiwi
+        @results =
           (User.where("lower(first) = lower(?)", "#{search[0]}") &
           User.where("lower(last) = lower(?)", "#{search[1]}") &
           User.where("lower(team) = lower(?)", "#{search[2]}")) |
+
+          (User.where("lower(first) = lower(?)", "#{search[0]}") &
+          User.where("lower(last) = lower(?)", "#{search[1]}")) |
+
+          (User.where("lower(first) = lower(?)", "#{search[1]}") &
+          User.where("lower(last) = lower(?)", "#{search[0]}") |
+          User.where("lower(team) = lower(?)", "#{search[2]}")) |
+
+          (User.where("lower(first) = lower(?)", "#{search[1]}") &
+          User.where("lower(last) = lower(?)", "#{search[0]}") &
+          User.where("lower(team) = lower(?)", "#{search[2]}")) |
+
           (User.where("lower(first) = lower(?)", "#{search[1]}") |
           User.where("lower(last) = lower(?)", "#{search[2]}") &
           User.where("lower(team) = lower(?)", "#{search[0]}")) |
+
           (User.where("lower(first) = lower(?)", "#{search[2]}") |
           User.where("lower(last) = lower(?)", "#{search[1]}") &
           User.where("lower(team) = lower(?)", "#{search[0]}"))

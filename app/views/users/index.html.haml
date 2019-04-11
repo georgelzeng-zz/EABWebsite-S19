@@ -14,10 +14,8 @@
       %th Last
       %th Team
       %th Skillset
-      %th SID
       %th Facebook
       %th LinkedIn
-      %th Privileges
 
   %tbody
     - @users.each do |user|
@@ -26,10 +24,8 @@
         %td= user.last
         %td= user.team
         %td= user.skillset
-        %td= user.sid
         %td= user.facebook
         %td= user.linkedinLstring
-        %td= user.privileges
         %td= link_to "More about #{user.first}", user_path(user)
 
 = link_to 'Back', home_path
