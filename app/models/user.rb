@@ -11,8 +11,16 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 
-  @@registration_code = "Michael"
+  @@registration_code = ENV["ACCESS_CODE"]
   @@admin_code = ENV["ADMIN_CODE"]
+
+  def self.registration_code
+    @@registration_code
+  end
+
+  def self.admin_code
+    @@admin_code
+  end
 
   def correct_access_code
     if self.code != @@registration_code && self.code != @@admin_code
