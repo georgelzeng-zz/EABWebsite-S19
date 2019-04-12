@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   post 'users/forgot', to: 'users#forgot', as: 'forgot'
 
+  post 'users/delete', to: 'users#delete', as: 'delete_user'
+
   get 'users/create', to: 'users#create', as: 'create_page'
 
   post 'users/create', to: 'users/registrations#create', as: 'create'

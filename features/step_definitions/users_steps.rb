@@ -1,7 +1,22 @@
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create(user)
+    # each returned element will be a hash whose key is the table header.
+  end
+end
+
+
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
 end
+
+
+def create_admin_visitor
+  @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
+  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  User.admin_code }
+end
+
 
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
@@ -14,21 +29,20 @@ def create_unconfirmed_user
   visit '/users/sign_out'
 end
 
-def create_admin
-  @visitor ||= { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
-  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code => "Michael Wu" }
-  delete_user
-  @user = FactoryGirl.create(:user, @visitor)
-end
-
 def create_user
   create_visitor
   delete_user
   @user = FactoryGirl.create(:user, @visitor)
 end
 
+def create_admin
+  create_admin_visitor
+  delete_user
+  @user = FactoryGirl.create(:user, @visitor)
+end
+
 def delete_user
-  @user ||= User.where(:email => @visitor[:email]).first
+  @user = User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
 end
 
@@ -79,12 +93,15 @@ end
 
 Given /^I exist as a user$/ do
   create_user
+
 end
 
 
 
 Given /^I exist as an admin$/ do
   create_admin
+
+
 end
 
 Given /^I do not exist as a user$/ do
@@ -107,7 +124,7 @@ When /^I sign in with valid credentials$/ do
 end
 
 When /^I sign in as an admin$/ do
-  create_admin
+  create_admin_visitor
   sign_in
 end 
 
@@ -232,6 +249,8 @@ When /^I look at the list of users$/ do
   visit '/'
 end
 
+
+
 ### THEN ###
 Then /^I should be an admin$/ do
   expect(@user.admin?).to be(true)
@@ -302,4 +321,5 @@ Then /^I should see every users' email$/ do
   User.all.each do |user|
     page.should have_content user[:email]
   end
+
 end
