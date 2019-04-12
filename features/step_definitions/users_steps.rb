@@ -1,6 +1,6 @@
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
-    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael" }
+    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
 end
 
 def find_user
@@ -54,6 +54,19 @@ end
 Given /^I am logged in$/ do
   create_user
   sign_in
+end
+
+Given /^I am logged in as "(.*)"$/ do |userType|
+  case userType
+  when "a regular user"
+    @code = User.registration_code
+  when "an admin"
+    @code = User.admin_code
+  end
+
+  create_visitor
+  @visitor[:code] = @code
+  sign_up
 end
 
 Given /^I exist as a user$/ do
@@ -256,4 +269,10 @@ end
 Then /^I should see my name$/ do
   create_user
   page.should have_content @user[:name]
+end
+
+Then /^I should see every users' email$/ do
+  User.all.each do |user|
+    page.should have_content user[:email]
+  end
 end
