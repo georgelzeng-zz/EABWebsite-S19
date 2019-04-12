@@ -15,11 +15,22 @@ Background: members have been added to database
   | Michael   | Wu         | michaelwu@berkeley.edu     | exec   | None     | 42042069  | 123456   | 123456                | Michael    |
   | Mihir     | Chitalia   | mihirchitalia@berkeley.edu | kiwi   | None     | 12345679  | 123456   | 123456                | Michael    |
 
+  Scenario: no input sad path
+    Given I am on the users page
+    And I press "Search"
+    Then I should see "Chau"
+    And I should see "George"
+    And I should see "Jason"
+    And I should see "Kyle"
+    And I should see "Michael"
+    And I should see "Mihir"
+    And I should see "Nick"
+
   Scenario: all users displayed by default
     Given I am on the users page
     And I follow "Admin View"
     Then I should be on admin page
-    Then I should see all the users
+    And I should see all the users
 
   Scenario: find user by email
     Given I am on the admin page
@@ -33,14 +44,3 @@ Background: members have been added to database
     And I press "Search"
     Then I should see "George"
     Then I should not see "Michael"
-
-  Scenario: no input sad path
-    Given I am on the users page
-    And I press "Search"
-    Then I should see "Chau"
-    And I should see "George"
-    And I should see "Jason"
-    And I should see "Kyle"
-    And I should see "Michael"
-    And I should see "Mihir"
-    And I should see "Nick"
