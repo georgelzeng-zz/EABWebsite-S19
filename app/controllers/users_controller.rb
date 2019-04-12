@@ -16,19 +16,9 @@ class UsersController < ApplicationController
   def index
     if current_user
       @message = "Hello, #{current_user.first}!"
-      @users = User.all
-
-      @search = params["search"]
-
-      if @search.present?
-        @name = @search["name"]
-        if !@name.blank?
-          @users = User.where("lower(first) = lower(?)", "#{@name}")
-          if @users.empty?
-            @message = "No results for #{@name}."
-            redirect_to users_path
-          end
-        end
+      @users = User.search(params[:search], false)
+      if @users.empty? & params[:search].nil?
+        redirect_to users_path, alert: "No results found! Try keyword(s) again."
       end
     else
       redirect_to home_path
@@ -39,22 +29,13 @@ class UsersController < ApplicationController
   def admin_index
     if current_user.admin?
       @message = "Hello, #{current_user.first}!"
-      @users = User.all
-
-      @search = params["search"]
-
-      if @search.present?
-        @name = @search["name"]
-        if !@name.blank?
-          @users = User.where("lower(first) = lower(?)", "#{@name}")
-          if @users.empty?
-            @message = "No results for #{@name}."
-            redirect_to users_admin_path
-          end
-        end
+      # set allowed view params tbd
+      @users = User.search(params[:search], true)
+      if @users.empty? & params[:search].nil?
+        redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
       end
     else
-      redirect_to users_path
+      redirect_to home_path
     end
   end
 
@@ -65,6 +46,13 @@ class UsersController < ApplicationController
       @user = User.find(id) # look up movie by unique ID
     else
       @message = "You aren't logged in!"
+    end
+  end
+
+  def edit
+    if current_user
+      id = params[:id]
+      @user = User.find(id)
     end
   end
 
