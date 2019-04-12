@@ -284,6 +284,11 @@ Given /^(?:|I )am on the users page$/ do
   visit '/users?'
 end
 
+Given /^(?:|I )am on the admin page$/ do
+  visit '/users?'
+  click_link "Admin View"
+end
+
 Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.

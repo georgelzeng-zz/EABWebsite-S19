@@ -38,50 +38,42 @@ class User < ActiveRecord::Base
 
   def self.search(search, admin)
     if !search.blank?
+      @access, @results = [], []
       if !search.strip.include? " "
-        # if member -- currently the only option
-        @access, @results = [], []
-
         if admin
           for col in @admin_only
-            @access = @access |
-              User.where("#{col} = lower(?)", "#{search}").order(:first) 
+            @access = @access | User.where("#{col} = lower(?)", "#{search}").order(:first)
           end
         end
 
         for col in @member
-          @results = @results | 
-            User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
-        end        
+          @results = @results | User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
+        end
 
         @results = @results | @access
-
       else
-        # split search string for full name search exact match or backwards
-        # phrase search for ease of member usage only
-        search = search.split(" ")
-
-        name_first = User.where("lower(first) = lower(?)", "#{search[0]}")
-        name_next = User.where("lower(first) = lower(?)", "#{search[1]}")
-        name_last = User.where("lower(first) = lower(?)", "#{search[2]}")
-
-        lname_first = User.where("lower(last) = lower(?)", "#{search[0]}")
-        lname_next = User.where("lower(last) = lower(?)", "#{search[1]}")
-        lname_last = User.where("lower(last) = lower(?)", "#{search[2]}")
-
-        team_first = User.where("lower(team) = lower(?)", "#{search[0]}")
-        team_last = User.where("lower(team) = lower(?)", "#{search[2]}")
-
-        @results =
-          (name_first & lname_next & team_last) |
-          (name_first & lname_next) |
-          (lname_first & name_next | team_last) |
-          (name_next | lname_last & team_first) |
-          (name_last | lname_next & team_first)
+        @results = self.search_phrase(search, admin)
       end
     else
       all.order(:first)
     end
   end
 
+  def self.search_phrase(search, admin)
+    search = search.split(" ")
+
+    name_first = User.where("lower(first) = lower(?)", "#{search[0]}")
+    name_next = User.where("lower(first) = lower(?)", "#{search[1]}")
+    name_last = User.where("lower(first) = lower(?)", "#{search[2]}")
+
+    lname_first = User.where("lower(last) = lower(?)", "#{search[0]}")
+    lname_next = User.where("lower(last) = lower(?)", "#{search[1]}")
+    lname_last = User.where("lower(last) = lower(?)", "#{search[2]}")
+    
+    team_first = User.where("lower(team) = lower(?)", "#{search[0]}")
+    team_last = User.where("lower(team) = lower(?)", "#{search[2]}")
+
+    @results = name_first | name_next | name_last | lname_first |
+               lname_next | lname_last | team_first | team_first
+  end
 end

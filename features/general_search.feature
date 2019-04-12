@@ -51,6 +51,18 @@ Background: members have been added to database
     Then I should see "Nick"
     And I should not see "Jason"
 
+  Scenario: blank input, sad path
+    Given I am on the users page
+    When I fill in "search" with " "
+    And I press "Search"
+    Then I should see "Chau"
+    And I should see "George"
+    And I should see "Jason"
+    And I should see "Kyle"
+    And I should see "Michael"
+    And I should see "Mihir"
+    And I should see "Nick"
+
   Scenario: find user by full name, case insensitive reversed sad path
     Given I am on the users page
     When I fill in "search" with "van chau"
@@ -58,26 +70,18 @@ Background: members have been added to database
     Then I should see "Chau"
     And I should not see "Kyle"
 
-  Scenario: find user by full name and team name, find similar on team
+  Scenario: find user by full name and team name
     Given I am on the users page
     When I fill in "search" with "mihir chitalia kiwi"
     And I press "Search"
     Then I should see "Mihir"
-    And I should see "Chau"
-    And I should see "Mihir"
-    And I should see "Kyle"
-    And I should not see "Michael"
+    And I should not see "Chau"
 
-  Scenario: find user by team name, full name, find similar, sad
+  Scenario: find user by team name, full name sad
     Given I am on the users page
     When I fill in "search" with "zeng george kiwi"
     And I press "Search"
     Then I should see "George"
-    And I should see that "George" is before "Chau"
-    And I should see "Chau"
-    And I should see "Mihir"
-    And I should see "Kyle"
-    And I should not see "Michael"
 
   Scenario: no input sad path
     Given I am on the users page
