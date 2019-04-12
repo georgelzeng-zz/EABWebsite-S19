@@ -23,6 +23,11 @@ require 'uri'
 require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "selectors"))
+require 'rspec/rails'
+require 'webdrivers'
+require 'selenium-webdriver'
+require 'puma'
+
 
 module WithinHelpers
   def with_scope(locator)
@@ -65,6 +70,13 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
   fill_in(field, :with => value)
 end
 
+When /^I press the "([^"]*)" button with confirmation$/ do |button|
+  Capybara.current_driver = :selenium
+  page.accept_confirm do
+    click_button(button)
+  end
+end
+
 # Use this to fill in an entire form with data from a table. Example:
 #
 #   When I fill in the following:
@@ -102,6 +114,8 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
+
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)
@@ -109,6 +123,8 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
     assert page.has_content?(text)
   end
 end
+
+
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
@@ -137,6 +153,16 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
     assert page.has_no_xpath?('//*', :text => regexp)
   end
 end
+
+Then /^(?:|I )should see the button "([^"]*)"$/ do |text|
+  page.should have_button(text)
+end
+
+
+Then /^(?:|I )should not see the button "([^"]*)"$/ do |text|
+  page.should have_no_button(text)
+end
+
 
 Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
   with_scope(parent) do
