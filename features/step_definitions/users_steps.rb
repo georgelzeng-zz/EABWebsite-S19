@@ -15,9 +15,11 @@ def create_unconfirmed_user
 end
 
 def create_admin
-  @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
-  :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael" }
-
+  @visitor ||= { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
+  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code => "Michael Wu" }
+  delete_user
+  @user = FactoryGirl.create(:user, @visitor)
+end
 
 def create_user
   create_visitor
@@ -29,6 +31,7 @@ def delete_user
   @user ||= User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
 end
+
 
 def sign_up
   delete_user
@@ -65,6 +68,12 @@ Given /^I exist as a user$/ do
   create_user
 end
 
+
+
+Given /^I exist as an admin$/ do
+  create_admin
+end
+
 Given /^I do not exist as a user$/ do
   create_visitor
   delete_user
@@ -84,8 +93,17 @@ When /^I sign in with valid credentials$/ do
   sign_in
 end
 
+When /^I sign in as an admin$/ do
+  create_admin
+  sign_in
+end 
+
 When /^I sign out$/ do
   visit '/users/sign_out'
+end
+
+When /^I view users$/ do
+  visit '/users/'
 end
 
 When /^I sign up$/ do
@@ -125,6 +143,10 @@ When /^I sign up without a password$/ do
   create_visitor
   @visitor = @visitor.merge(:password => "")
   sign_up
+end
+
+When /^I select a user$/ do
+  
 end
 
 When /^I sign up with a mismatched password confirmation$/ do
