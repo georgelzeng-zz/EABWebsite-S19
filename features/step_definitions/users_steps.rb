@@ -14,6 +14,11 @@ def create_unconfirmed_user
   visit '/users/sign_out'
 end
 
+def create_admin
+  @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
+  :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael" }
+
+
 def create_user
   create_visitor
   delete_user
