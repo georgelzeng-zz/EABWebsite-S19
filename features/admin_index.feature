@@ -15,6 +15,6 @@ Scenario: Regular user visits /admin
   Then I should be on the homepage
 
 Scenario: Non-signed in user visits /admin
-  Given I am not signed in
+  Given I am not logged in
   When I go to the admin index page
-  Then I should be on the homepage
+  Then I should be on the login page

@@ -25,6 +25,9 @@ module NavigationHelpers
     when /^the admin index page$/
       '/admin'
 
+    when /^the login page$/
+      '/users/sign_in'
+
     else
       begin
         page_name =~ /^the (.*) page$/
