@@ -13,3 +13,8 @@ Scenario: If a regular user is on the Regular Database page, then he/she should 
   Given I am logged in as "a regular user"
   When I go to the Database page
   Then I should not see the link "Admin View"
+
+Scenario: If an admin is on the Regular Database page, then he/she should see the link "Admin View"
+  Given I am logged in as "an admin"
+  When I go to the Database page
+  Then I should see the link "Admin View"
