@@ -24,3 +24,9 @@ Scenario: If an admin follows the "Regular View" link, then he/she should be on 
   When I go to the Admin Database page
   And I follow "Regular View"
   Then I should be on the Database page
+
+Scenario: If an admin follows the "Admin View" link, then he/she should be on the Admin Database page
+  Given I am logged in as "an admin"
+  When I go to the Database page
+  And I follow "Admin View"
+  Then I should be on the Admin Database page
