@@ -70,12 +70,13 @@ Background: members have been added to database
     Then I should see "Chau"
     And I should not see "Kyle"
 
-  Scenario: find user by full name and team name
+  Scenario: find user by full name and team, show exact result first then similar like fb
     Given I am on the users page
     When I fill in "search" with "mihir chitalia kiwi"
     And I press "Search"
     Then I should see "Mihir"
-    And I should not see "Chau"
+    Then I should see that "Mihir" is before "Chau"
+    Then I should see that "Chau" is before "George"
 
   Scenario: find user by team name, full name sad
     Given I am on the users page

@@ -3,6 +3,11 @@ def create_visitor
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael" }
 end
 
+def create_admin
+  @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
+    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael Wu" }
+end
+
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
 end
