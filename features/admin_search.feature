@@ -3,8 +3,9 @@ Feature: Admin view search
   As a club admin
   I want to be able to search through all members' information
 
- Background: members have been added to database
-  When I sign in with valid credentials as an admin
+Background: members have been added to database
+  Given I am logged in as "an admin"
+  When I go to the Admin Database page
   Given the following users exist
   | first     | last       | email                      | team   | skillset | sid       | password | password_confirmation | code       |
   | George    | Zeng       | glz@berkeley.edu           | kiwi   | None     | 12345678  | 123456   | 123456                | Michael    |
@@ -16,7 +17,7 @@ Feature: Admin view search
   | Mihir     | Chitalia   | mihirchitalia@berkeley.edu | kiwi   | None     | 12345679  | 123456   | 123456                | Michael    |
 
 Scenario: no input sad path
-  Given I am on the users page
+  When I go to the Admin Database page
   And I press "Search"
   Then I should see "Chau"
   And I should see "George"
@@ -27,21 +28,18 @@ Scenario: no input sad path
   And I should see "Nick"
 
 Scenario: all users displayed by default
-  Given I am on the users page
-  And I follow "Admin View"
-  Then I should be on admin page
+  When I go to the Admin Database page
   And I should see all the users
 
 Scenario: find user by email
-  Given I am on the admin page
+  When I go to the Admin Database page
   When I fill in "search" with "ncai@yahoo.com"
   And I press "Search"
   Then I should see "Nick"
 
 Scenario: find user by sid
-  Given I am on the admin page
+  When I go to the Admin Database page
   When I fill in "search" with "12345678"
   And I press "Search"
   Then I should see "George"
   Then I should not see "Michael"
-

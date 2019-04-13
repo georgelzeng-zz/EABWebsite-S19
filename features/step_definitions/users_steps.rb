@@ -88,7 +88,7 @@ Given /^I exist as a user$/ do
 
 end
 
-Given /the following users exist/ do |users_table|
+Given /^the following users exist$/ do |users_table|
   users_table.hashes.each do |user|
     User.create!(user)
   end
@@ -96,8 +96,6 @@ end
 
 Given /^I exist as an admin$/ do
   create_admin
-
-
 end
 
 Given /^I do not exist as a user$/ do
