@@ -22,10 +22,10 @@ module NavigationHelpers
     #   when /^(.*)'s profile page$/i
     #     user_profile_path(User.find_by_login($1))
 
-    when /^the admin database page$/
+    when /^the Admin Database page$/
       '/admin'
 
-    when /^the regular database page$/
+    when /^the Database page$/
       '/users'
 
     when /^the login page$/
