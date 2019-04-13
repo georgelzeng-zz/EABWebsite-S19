@@ -1,11 +1,20 @@
-def create_visitor
-  @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
-    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael" }
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create(user)
+    # each returned element will be a hash whose key is the table header.
+  end
 end
 
-def create_admin
+
+def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
-    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => "Michael Wu" }
+    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
+end
+
+
+def create_admin_visitor
+  @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
+  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  User.admin_code }
 end
 
 def find_user
@@ -25,10 +34,17 @@ def create_user
   @user = FactoryGirl.create(:user, @visitor)
 end
 
+def create_admin
+  create_admin_visitor
+  delete_user
+  @user = FactoryGirl.create(:user, @visitor)
+end
+
 def delete_user
-  @user ||= User.where(:email => @visitor[:email]).first
+  @user = User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
 end
+
 
 def sign_up
   delete_user
@@ -61,8 +77,30 @@ Given /^I am logged in$/ do
   sign_in
 end
 
+Given /^I am logged in as "(.*)"$/ do |userType|
+  case userType
+  when "a regular user"
+    @code = User.registration_code
+  when "an admin"
+    @code = User.admin_code
+  end
+
+  create_visitor
+  @visitor[:code] = @code
+  sign_up
+end
+
 Given /^I exist as a user$/ do
   create_user
+
+end
+
+
+
+Given /^I exist as an admin$/ do
+  create_admin
+
+
 end
 
 Given /^I do not exist as a user$/ do
@@ -84,8 +122,17 @@ When /^I sign in with valid credentials$/ do
   sign_in
 end
 
+When /^I sign in as an admin$/ do
+  create_admin_visitor
+  sign_in
+end 
+
 When /^I sign out$/ do
   visit '/users/sign_out'
+end
+
+When /^I view users$/ do
+  visit '/users/'
 end
 
 When /^I sign up$/ do
@@ -125,6 +172,10 @@ When /^I sign up without a password$/ do
   create_visitor
   @visitor = @visitor.merge(:password => "")
   sign_up
+end
+
+When /^I select a user$/ do
+  
 end
 
 When /^I sign up with a mismatched password confirmation$/ do
@@ -197,6 +248,8 @@ When /^I look at the list of users$/ do
   visit '/'
 end
 
+
+
 ### THEN ###
 Then /^I should be an admin$/ do
   expect(@user.admin?).to be(true)
@@ -263,7 +316,6 @@ Then /^I should see my name$/ do
   page.should have_content @user[:name]
 end
 
-# possibly all belongs in web_steps
 Given /the following users exist/ do |users_table|
   users_table.hashes.each do |user|
     User.create!(user)
@@ -298,4 +350,10 @@ Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
   expect(page.body.index(e1) < page.body.index(e2))
+end
+  
+Then /^I should see every users' email$/ do
+  User.all.each do |user|
+    page.should have_content user[:email]
+  end
 end

@@ -1,6 +1,12 @@
+- flash.each do |type, msg|
+  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
+    %button.close &times;
+    = msg if msg.is_a?(String)
+
 - if current_user.admin?
   =link_to 'Admin View', users_admin_path
 
+  
 %h2 All Users
 
 = form_tag(users_path, :method => 'GET') do
