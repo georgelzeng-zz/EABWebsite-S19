@@ -1,11 +1,3 @@
-Given /the following users exist/ do |users_table|
-  users_table.hashes.each do |user|
-    User.create(user)
-    # each returned element will be a hash whose key is the table header.
-  end
-end
-
-
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
@@ -96,7 +88,11 @@ Given /^I exist as a user$/ do
 
 end
 
-
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create!(user)
+  end
+end
 
 Given /^I exist as an admin$/ do
   create_admin
@@ -321,5 +317,18 @@ Then /^I should see every users' email$/ do
   User.all.each do |user|
     page.should have_content user[:email]
   end
+end
 
+Then /(.*) seed users should exist/ do | n_seeds |
+  User.count.should be n_seeds.to_i + 1
+end
+
+Then /I should see all the users/ do
+  User.all.each do |user|
+    step %{I should see "#{user.first}"}
+  end
+end
+
+Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
+  expect(page.body.index(e1) < page.body.index(e2))
 end

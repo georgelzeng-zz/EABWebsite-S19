@@ -6,7 +6,7 @@ Feature: General member search
 Background: members have been added to database
   Given I exist as a user
   When I sign in with valid credentials
-  Given the following users exist
+  Given the following users exist:
   | first     | last       | email                      | team   | skillset | sid       | password | password_confirmation | code    |
   | George    | Zeng       | glz@berkeley.edu           | kiwi   | None     | 12345678  | 123456   | 123456                | Michael |
   | Chau      | Van        | cv@berkeley.edu            | kiwi   | None     | 69420420  | 123456   | 123456                | Michael |
