@@ -42,8 +42,13 @@ class UsersController < ApplicationController
   def show
     if current_user
       @message = "Hello, #{current_user.first}!"
-      id = params[:id] # retrieve movie ID from URI route
-      @user = User.find(id) # look up movie by unique ID
+      id = params[:id] 
+      @user = User.find(id) 
+      @emailName = @user.email.split("@").first
+      @emailHost = @user.email.split("@").last.split(".").first
+      @emailDomain = @user.email.split(".").last
+      
+
     else
       @message = "You aren't logged in!"
     end

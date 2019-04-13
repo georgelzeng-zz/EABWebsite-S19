@@ -10,6 +10,18 @@
   %li
     SID:
     = @user.sid
+  %li 
+    Email: 
+    - if current_user.admin?
+      = @user.email
+    -else 
+      = "      "
+      = @emailName
+      = image_tag "atSymbol.jpg", :size => "50x50"  
+      = @emailHost
+      = image_tag "period.png",  :size => "50x50"  
+      = @emailDomain
+
 
 = link_to 'Search Users', users_path
 = link_to 'Edit User', edit_page_path(@user)
