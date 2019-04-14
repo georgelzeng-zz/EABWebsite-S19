@@ -120,7 +120,7 @@ end
 When /^I sign in as an admin$/ do
   create_admin_visitor
   sign_in
-end 
+end
 
 When /^I sign out$/ do
   visit '/users/sign_out'
@@ -140,7 +140,7 @@ When /^I register my "(.*)" as "(.*)"$/ do |field, value|
   elsif value == "the access code"
     value = User.registration_code
   elsif value == "not the admin code"
-    value = User.admin_code + 'nonsense'
+    value = User.admin_code + User.registration_code + 'nonsense'
   end
 
   @visitor = @visitor.merge(field.to_sym => value)
@@ -170,7 +170,7 @@ When /^I sign up without a password$/ do
 end
 
 When /^I select a user$/ do
-  
+
 end
 
 When /^I sign up with a mismatched password confirmation$/ do
