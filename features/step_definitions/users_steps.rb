@@ -3,12 +3,10 @@ def create_visitor
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
 end
 
-
 def create_admin_visitor
   @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
   :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  User.admin_code }
 end
-
 
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
@@ -37,7 +35,6 @@ def delete_user
   @user = User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
 end
-
 
 def sign_up
   delete_user
@@ -242,8 +239,6 @@ end
 When /^I look at the list of users$/ do
   visit '/'
 end
-
-
 
 ### THEN ###
 Then /^I should be an admin$/ do
