@@ -120,7 +120,7 @@ end
 When /^I sign in as an admin$/ do
   create_admin_visitor
   sign_in
-end 
+end
 
 When /^I sign out$/ do
   visit '/users/sign_out'
@@ -170,7 +170,7 @@ When /^I sign up without a password$/ do
 end
 
 When /^I select a user$/ do
-  
+
 end
 
 When /^I sign up with a mismatched password confirmation$/ do
@@ -253,12 +253,11 @@ end
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"
-  page.should_not have_content "Login"
 end
 
 Then /^I should be signed out$/ do
   page.should have_content "Sign up"
-  page.should have_content "Login"
+  page.should have_content "Forgot your password?"
   page.should_not have_content "Logout"
 end
 
@@ -283,11 +282,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a signed out message$/ do
@@ -295,7 +294,7 @@ Then /^I should see a signed out message$/ do
 end
 
 Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
+  page.should have_content "Invalid Email or password."
 end
 
 Then /^I should see an account edited message$/ do
