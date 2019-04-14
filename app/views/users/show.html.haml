@@ -1,7 +1,32 @@
-%h2 Show
+%table{:border => 0}
+  %tbody
+    %tr
+      %td
+        %h1.lol= link_to 'Entrepreneurs @ Berkeley', home_path
+      %td
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      %td
+        = link_to 'Login', new_user_session_path
+        &nbsp &nbsp
+      %td
+        = link_to 'Create New Account', new_user_registration_path
+        &nbsp &nbsp
+      %td
+        = link_to 'Logout', destroy_user_session_path, :method => :delete
+        &nbsp &nbsp
+      %td
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+      %td
+        &nbsp &nbsp
+      %td
+        = link_to image_tag(current_user.image.url(:small)), user_path(current_user)
+      %td
+        #{current_user.first} #{current_user.last}
+
+%h2 Profile
 
 = image_tag @user.image.url(:medium)
-%h3 Details about #{@user.first} #{@user.last}
+%h3 #{@user.first} #{@user.last}
 
 %ul#details
   %li
@@ -23,7 +48,7 @@
       = @emailDomain
 
 
-= link_to 'Search Users', users_path
+= link_to 'Back', users_path
 = link_to 'Edit User', edit_page_path(@user)
 - if current_user.admin?
   = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete 

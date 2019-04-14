@@ -46,8 +46,6 @@ class UsersController < ApplicationController
       @emailName = @user.email.split("@").first
       @emailHost = @user.email.split("@").last.split(".").first
       @emailDomain = @user.email.split(".").last
-      
-
     else
       @message = "You aren't logged in!"
     end
