@@ -1,5 +1,5 @@
 Capybara.default_max_wait_time = 15
-
+#
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
