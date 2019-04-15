@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before(:each) do
     for i  in 1..10 do
-      FactoryGirl.create(:user, {email: "#{i}@gmail.com", code: User.registration_code})
-      FactoryGirl.create(:user, {email: "#{i}admin@gmail.com", code: User.admin_code})
+      FactoryGirl.create(:user, {email: "#{i}@gmail.com", sid: "#{i}"})
+      FactoryGirl.create(:admin, {email: "#{i}admin@gmail.com", sid: "0#{i}"})
     end
     @regular_users = User.where(code: User.registration_code)
     @admin_users = User.where(code: User.admin_code)

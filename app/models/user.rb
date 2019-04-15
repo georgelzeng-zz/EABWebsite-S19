@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
   end
 
   def self.change_registration_code(newCode)
-    @regular_users = User.where(code: User.registration_code)
-    User.registration_code = newCode
+    @regular_users = User.where(code: @@registration_code)
+    @@registration_code = newCode
 
     @regular_users.each do |user|
       user.code = newCode
@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   end
 
   def self.change_admin_code(newCode)
-    @admin_users = User.where(code: User.admin_code)
-    User.admin_code = newCode
+    @admin_users = User.where(code: @@admin_code)
+    @@admin_code = newCode
 
     @admin_users.each do |admin|
       admin.code = newCode

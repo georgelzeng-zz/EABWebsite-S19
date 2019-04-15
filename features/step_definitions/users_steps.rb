@@ -114,19 +114,9 @@ end
 Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   case code_type
   when "regular access code"
-    @regular_users = User.where(code: User.registration_code)
-    User.registration_code = code
-
-    @regular_users.each do |user|
-      user.code = code
-    end
+    User.change_registration_code(code)
   when "admin access code"
-    @admin_users = User.where(code: User.admin_code)
-    User.admin_code = code
-
-    @admin_users.each do |user|
-      user.code = code
-    end
+    User.change_admin_code(code)
   else
     raise ArgumentError, 'Not a valide code type'
   end
