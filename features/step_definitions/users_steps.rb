@@ -69,6 +69,7 @@ Given /^I am logged in$/ do
 end
 
 Given /^I am logged in as "(.*)"$/ do |userType|
+  step %{I am not logged in}
   case userType
   when "a regular user"
     @code = User.registration_code
