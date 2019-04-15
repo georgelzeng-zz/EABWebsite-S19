@@ -292,6 +292,9 @@ end
 
 ### THEN ###
 Then /^I should be an admin$/ do
+  print("@user: #{@user.as_json}\n")
+  print("All users: #{User.all.as_json}\n")
+  print("Admin code: #{User.admin_code}\n")
   expect(@user.admin?).to be(true)
 end
 
