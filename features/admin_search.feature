@@ -15,6 +15,8 @@ Background: members have been added to database
   | Kyle      | Ngo        | kylengo@berkeley.edu       | kiwi   | None     | 87654321  | 123456   | 123456                | registration_code  |
   | Michael   | Wu         | michaelwu@berkeley.edu     | exec   | None     | 42042069  | 123456   | 123456                | registration_code  |
   | Mihir     | Chitalia   | mihirchitalia@berkeley.edu | kiwi   | None     | 12345679  | 123456   | 123456                | registration_code  |
+  And I am on the users page
+  Then 7 seed users should exist
 
 Scenario: no input sad path
   When I go to the Admin Database page
@@ -43,3 +45,18 @@ Scenario: find user by sid
   And I press "Search"
   Then I should see "George"
   Then I should not see "Michael"
+
+Scenario: find user by team name, alphabetical results happy path
+  Given I am on the users page
+  When I fill in "search" with "kiwi"
+  And I press "Search"
+  Then I should see that "Chau" is before "George"
+  And I should see that "George" is before "Kyle"
+  And I should see that "Kyle" is before "Mihir"
+
+Scenario: find user by full name, case insensitive sad path
+  Given I am on the users page
+  When I fill in "search" with "nick cai"
+  And I press "Search"
+  Then I should see "Nick"
+  And I should not see "Jason"

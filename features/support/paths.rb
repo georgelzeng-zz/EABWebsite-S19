@@ -31,6 +31,7 @@ module NavigationHelpers
     when /^the login page$/
       '/users/sign_in'
 
+
     else
       begin
         page_name =~ /^the (.*) page$/

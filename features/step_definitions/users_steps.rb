@@ -3,12 +3,10 @@ def create_visitor
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
 end
 
-
 def create_admin_visitor
   @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
   :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  User.admin_code }
 end
-
 
 def find_user
   @user ||= User.where(:email => @visitor[:email]).first
@@ -37,7 +35,6 @@ def delete_user
   @user = User.where(:email => @visitor[:email]).first
   @user.destroy unless @user.nil?
 end
-
 
 def sign_up
   delete_user
@@ -288,17 +285,20 @@ end
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"
-  page.should_not have_content "Login"
 end
 
 Then /^I should be signed out$/ do
   page.should have_content "Sign up"
-  page.should have_content "Login"
+  page.should have_content "Forgot your password?"
   page.should_not have_content "Logout"
 end
 
 Then /^I see an unconfirmed account message$/ do
   page.should have_content "You have to confirm your account before continuing."
+end
+
+Then /^I should see a notice to sign in or sign up$/ do
+  page.should have_content "You need to sign in or sign up before continuing."
 end
 
 Then /^I see a successful sign in message$/ do
@@ -307,6 +307,10 @@ end
 
 Then /^I should see a successful sign up message$/ do
   page.should have_content "Welcome! You have signed up successfully."
+end
+
+Then /^I should see I am not logged in$/ do
+  page.should have_content "You aren't logged in!"
 end
 
 Then /^I should see an invalid email message$/ do
@@ -318,11 +322,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "Password doesn't match confirmation"
+  page.should have_content "Password confirmation doesn't match"
 end
 
 Then /^I should see a signed out message$/ do
@@ -330,7 +334,7 @@ Then /^I should see a signed out message$/ do
 end
 
 Then /^I see an invalid login message$/ do
-  page.should have_content "Invalid email or password."
+  page.should have_content "Invalid Email or password."
 end
 
 Then /^I should see an account edited message$/ do
@@ -364,4 +368,8 @@ end
 
 Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
   expect(page.body.index(e1) < page.body.index(e2))
+end
+
+Then /^I click on my profile picture$/ do
+  page.should have_link "Logout"
 end

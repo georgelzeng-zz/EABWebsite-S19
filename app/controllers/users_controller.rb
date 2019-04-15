@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @message = "Hello, #{current_user.first}!"
     @users = User.search(params[:search], false)
     if @users.empty? & params[:search].nil?
-      redirect_to users_path, alert: "No results found! Try keyword(s) again."
+      redirect_to users_path
     end
   end
 
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     @message = "Hello, #{current_user.first}!"
     @users = User.search(params[:search], true)
     if @users.empty? & params[:search].nil?
-      redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
+      redirect_to users_admin_path
     end
   end
 
