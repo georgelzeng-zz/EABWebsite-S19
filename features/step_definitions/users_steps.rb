@@ -111,6 +111,27 @@ Given /^I start signing up with valid user data$/ do
   create_visitor
 end
 
+Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
+  case code_type
+  when "regular access code"
+    @regular_users = User.where(code: User.registration_code)
+    User.registration_code = code
+
+    @regular_users.each do |user|
+      user.code = code
+    end
+  when "admin access code"
+    @admin_users = User.where(code: User.admin_code)
+    User.admin_code = code
+
+    @admin_users.each do |user|
+      user.code = code
+    end
+  else
+    raise ArgumentError, 'Not a valide code type'
+  end
+end
+
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
   create_visitor
@@ -135,11 +156,12 @@ When /^I sign up$/ do
 end
 
 When /^I register my "(.*)" as "(.*)"$/ do |field, value|
-  if value == "the admin code"
+  case value
+  when "the admin code"
     value = User.admin_code
-  elsif value == "the access code"
+  when "the access code"
     value = User.registration_code
-  elsif value == "not the admin code"
+  when "not the admin code"
     value = User.admin_code + User.registration_code + 'nonsense'
   end
 
@@ -243,7 +265,11 @@ When /^I look at the list of users$/ do
   visit '/'
 end
 
-
+When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
+  step %{I am on the Admin Database Page}
+  step %{I fill in "#{code_type}" with "#{code}"}
+  step %{I press "Change #{code_type}"}
+end
 
 ### THEN ###
 Then /^I should be an admin$/ do

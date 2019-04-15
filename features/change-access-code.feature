@@ -8,8 +8,8 @@ Background: members have been added to database
   Given I am logged in as "an admin"
   And the current "regular access code" is "regular"
   And the current "admin access code" is "admin"
-  And I change the "regular access code" to "regular new"
-  And I change the "admin access code" to "admin new"
+  And I change the "Regular Access Code" to "regular new"
+  And I change the "Admin Access Code" to "admin new"
 
 Scenario: User attempts to register with old regular access code
   Given I start signing up with valid user data
