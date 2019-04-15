@@ -19,7 +19,7 @@ env:
     CC_TEST_REPORTER_ID=85d04908773d43ff625f264d632a426cfda1a82468b2e174997b108709dd97f5
 
 before_install:                       # Install node version from .nvmrc
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-darwin-amd64 > ./cc-test-reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   #- export DISPLAY=:99.0                # Display number for xvfb (for headless browser testing)
   #- sh -e /etc/init.d/xvfb start        # Start xvfb (for headless browser testing)
