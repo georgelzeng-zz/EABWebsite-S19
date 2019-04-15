@@ -28,9 +28,21 @@ RSpec.describe UsersController, type: :controller do
     patch "registration_code", registration_code: newCode
   end
 
+  it "changes the registration code" do
+    newCode = "blah"
+    patch "registration_code", registration_code: newCode
+    expect(User.registration_code).to eq(newCode)
+  end
+
   it "calls the model method that changes the admin code" do
     newCode = "blah"
     expect(User).to receive(:change_admin_code).with(newCode)
     patch "admin_code", admin_code: newCode
+  end
+
+  it "changes the admin code" do
+    newCode = "blah"
+    patch "admin_code", admin_code: newCode
+    expect(User.admin_code).to eq(newCode)
   end
 end

@@ -62,7 +62,8 @@ end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit '/'
+  step %{follow "Logout"}
 end
 
 Given /^I am logged in$/ do
@@ -89,6 +90,16 @@ Given /^I exist as a user$/ do
 end
 
 Given /^the following users exist$/ do |users_table|
+  users_table.map_column!('code') do |code|
+    case code
+    when 'registration_code'
+      code = User.registration_code
+    when 'admin_code'
+      code = User.admin_code
+    end
+    code
+  end
+
   users_table.hashes.each do |user|
     User.create!(user)
   end
@@ -118,7 +129,7 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   when "admin access code"
     User.change_admin_code(code)
   else
-    raise ArgumentError, 'Not a valide code type'
+    raise ArgumentError, 'Not a valid code type'
   end
 end
 
@@ -256,8 +267,16 @@ When /^I look at the list of users$/ do
 end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
-  step %{I am on the Admin Database Page}
-  step %{I fill in "#{code_type}" with "#{code}"}
+  step %{I am on the Admin Database page}
+
+  case code_type
+  when "Regular Access Code"
+    textField = "registration_code"
+  when "Admin Access Code"
+    textField = "admin_code"
+  end
+
+  step %{I fill in "#{textField}" with "#{code}"}
   step %{I press "Change #{code_type}"}
 end
 

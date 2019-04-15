@@ -11,6 +11,13 @@ RSpec.describe User, type: :model do
   end
 
   #tests for change-access-code feature
+  it "changes the registration code" do
+    newCode = User.registration_code + "nonsense"
+    User.change_registration_code(newCode)
+
+    expect(User.registration_code).to eq(newCode)
+  end
+
   it "changes current regular users' code to new registration code" do
     newCode = User.registration_code + "nonsense"
     User.change_registration_code(newCode)
@@ -29,6 +36,13 @@ RSpec.describe User, type: :model do
     @admin_users.each do |admin|
       expect(admin.code).to eq(current_code)
     end
+  end
+
+  it "changes the admin code" do
+    newCode = User.admin_code + "nonsense"
+    User.change_admin_code(newCode)
+
+    expect(User.admin_code).to eq(newCode)
   end
 
   it "changes current admin users' code to new admin code" do
