@@ -22,6 +22,26 @@ class User < ActiveRecord::Base
     @@admin_code
   end
 
+  def self.change_registration_code(newCode)
+    @regular_users = User.where(code: @@registration_code)
+    @@registration_code = newCode
+
+    @regular_users.each do |user|
+      user.code = newCode
+      user.save!
+    end
+  end
+
+  def self.change_admin_code(newCode)
+    @admin_users = User.where(code: @@admin_code)
+    @@admin_code = newCode
+
+    @admin_users.each do |admin|
+      admin.code = newCode
+      admin.save!
+    end
+  end
+
   def correct_access_code
     if self.code != @@registration_code && self.code != @@admin_code
       errors.add(:code, "-- Wrong access code")

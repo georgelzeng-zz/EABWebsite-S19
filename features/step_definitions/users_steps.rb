@@ -59,7 +59,8 @@ end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit '/'
+  step %{follow "Logout"}
 end
 
 Given /^I am logged in$/ do
@@ -86,6 +87,16 @@ Given /^I exist as a user$/ do
 end
 
 Given /^the following users exist$/ do |users_table|
+  users_table.map_column!('code') do |code|
+    case code
+    when 'registration_code'
+      code = User.registration_code
+    when 'admin_code'
+      code = User.admin_code
+    end
+    code
+  end
+
   users_table.hashes.each do |user|
     User.create!(user)
   end
@@ -106,6 +117,17 @@ end
 
 Given /^I start signing up with valid user data$/ do
   create_visitor
+end
+
+Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
+  case code_type
+  when "regular access code"
+    User.change_registration_code(code)
+  when "admin access code"
+    User.change_admin_code(code)
+  else
+    raise ArgumentError, 'Not a valid code type'
+  end
 end
 
 ### WHEN ###
@@ -132,12 +154,13 @@ When /^I sign up$/ do
 end
 
 When /^I register my "(.*)" as "(.*)"$/ do |field, value|
-  if value == "the admin code"
+  case value
+  when "the admin code"
     value = User.admin_code
-  elsif value == "the access code"
+  when "the access code"
     value = User.registration_code
-  elsif value == "not the admin code"
-    value = User.admin_code + 'nonsense'
+  when "not the admin code"
+    value = User.admin_code + User.registration_code + 'nonsense'
   end
 
   @visitor = @visitor.merge(field.to_sym => value)
@@ -238,6 +261,20 @@ end
 
 When /^I look at the list of users$/ do
   visit '/'
+end
+
+When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
+  step %{I am on the Admin Database page}
+
+  case code_type
+  when "Regular Access Code"
+    textField = "registration_code"
+  when "Admin Access Code"
+    textField = "admin_code"
+  end
+
+  step %{I fill in "#{textField}" with "#{code}"}
+  step %{I press "Change #{code_type}"}
 end
 
 ### THEN ###

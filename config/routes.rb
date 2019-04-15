@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   get 'users', to: 'users#index', as: 'users'
 
-  get 'users/:id', to: 'users#show', as: 'user'
+  get 'users/show/:id', to: 'users#show', as: 'user'
 
   get 'users/login', to: 'users#login', as: 'login_page'
 
@@ -31,6 +31,10 @@ Rails.application.routes.draw do
   get 'admin', to: 'users#admin_index', as: 'users_admin'
 
   get 'users/edit', to: 'users/registrations#edit', as: 'edit_page'
+
+  patch 'code/registration', to: 'users#registration_code', as: 'change_registration_code'
+
+  patch 'code/admin', to: 'users#admin_code', as: 'change_admin_code'
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'
