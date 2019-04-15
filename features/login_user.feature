@@ -10,6 +10,11 @@ So that I may log into the app
     Then I see an invalid login message
     And I should be signed out
 
+  Scenario: User is not logged in
+    Given I am not logged in
+    When I return to the site
+    Then I should see I am not logged in
+
   Scenario: User signs in successfully
     Given I exist as a user
     When I sign in with valid credentials

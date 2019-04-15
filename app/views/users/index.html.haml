@@ -24,9 +24,9 @@
       %td
         &nbsp &nbsp
       %td
-        = link_to image_tag(current_user.image.url(:small)), user_path(current_user)
+        = image_tag(current_user.image.url(:small))
       %td
-        #{current_user.first} #{current_user.last}
+        = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
 - if current_user.admin?
   =link_to 'Admin View', users_admin_path

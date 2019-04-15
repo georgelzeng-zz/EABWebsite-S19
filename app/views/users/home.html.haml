@@ -15,14 +15,6 @@
       %td
         = link_to 'Logout', destroy_user_session_path, :method => :delete
         &nbsp &nbsp
-      %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      %td
-        &nbsp &nbsp
-      %td
-        = link_to image_tag(current_user.image.url(:small)), user_path(current_user)
-      %td
-        #{current_user.first} #{current_user.last}
 
 = javascript_include_tag "application"
 

@@ -260,12 +260,20 @@ Then /^I see an unconfirmed account message$/ do
   page.should have_content "You have to confirm your account before continuing."
 end
 
+Then /^I should see a notice to sign in or sign up$/ do
+  page.should have_content "You need to sign in or sign up before continuing."
+end
+
 Then /^I see a successful sign in message$/ do
   page.should have_content "Signed in successfully."
 end
 
 Then /^I should see a successful sign up message$/ do
   page.should have_content "Welcome! You have signed up successfully."
+end
+
+Then /^I should see I am not logged in$/ do
+  page.should have_content "You aren't logged in!"
 end
 
 Then /^I should see an invalid email message$/ do
@@ -323,4 +331,8 @@ end
 
 Then /I should see that "(.*)" is before "(.*)"/ do |e1, e2|
   expect(page.body.index(e1) < page.body.index(e2))
+end
+
+Then /^I click on my profile picture$/ do
+  page.should have_link "Logout"
 end

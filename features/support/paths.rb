@@ -31,8 +31,6 @@ module NavigationHelpers
     when /^the login page$/
       '/users/sign_in'
 
-    when /^the profile page$/
-      '/users/#{current_user}'
 
     else
       begin
