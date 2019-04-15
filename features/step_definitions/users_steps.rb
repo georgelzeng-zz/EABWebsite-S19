@@ -11,7 +11,7 @@ def create_admin_visitor
 end
 
 def find_user
-  @user ||= User.where(:email => @visitor[:email]).first
+  @user = User.where(:email => @visitor[:email]).first
 end
 
 def create_unconfirmed_user
@@ -131,6 +131,8 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   else
     raise ArgumentError, 'Not a valid code type'
   end
+
+  find_user
 end
 
 ### WHEN ###

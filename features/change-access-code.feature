@@ -13,6 +13,12 @@ Background: members have been added to database
   And I change the "Admin Access Code" to "admin new"
   Then I am not logged in
 
+Scenario: User attempts to register with old regular access code
+  Given I start signing up with valid user data
+  When I register my "code" as "regular"
+  And I sign up
+  Then I should see "Wrong access code"
+
 Scenario: User attempts to register with new regular access code
   Given I start signing up with valid user data
   When I register my "code" as "regular new"
