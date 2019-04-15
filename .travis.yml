@@ -36,7 +36,7 @@ before_script: bundle exec rake db:create db:migrate
 script:
   - bundle exec rspec spec                   # Backend specs
   #- npm test -- --browsers Firefox      # Frontend specs
-  - rake cucumber                           # Frontend linting & specs
+  - bundle exec rake cucumber                           # Frontend linting & specs
 
 # Pipe the coverage data to Code Climate
 after_script:
