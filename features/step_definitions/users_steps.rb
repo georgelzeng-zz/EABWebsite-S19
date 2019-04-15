@@ -276,6 +276,8 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
     textField = "admin_code"
   end
 
+  step %{I should be on the Admin Database page}
+
   step %{I fill in "#{textField}" with "#{code}"}
   step %{I press "Change #{code_type}"}
 end
