@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :home
+  before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code]
+
+  def authenticate_admin
+    unless current_user.admin?
+      redirect_to home_path
+    end
+  end
 
   def home
     if current_user
@@ -14,50 +21,43 @@ class UsersController < ApplicationController
   end
 
   def index
-    if current_user
-      @message = "Hello, #{current_user.first}!"
-      @users = User.search(params[:search], false)
-      if @users.empty? & params[:search].nil?
-        redirect_to users_path, alert: "No results found! Try keyword(s) again."
-      end
-    else
-      redirect_to home_path
+    @message = "Hello, #{current_user.first}!"
+    @users = User.search(params[:search], false)
+    if @users.empty? & params[:search].nil?
+      redirect_to users_path, alert: "No results found! Try keyword(s) again."
     end
-
   end
 
   def admin_index
-    if current_user.admin?
-      @message = "Hello, #{current_user.first}!"
-      @users = User.search(params[:search], true)
-      if @users.empty? & params[:search].nil?
-        redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
-      end
-    else
-      redirect_to home_path
+    @message = "Hello, #{current_user.first}!"
+    @users = User.search(params[:search], true)
+    if @users.empty? & params[:search].nil?
+      redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
     end
   end
 
   def show
-    if current_user
-      @message = "Hello, #{current_user.first}!"
-      id = params[:id] 
-      @user = User.find(id) 
-      @emailName = @user.email.split("@").first
-      @emailHost = @user.email.split("@").last.split(".").first
-      @emailDomain = @user.email.split(".").last
-      
-
-    else
-      @message = "You aren't logged in!"
-    end
+    @message = "Hello, #{current_user.first}!"
+    id = params[:id]
+    @user = User.find(id)
+    @emailName = @user.email.split("@").first
+    @emailHost = @user.email.split("@").last.split(".").first
+    @emailDomain = @user.email.split(".").last
   end
 
   def edit
-    if current_user
-      id = params[:id]
-      @user = User.find(id)
-    end
+    id = params[:id]
+    @user = User.find(id)
+  end
+
+  def registration_code
+    User.change_registration_code(params[:registration_code])
+    redirect_to users_admin_path
+  end
+
+  def admin_code
+    User.change_admin_code(params[:admin_code])
+    redirect_to users_admin_path
   end
 
   def login
@@ -69,5 +69,5 @@ class UsersController < ApplicationController
   def create
   end
 
-  
+
 end
