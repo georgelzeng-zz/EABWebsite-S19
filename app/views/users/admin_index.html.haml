@@ -14,6 +14,14 @@
       %td
         = link_to 'Logout', destroy_user_session_path, :method => :delete
         &nbsp &nbsp
+      %td
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp      
+      %td
+        &nbsp &nbsp
+      %td
+        = image_tag(current_user.image.url(:small))
+      %td
+        = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
 - if current_user.admin?
   =link_to 'Regular View', users_path
@@ -49,5 +57,5 @@
         %td= user.facebook
         %td= user.linkedinLstring
         %td= user.privileges
-
+        %td= link_to "More about #{user.first}", user_path(user)
 = link_to 'Back', home_path

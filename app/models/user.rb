@@ -62,9 +62,9 @@ class User < ActiveRecord::Base
     search = search.split(" ")
 
     for col in @member
-      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search[0]}").order(:first)
-      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search[1]}").order(:first)
-      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search[2]}").order(:first)
+      for term in search
+        @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first)
+      end
     end
     @results
   end

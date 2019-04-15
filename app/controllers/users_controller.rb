@@ -15,15 +15,13 @@ class UsersController < ApplicationController
 
   def index
     if current_user
-      @message = "Hello, #{current_user.first}!"
       @users = User.search(params[:search], false)
       if @users.empty? & params[:search].nil?
-        redirect_to users_path, alert: "No results found! Try keyword(s) again."
+        redirect_to users_path
       end
     else
       redirect_to home_path
     end
-
   end
 
   def admin_index
@@ -31,7 +29,7 @@ class UsersController < ApplicationController
       @message = "Hello, #{current_user.first}!"
       @users = User.search(params[:search], true)
       if @users.empty? & params[:search].nil?
-        redirect_to users_admin_path, alert: "No results found! Try keyword(s) again."
+        redirect_to users_admin_path
       end
     else
       redirect_to home_path
@@ -46,8 +44,6 @@ class UsersController < ApplicationController
       @emailName = @user.email.split("@").first
       @emailHost = @user.email.split("@").last.split(".").first
       @emailDomain = @user.email.split(".").last
-      
-
     else
       @message = "You aren't logged in!"
     end

@@ -76,6 +76,7 @@ Scenario: blank input, sad path
   Given I am on the users page
   When I fill in "search" with " "
   And I press "Search"
+  When I view users
   Then I should see "Chau"
   And I should see "George"
   And I should see "Jason"
