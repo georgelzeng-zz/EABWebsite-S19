@@ -28,4 +28,5 @@ Procfile
 /config/application.yml
 
 # Ignore test coverage files
-/coverage/*
+/coverage.data
+/coverage/
