@@ -269,6 +269,8 @@ end
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I am on the homepage}
   step %{I press "Search Users"}
+
+  step %{I should be on the Database page}
   step %{I follow "Admin View"}
 
   case code_type
