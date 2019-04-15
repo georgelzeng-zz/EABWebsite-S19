@@ -1,3 +1,5 @@
+= javascript_include_tag "application"
+
 %table{:border => 0}
   %tbody
     %tr
@@ -49,5 +51,13 @@
         %td= user.facebook
         %td= user.linkedinLstring
         %td= user.privileges
+
+= form_tag(change_registration_code_path, :method => 'PATCH') do
+  = text_field_tag(:Regular_Access_Code, params[:registration_code])
+  = submit_tag "Change_Regular_Access_Code", name: nil
+
+= form_tag(change_admin_code_path, :method => 'PATCH') do
+  = text_field_tag(:Admin_Access_Code, params[:admin_code])
+  = submit_tag "Change_Admin_Access_Code", name: nil
 
 = link_to 'Back', home_path
