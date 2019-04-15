@@ -267,7 +267,9 @@ When /^I look at the list of users$/ do
 end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
-  step %{I am on the Admin Database page}
+  step %{I am on the homepage}
+  step %{I press "Search Users"}
+  step %{I follow "Admin View"}
 
   case code_type
   when "Regular Access Code"
