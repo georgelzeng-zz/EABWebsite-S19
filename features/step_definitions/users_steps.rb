@@ -269,7 +269,7 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
 
   case code_type
   when "Regular Access Code"
-    textField = "registration_code"
+    textField = :registration_code
   when "Admin Access Code"
     textField = "admin_code"
   end
