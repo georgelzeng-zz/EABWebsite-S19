@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
     @regular_users.each do |user|
       user.code = newCode
+      user.save!
     end
   end
 
@@ -37,6 +38,7 @@ class User < ActiveRecord::Base
 
     @admin_users.each do |admin|
       admin.code = newCode
+      admin.save!
     end
   end
 

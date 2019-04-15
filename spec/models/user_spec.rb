@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   before(:each) do
     for i  in 1..10 do
-      FactoryGirl.create(:user, {email: "#{i}@gmail.com", sid: "#{i}"})
-      FactoryGirl.create(:admin, {email: "#{i}admin@gmail.com", sid: "0#{i}"})
+      FactoryGirl.create(:user, {email: "#{i}@gmail.com", sid: "#{i}", code: User.registration_code})
+      FactoryGirl.create(:admin, {email: "#{i}admin@gmail.com", sid: "0#{i}", code: User.admin_code})
     end
     @regular_users = User.where(code: User.registration_code)
     @admin_users = User.where(code: User.admin_code)
@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     User.change_registration_code(newCode)
 
     @admin_users.each do |admin|
-      expect(admin.code).to be(current_code)
+      expect(admin.code).to eq(current_code)
     end
   end
 
@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     User.change_admin_code(newCode)
 
     @regular_users.each do |user|
-      expect(user.code).to be(current_code)
+      expect(user.code).to eq(current_code)
     end
   end
 end
