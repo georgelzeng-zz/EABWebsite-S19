@@ -123,6 +123,10 @@ Given /^I start signing up with valid user data$/ do
 end
 
 Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
+  print("@user: #{@user.as_json}\n")
+  print("All users: #{User.all.as_json}\n")
+  print("Admin code: #{User.admin_code}\n")
+  print("code_type: #{code_type}\n")
   case code_type
   when "regular access code"
     User.change_registration_code(code)
@@ -131,6 +135,9 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   else
     raise ArgumentError, 'Not a valid code type'
   end
+  print("@user: #{@user.as_json}\n")
+  print("All users: #{User.all.as_json}\n")
+  print("Admin code: #{User.admin_code}\n")
 
   find_user
 end
