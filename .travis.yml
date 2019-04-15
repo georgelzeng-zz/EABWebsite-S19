@@ -18,8 +18,7 @@ env:
   global:
     CC_TEST_REPORTER_ID=85d04908773d43ff625f264d632a426cfda1a82468b2e174997b108709dd97f5
 
-before_install:
-  - nvm install                         # Install node version from .nvmrc
+before_install:                       # Install node version from .nvmrc
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   #- export DISPLAY=:99.0                # Display number for xvfb (for headless browser testing)
@@ -27,7 +26,7 @@ before_install:
 
 install:
   - bundle install --without production --path=${BUNDLE_PATH:-vendor/bundle}  # Install ruby gems, excluding production only gems such as unicorn (already present by default in Travis)
-  - npm install                         # Install npm dependencies
+                          # Install npm dependencies
   #- npm install karma-firefox-launcher codeclimate-test-reporter
 
 # Setup the database
