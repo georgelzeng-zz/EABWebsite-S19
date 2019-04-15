@@ -9,10 +9,10 @@ Scenario: Admin user visits /admin
   When I go to the Admin Database page
   Then I should see every users' email
 
-#Scenario: Regular user visits /admin
-#  Given I am logged in as "a regular user"
-#  When I go to the Admin Database page
-#  Then I should be on the homepage
+Scenario: Regular user visits /admin
+  Given I am logged in as "a regular user"
+  When I go to the Admin Database page
+  Then I should be on the homepage
 
 Scenario: Non-signed in user visits /admin
   Given I am not logged in
