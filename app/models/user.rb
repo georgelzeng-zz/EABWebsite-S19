@@ -57,19 +57,9 @@ class User < ActiveRecord::Base
 
   def self.search(search, admin)
     if !search.blank?
-      @access, @results = [], []
+      @results = []
       if !search.strip.include? " "
-        if admin
-          for col in @admin_only
-            @access = @access | User.where("#{col} = lower(?)", "#{search}").order(:first)
-          end
-        end
-
-        for col in @member
-          @results = @results | User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
-        end
-
-        @results = @results | @access
+        @results = self.search_singular(search, admin)
       else
         @results = self.search_phrase(search, admin)
       end
@@ -77,6 +67,23 @@ class User < ActiveRecord::Base
       all.order(:first)
     end
   end
+
+
+  def self.search_singular(search, admin)
+    @access, @results = [], []
+    if admin
+      for col in @admin_only
+        @access = @access | User.where("#{col} = lower(?)", "#{search}").order(:first)
+      end
+    end
+
+    for col in @member
+      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
+    end
+
+    @results = @results | @access
+  end
+  
 
   def self.search_phrase(search, admin)
     search = search.split(" ")
@@ -88,5 +95,4 @@ class User < ActiveRecord::Base
     end
     @results
   end
-
 end
