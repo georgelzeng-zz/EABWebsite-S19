@@ -1,3 +1,5 @@
+Capybara.default_max_wait_time = 15
+#
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
@@ -9,7 +11,7 @@ def create_admin_visitor
 end
 
 def find_user
-  @user ||= User.where(:email => @visitor[:email]).first
+  @user = User.where(:email => @visitor[:email]).first
 end
 
 def create_unconfirmed_user
@@ -69,6 +71,7 @@ Given /^I am logged in$/ do
 end
 
 Given /^I am logged in as "(.*)"$/ do |userType|
+  step %{I am not logged in}
   case userType
   when "a regular user"
     @code = User.registration_code
@@ -128,6 +131,8 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   else
     raise ArgumentError, 'Not a valid code type'
   end
+
+  find_user
 end
 
 ### WHEN ###
@@ -264,14 +269,22 @@ When /^I look at the list of users$/ do
 end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
-  step %{I am on the Admin Database page}
+  step %{I am on the homepage}
+  step %{I press "Search Users"}
+
+  step %{I should be on the Database page}
+  step %{I should be an admin}
+
+  step %{I follow "Admin View"}
 
   case code_type
   when "Regular Access Code"
-    textField = "registration_code"
+    textField = :registration_code
   when "Admin Access Code"
     textField = "admin_code"
   end
+
+  step %{I should be on the Admin Database page}
 
   step %{I fill in "#{textField}" with "#{code}"}
   step %{I press "Change #{code_type}"}
