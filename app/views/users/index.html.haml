@@ -7,7 +7,7 @@
   %tbody
     %tr
       %td
-        %h1.lol= link_to 'Entrepreneurs @ Berkeley', home_path
+        %h1= link_to 'Entrepreneurs @ Berkeley', home_path
       %td
         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
       %td
@@ -30,34 +30,27 @@
 
 - if current_user.admin?
   =link_to 'Admin View', users_admin_path
-  
-%h2 All Users
 
-= form_tag(users_path, :method => 'GET') do
-  = text_field_tag(:search, params[:search])
-  = submit_tag "Search", name: nil
+%div.container
+  %h2 All Users
 
-%table.table-striped.col-md-10#users
-  %thead
-    %tr
-      %th First
-      %th Last
-      %th Team
-      %th Skillset
-      %th Facebook
-      %th LinkedIn
-      %th Privileges
+  = form_tag(users_path, :method => 'GET') do
+    = text_field_tag(:search, params[:search])
+    = submit_tag "Search", name: nil
 
-  %tbody
+
+%div.container
+  %div.row
     - @users.each do |user|
-      %tr
-        %td= user.first
-        %td= user.last
-        %td= user.team
-        %td= user.skillset
-        %td= user.facebook
-        %td= user.linkedinLstring
-        %td= user.privileges
-        %td= link_to "More about #{user.first}", user_path(user)
+      %div.user-tile.col-md-3.col-12
+        %p= "#{user.first} #{user.last}"
+        %p= user.team
+        %p= user.skillset
+        %p= user.facebook
+        %p= user.linkedinLstring
+        %p= user.privileges
+
+
+
 
 = link_to 'Back', home_path
