@@ -12,3 +12,16 @@
  *
 
  */
+
+ body {
+   width: 100%;
+   background-color: #EEE;
+ }
+
+.user-tile {
+  /* padding: 24px 2px; */
+  background-color: #FFF;
+  height: 150px;
+
+  /* width: 25%; */
+}
