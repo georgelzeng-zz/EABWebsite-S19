@@ -21,9 +21,6 @@
 **/.DS_Store
 **/._.DS_Store
 
-.env
-Procfile
-
 # Ignore application configuration
 /config/application.yml
 
