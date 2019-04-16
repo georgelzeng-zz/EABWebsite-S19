@@ -7,8 +7,7 @@ So that I may log into the app
  Scenario: User is not signed up
     Given I do not exist as a user
     When I sign in with valid credentials
-    Then I see an invalid login message
-    And I should be signed out
+    Then I should be signed out
 
   Scenario: User is not logged in
     Given I am not logged in
@@ -25,11 +24,9 @@ So that I may log into the app
   Scenario: User enters wrong email
     Given I exist as a user
     When I sign in with a wrong email
-    Then I see an invalid login message
-    And I should be signed out
+    Then I should be signed out
 
   Scenario: User enters wrong password
     Given I exist as a user
     When I sign in with a wrong password
-    Then I see an invalid login message
-    And I should be signed out
+    Then I should be signed out
