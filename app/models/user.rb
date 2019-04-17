@@ -11,20 +11,17 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 
-  @@registration_code = ENV["ACCESS_CODE"]
-  @@admin_code = ENV["ADMIN_CODE"]
-
   def self.registration_code
-    @@registration_code
+    Code.regular_code
   end
 
   def self.admin_code
-    @@admin_code
+    Code.admin_code
   end
 
   def self.change_registration_code(newCode)
-    @regular_users = User.where(code: @@registration_code)
-    @@registration_code = newCode
+    @regular_users = User.where(code: User.registration_code)
+    Code.set_regular_code(newCode)
 
     @regular_users.each do |user|
       user.code = newCode
@@ -33,8 +30,8 @@ class User < ActiveRecord::Base
   end
 
   def self.change_admin_code(newCode)
-    @admin_users = User.where(code: @@admin_code)
-    @@admin_code = newCode
+    @admin_users = User.where(code: User.admin_code)
+    Code.set_admin_code(newCode)
 
     @admin_users.each do |admin|
       admin.code = newCode
@@ -43,13 +40,13 @@ class User < ActiveRecord::Base
   end
 
   def correct_access_code
-    if self.code != @@registration_code && self.code != @@admin_code
+    if self.code != User.registration_code && self.code != User.admin_code
       errors.add(:code, "-- Wrong access code")
     end
   end
 
   def admin?
-    self.code == @@admin_code
+    self.code == User.admin_code
   end
 
   @member = ["first", "last", "team"]
@@ -83,7 +80,7 @@ class User < ActiveRecord::Base
 
     @results = @results | @access
   end
-  
+
 
   def self.search_phrase(search, admin)
     search = search.split(" ")

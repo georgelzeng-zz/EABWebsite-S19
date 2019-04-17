@@ -19,6 +19,7 @@ SimpleCov.start 'rails'
 
 
 RSpec.configure do |config|
+  Rails.application.load_seed
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
