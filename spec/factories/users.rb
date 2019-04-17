@@ -6,7 +6,7 @@ FactoryGirl.define do
       sid '123'
       password 'changeme'
       password_confirmation 'changeme'
-      code User.registration_code
+      code 'blank'
       # required if the Devise Confirmable module is used
       # confirmed_at Time.now
     end
@@ -18,7 +18,7 @@ FactoryGirl.define do
       sid '1234'
       password 'changeme'
       password_confirmation 'changeme'
-      code User.admin_code
+      code 'blank'
       # required if the Devise Confirmable module is used
       # confirmed_at Time.now
     end
