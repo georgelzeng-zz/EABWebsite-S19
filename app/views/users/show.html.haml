@@ -32,21 +32,21 @@
   %li
     Team:
     = @user.team
-  %li 
-    Email: 
+  %li
+    Email:
     - if current_user.admin?
       = @user.email
-    -else 
+    -else
       = "      "
       = @emailName
-      = image_tag "atSymbol.jpg", :size => "50x50"  
+      = image_tag "atSymbol.jpg", :size => "20x20"
       = @emailHost
-      = image_tag "period.png",  :size => "50x50"  
+      = image_tag "period.png",  :size => "20x20"
       = @emailDomain
 
 
 = link_to 'Back', users_path
 = link_to 'Edit User', edit_page_path(@user)
 - if current_user.admin?
-  = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete 
+  = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete
 = link_to 'Home', home_path
