@@ -1,4 +1,4 @@
-Capybara.default_max_wait_time = 15
+require "factory_girl_rails"
 #
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
