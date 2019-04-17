@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
   end
 
   def self.change_registration_code(newCode)
+    old_code = User.registration_code
+
+    if newCode == old_code
+      return Code.changing_to_same_value("Regular", newCode)
+    end
+
     @regular_users = User.where(code: User.registration_code)
     Code.set_regular_code(newCode)
 
@@ -27,9 +33,17 @@ class User < ActiveRecord::Base
       user.code = newCode
       user.save!
     end
+
+    return Code.changed_successful_message("Regular", old_code, newCode)
   end
 
   def self.change_admin_code(newCode)
+    old_code = User.admin_code
+
+    if newCode == old_code
+      return Code.changing_to_same_value("Admin", newCode)
+    end
+
     @admin_users = User.where(code: User.admin_code)
     Code.set_admin_code(newCode)
 
@@ -37,6 +51,8 @@ class User < ActiveRecord::Base
       admin.code = newCode
       admin.save!
     end
+
+    return Code.changed_successful_message("Admin", old_code, newCode)
   end
 
   def correct_access_code

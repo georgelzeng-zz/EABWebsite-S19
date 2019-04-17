@@ -9,12 +9,24 @@ class Code < ActiveRecord::Base
     end
   end
 
+  def self.code_uniqueness_message
+    "Code-change failed: Access codes must be different from each other."
+  end
+
+  def self.changing_to_same_value(type, code)
+    "#{type} Code is already \"#{code}\""
+  end
+
+  def self.changed_successful_message(type, old_code, new_code)
+    "#{type} Code successfully changed from \"#{old_code}\" to \"#{new_code}\""
+  end
+
   def self.regular_code
     if Code.where(code_type: "regular")[0] == nil
       Code.create!(code_type: "regular", code: ENV["ACCESS_CODE"])
     end
 
-    Code.where(code_type: "regular")[0].code
+    return Code.where(code_type: "regular")[0].code
   end
 
   def self.admin_code
@@ -22,7 +34,7 @@ class Code < ActiveRecord::Base
       Code.create!(code_type: "admin", code: ENV["ADMIN_CODE"])
     end
 
-    Code.where(code_type: "admin")[0].code
+    return Code.where(code_type: "admin")[0].code
   end
 
   def self.set_regular_code(newCode)
