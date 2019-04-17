@@ -1,32 +1,63 @@
-%table{:border => 0}
-  %tbody
-    %tr
-      %td
-        %h1.lol= link_to 'Entrepreneurs @ Berkeley', home_path
-      %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      %td
-        = link_to 'Login', new_user_session_path
-        &nbsp &nbsp
-      %td
-        = link_to 'Create New Account', new_user_registration_path
-        &nbsp &nbsp
-      %td
-        = link_to 'Logout', destroy_user_session_path, :method => :delete
-        &nbsp &nbsp
-      %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      %td
-        &nbsp &nbsp
-      %td
-        = image_tag(current_user.image.url(:small))
-      %td
-        = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
+.page_format{:style => " margin-left: 15px;"}
 
-%h2 Profile
+  %table{:border => 0}
+    %tbody
+      %tr
+        %td
+          %h1.lol= link_to 'Entrepreneurs @ Berkeley', home_path
+        %td
+          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+        %td
+          = link_to 'Login', new_user_session_path
+          &nbsp &nbsp
+        %td
+          = link_to 'Create New Account', new_user_registration_path
+          &nbsp &nbsp
+        %td
+          = link_to 'Logout', destroy_user_session_path, :method => :delete
+          &nbsp &nbsp
+        %td
+          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+        %td
+          &nbsp &nbsp
+        %td
+          = image_tag(current_user.image.url(:small))
+        %td
+          = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
-= image_tag @user.image.url(:medium)
-%h3 #{@user.first} #{@user.last}
+    %table{:border => 0}
+      %tbody
+        %tr
+          %td.some{ style: '' }
+            = image_tag @user.image.url(:medium), :style => "border-radius: 50%; max-height: 200px;", class:"img-responsive img-circle"
+            &nbsp &nbsp
+          %td.info{ valign: 'top'}
+            %table
+              %tr
+                %td.profileName{ style: 'font-size: 30px;',  }
+                  %h3 #{@user.first} #{@user.last}
+              %tr
+                %td.profileMajor{ style: 'font-size: 20px;' }
+                  %h5 #{@user.major}
+              %tr
+                %td.profileTeam{ style: 'font-size: 17px;' }
+                  Team:
+                  = @user.team
+              %tr
+                %td.profileEmail{ style: 'font-size: 17px;' }
+                  Email:
+                  - if current_user.admin?
+                    = @user.email
+                  -else
+                    = "      "
+                    = @emailName
+                    = image_tag "atSymbol.jpg", :size => "50x50"
+                    = @emailHost
+                    = image_tag "period.png",  :size => "50x50"
+                    = @emailDomain
+              %tr
+                %td.profileEmail{ style: 'font-size: 17px;' }
+                  Skills: #{@user.skillset}
 
 %ul#details
   %li
