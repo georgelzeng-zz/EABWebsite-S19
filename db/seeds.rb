@@ -6,12 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create!(first: 'Michael', last: 'Wu', email: 'michaelwu@berkeley.edu', team: 'exec', skillset: 'None', sid: '42042069', password: '123456', password_confirmation: '123456', code: User.registration_code)
-User.create!(first: 'George', last: 'Zeng', email: 'glz@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '1234578', password: '123456', password_confirmation: '123456', code: User.registration_code)
-User.create!(first: 'Nick', last: 'cai', email: 'ncai@yahoo.com', team: 'cs169', skillset: 'None', sid: '12342342', password: '123456', password_confirmation: '123456', code: User.registration_code)
-User.create!(first: 'Mihir', last: 'Chitalia', email: 'mhc@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '12345679', password: '123456', password_confirmation: '123456', code: User.registration_code)
-User.create!(first: 'Jason', last: 'Bi', email: 'jbi@berkeley.edu', team: 'cs169', skillset: 'None', sid: '13371384', password: '123456', password_confirmation: '123456', code: User.registration_code)
-User.create!(first: 'Chau', last: 'Van', email: 'cv@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '69420420', password: '123456', password_confirmation: '123456', code: User.registration_code)
 User.create!(first: 'Kyle', last: 'Ngo', email: 'kylengo357@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '87654321', password: 'pancakes', password_confirmation: 'pancakes', code: User.admin_code)
 User.create!(first: 'George', last: 'Zeng', email: 'georgelzeng@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '88654321', password: 'pancakes', password_confirmation: 'pancakes', code: User.admin_code)
 User.create!(first: 'Mihir', last: 'Chitalia', email: 'mihirchitalia@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '87634321', password: 'pancakes', password_confirmation: 'pancakes', code: User.admin_code)
