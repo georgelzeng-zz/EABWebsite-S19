@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-
-  resources :posts
+  #necessary for sessions(login, registration, etc.)
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
