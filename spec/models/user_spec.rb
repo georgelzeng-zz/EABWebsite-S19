@@ -13,14 +13,14 @@ RSpec.describe User, type: :model do
   #tests for change-access-code feature
   it "changes the registration code" do
     newCode = Code.regular_code + "nonsense"
-    User.change_registration_code(newCode)
+    User.change_code("regular", newCode)
 
     expect(Code.regular_code).to eq(newCode)
   end
 
   it "changes current regular users' code to new registration code" do
     newCode = Code.regular_code + "nonsense"
-    User.change_registration_code(newCode)
+    User.change_code("regular", newCode)
 
     @regular_users.each do |user|
       expect(user.code).to be(newCode)
@@ -31,7 +31,7 @@ RSpec.describe User, type: :model do
     current_code = @admin_users[0].code
 
     newCode = Code.regular_code + "nonsense"
-    User.change_registration_code(newCode)
+    User.change_code("regular", newCode)
 
     @admin_users.each do |admin|
       expect(admin.code).to eq(current_code)
@@ -40,14 +40,14 @@ RSpec.describe User, type: :model do
 
   it "changes the admin code" do
     newCode = Code.admin_code + "nonsense"
-    User.change_admin_code(newCode)
+    User.change_code("admin", newCode)
 
     expect(Code.admin_code).to eq(newCode)
   end
 
   it "changes current admin users' code to new admin code" do
     newCode = Code.admin_code + "nonsense"
-    User.change_admin_code(newCode)
+    User.change_code("admin", newCode)
 
     @admin_users.each do |admin|
       expect(admin.code).to be(newCode)
@@ -58,7 +58,7 @@ RSpec.describe User, type: :model do
     current_code = @regular_users[0].code
 
     newCode = Code.admin_code + "nonsense"
-    User.change_admin_code(newCode)
+    User.change_code("admin", newCode)
 
     @regular_users.each do |user|
       expect(user.code).to eq(current_code)

@@ -10,46 +10,34 @@ class User < ActiveRecord::Base
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-
-  #Custom Validation methods
+  ##Custom Validation methods
   def correct_access_code
     if self.code != Code.regular_code && self.code != Code.admin_code
       errors.add(:code, "-- Wrong access code")
     end
   end
 
+  ##Methods dealing with access codes
 
-  #Methods dealing with access codes
+  #to tell whether a user is an admin
   def admin?
     self.code == Code.admin_code
   end
 
-  def self.change_registration_code(newCode)
-    old_code = Code.regular_code
+  #to change an access code, as well as current members' access code (if having corresponding code)
+  def self.change_code(type, newCode)
+    old_code = Code.get_code(type)
 
     if newCode == old_code
-      return Code.changing_to_same_value("Regular", newCode)
+      return Code.changing_to_same_value(type, newCode)
     end
 
     User.where(code: old_code).update_all(code: newCode)
-    Code.set_regular_code(newCode)
-    return Code.changed_successful_message("Regular", old_code, newCode)
+    Code.set_code(type, newCode)
+    return Code.changed_successful_message(type, old_code, newCode)
   end
 
-  def self.change_admin_code(newCode)
-    old_code = Code.admin_code
-
-    if newCode == old_code
-      return Code.changing_to_same_value("Admin", newCode)
-    end
-
-    User.where(code: old_code).update_all(code: newCode)
-    Code.set_admin_code(newCode)
-    return Code.changed_successful_message("Admin", old_code, newCode)
-  end
-
-
-  #Methods dealing with search
+  ##Methods dealing with search
   @member = ["first", "last", "team"]
   @admin_only = ["email", "sid"]
 
@@ -80,7 +68,6 @@ class User < ActiveRecord::Base
 
     @results = @results | @access
   end
-
 
   def self.search_phrase(search, admin)
     search = search.split(" ")

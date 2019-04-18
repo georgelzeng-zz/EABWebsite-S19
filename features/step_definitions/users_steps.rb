@@ -125,9 +125,9 @@ end
 Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
   case code_type
   when "regular access code"
-    User.change_registration_code(code)
+    User.change_code("regular", code)
   when "admin access code"
-    User.change_admin_code(code)
+    User.change_code("admin", code)
   else
     raise ArgumentError, 'Not a valid code type'
   end

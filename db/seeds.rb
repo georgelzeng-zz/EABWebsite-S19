@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Code.create!(code_type: "regular", code: ENV["ACCESS_CODE"])
+Code.create!(code_type: "regular", code: ENV["REGULAR_CODE"])
 Code.create!(code_type: "admin", code: ENV["ADMIN_CODE"])
 
 User.create!(first: 'Kyle', last: 'Ngo', email: 'kylengo357@berkeley.edu', team: 'kiwi', skillset: 'None', sid: '87654321', password: 'pancakes', password_confirmation: 'pancakes', code: Code.admin_code)

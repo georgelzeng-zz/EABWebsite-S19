@@ -14,20 +14,6 @@ Rails.application.routes.draw do
 
   get 'users/show/:id', to: 'users#show', as: 'user'
 
-  get 'users/login', to: 'users#login', as: 'login_page'
-
-  post 'users/login', to: 'users#login', as: 'login'
-
-  get 'users/forgot', to: 'users#forgot', as: 'forgot_page'
-
-  post 'users/forgot', to: 'users#forgot', as: 'forgot'
-
-  post 'users/delete', to: 'users#delete', as: 'delete_user'
-
-  get 'users/create', to: 'users#create', as: 'create_page'
-
-  post 'users/create', to: 'users/registrations#create', as: 'create'
-
   get 'admin', to: 'users#admin_index', as: 'users_admin'
 
   get 'users/edit', to: 'users/registrations#edit', as: 'edit_page'
