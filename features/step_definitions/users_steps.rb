@@ -2,12 +2,12 @@ require "factory_girl_rails"
 #
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
-    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => User.registration_code }
+    :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => Code.regular_code }
 end
 
 def create_admin_visitor
   @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
-  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  User.admin_code }
+  :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  Code.admin_code }
 end
 
 def find_user
@@ -74,9 +74,9 @@ Given /^I am logged in as "(.*)"$/ do |userType|
   step %{I am not logged in}
   case userType
   when "a regular user"
-    @code = User.registration_code
+    @code = Code.regular_code
   when "an admin"
-    @code = User.admin_code
+    @code = Code.admin_code
   end
 
   create_visitor
@@ -93,9 +93,9 @@ Given /^the following users exist$/ do |users_table|
   users_table.map_column!('code') do |code|
     case code
     when 'registration_code'
-      code = User.registration_code
+      code = Code.regular_code
     when 'admin_code'
-      code = User.admin_code
+      code = Code.admin_code
     end
     code
   end
@@ -161,11 +161,11 @@ end
 When /^I register my "(.*)" as "(.*)"$/ do |field, value|
   case value
   when "the admin code"
-    value = User.admin_code
+    value = Code.admin_code
   when "the access code"
-    value = User.registration_code
+    value = Code.regular_code
   when "not the admin code"
-    value = User.admin_code + User.registration_code + 'nonsense'
+    value = Code.admin_code + Code.regular_code + 'nonsense'
   end
 
   @visitor = @visitor.merge(field.to_sym => value)

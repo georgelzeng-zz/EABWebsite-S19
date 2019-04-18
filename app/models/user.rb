@@ -11,60 +11,45 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 
-  def self.registration_code
-    Code.regular_code
+  #Custom Validation methods
+  def correct_access_code
+    if self.code != Code.regular_code && self.code != Code.admin_code
+      errors.add(:code, "-- Wrong access code")
+    end
   end
 
-  def self.admin_code
-    Code.admin_code
+
+  #Methods dealing with access codes
+  def admin?
+    self.code == Code.admin_code
   end
 
   def self.change_registration_code(newCode)
-    old_code = User.registration_code
+    old_code = Code.regular_code
 
     if newCode == old_code
       return Code.changing_to_same_value("Regular", newCode)
     end
 
-    @regular_users = User.where(code: User.registration_code)
+    User.where(code: old_code).update_all(code: newCode)
     Code.set_regular_code(newCode)
-
-    @regular_users.each do |user|
-      user.code = newCode
-      user.save!
-    end
-
     return Code.changed_successful_message("Regular", old_code, newCode)
   end
 
   def self.change_admin_code(newCode)
-    old_code = User.admin_code
+    old_code = Code.admin_code
 
     if newCode == old_code
       return Code.changing_to_same_value("Admin", newCode)
     end
 
-    @admin_users = User.where(code: User.admin_code)
+    User.where(code: old_code).update_all(code: newCode)
     Code.set_admin_code(newCode)
-
-    @admin_users.each do |admin|
-      admin.code = newCode
-      admin.save!
-    end
-
     return Code.changed_successful_message("Admin", old_code, newCode)
   end
 
-  def correct_access_code
-    if self.code != User.registration_code && self.code != User.admin_code
-      errors.add(:code, "-- Wrong access code")
-    end
-  end
 
-  def admin?
-    self.code == User.admin_code
-  end
-
+  #Methods dealing with search
   @member = ["first", "last", "team"]
   @admin_only = ["email", "sid"]
 
@@ -80,7 +65,6 @@ class User < ActiveRecord::Base
       all.order(:first)
     end
   end
-
 
   def self.search_singular(search, admin)
     @access, @results = [], []
