@@ -1,5 +1,10 @@
 = javascript_include_tag "application"
 
+- flash.each do |type, msg|
+  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
+    %button.close &times;
+    = msg if msg.is_a?(String)
+
 %table{:border => 0}
   %tbody
     %tr
@@ -17,7 +22,7 @@
         = link_to 'Logout', destroy_user_session_path, :method => :delete
         &nbsp &nbsp
       %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp      
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
       %td
         &nbsp &nbsp
       %td
@@ -62,11 +67,11 @@
         %td= link_to "More about #{user.first}", user_path(user)
 
 = form_tag(change_registration_code_path, :method => 'PATCH') do
-  = text_field_tag(:registration_code, params[:registration_code])
+  = text_field_tag(:registration_code, Code.regular_code)
   = submit_tag "Change Regular Access Code", name: nil
 
 = form_tag(change_admin_code_path, :method => 'PATCH') do
-  = text_field_tag(:admin_code, params[:admin_code])
+  = text_field_tag(:admin_code, Code.admin_code)
   = submit_tag "Change Admin Access Code", name: nil
 
 = link_to 'Back', home_path

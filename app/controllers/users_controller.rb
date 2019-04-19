@@ -51,23 +51,22 @@ class UsersController < ApplicationController
   end
 
   def registration_code
-    User.change_registration_code(params[:registration_code])
+    begin
+      flash[:notice] = User.change_code("regular", params[:registration_code])
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:notice] = Code.code_uniqueness_message
+    end
+
     redirect_to users_admin_path
   end
 
   def admin_code
-    User.change_admin_code(params[:admin_code])
+    begin
+      flash[:notice] = User.change_code("admin", params[:admin_code])
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:notice] = Code.code_uniqueness_message
+    end
+
     redirect_to users_admin_path
   end
-
-  def login
-  end
-
-  def forgot
-  end
-
-  def create
-  end
-
-
 end
