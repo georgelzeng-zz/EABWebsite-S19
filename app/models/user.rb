@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   #to change an access code, as well as current members' access code (if having corresponding code)
   def self.change_code(type, newCode)
     old_code = Code.get_code(type)
-
+    
     if newCode == old_code
       return Code.changing_to_same_value(type, newCode)
     end
