@@ -4,7 +4,7 @@ As an admin
 So that I maintain the exclusivity of the club
 I want to be able to change either access code necessary for registration
 
-Background: members have been added to database
+Background: Access codes have been changed
   Given I am not logged in
   Then I am logged in as "an admin"
   And the current "regular access code" is "regular"

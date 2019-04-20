@@ -16,11 +16,11 @@ class Code < ActiveRecord::Base
   end
 
   def self.changing_to_same_value(type, code)
-    "#{type.capitalize} Code is already \"#{code}\""
+    "#{type.capitalize} Code is already \'#{code}\'"
   end
 
   def self.changed_successful_message(type, old_code, new_code)
-    "#{type.capitalize} Code successfully changed from \"#{old_code}\" to \"#{new_code}\""
+    "#{type.capitalize} Code successfully changed from \'#{old_code}\' to \'#{new_code}\'"
   end
 
   ##Getter method -- only valid types are "regular" and "admin" -- for generalizability
@@ -43,6 +43,6 @@ class Code < ActiveRecord::Base
 
   ##Setter_method
   def self.set_code(type, newCode)
-    Code.where(code_type: type).update_all(code: newCode)
+    Code.find_by!(code_type: type).update!(code: newCode)
   end
 end
