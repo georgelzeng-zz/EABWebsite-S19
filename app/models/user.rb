@@ -100,10 +100,10 @@ class User < ActiveRecord::Base
 
   def column_to_XML(column)
     if column == "code"
-      return Gyoku.xml(:access => self.access)
+      return Gyoku.xml(:access => "access: #{self.access};")
     else
       column_sym = column.to_sym
-      return Gyoku.xml(column_sym => self.send(column_sym))
+      return Gyoku.xml(column_sym => "#{column}: #{self.send(column_sym)};")
     end
   end
 

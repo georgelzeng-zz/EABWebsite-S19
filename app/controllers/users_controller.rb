@@ -72,11 +72,12 @@ class UsersController < ApplicationController
 
   def download_roster
     User.make_XML_file
+    file_name = User.roster_file_name
 
     send_file(
       User.full_file_path,
-      filename: User.roster_file_name,
-      type: "application/xml",
+      filename: file_name,
+      type: "application/#{file_name.split('.')[1]}",
       disposition: 'inline'
     )
   end
