@@ -21,9 +21,6 @@
 **/.DS_Store
 **/._.DS_Store
 
-.env
-Procfile
-
 # Ignore application configuration
 /config/application.yml
 
@@ -34,3 +31,6 @@ Procfile
 /coverage/.resultset.json
 /coverage/.resultset.json.lock
 /coverage/index.html
+
+# Ignore download-roster file
+EAB_roster.xml

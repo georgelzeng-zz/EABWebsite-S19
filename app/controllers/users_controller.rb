@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :home
-  before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code]
+  before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code, :download_roster]
 
   def authenticate_admin
     unless current_user.admin?
@@ -51,23 +51,34 @@ class UsersController < ApplicationController
   end
 
   def registration_code
-    User.change_registration_code(params[:registration_code])
+    begin
+      flash[:notice] = User.change_code("regular", params[:registration_code])
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:notice] = Code.code_uniqueness_message
+    end
+
     redirect_to users_admin_path
   end
 
   def admin_code
-    User.change_admin_code(params[:admin_code])
+    begin
+      flash[:notice] = User.change_code("admin", params[:admin_code])
+    rescue ActiveRecord::RecordInvalid => e
+      flash[:notice] = Code.code_uniqueness_message
+    end
+
     redirect_to users_admin_path
   end
 
-  def login
+  def download_roster
+    User.make_XML_file
+    file_name = User.roster_file_name
+
+    send_file(
+      User.full_file_path,
+      filename: file_name,
+      type: "application/#{file_name.split('.')[1]}",
+      disposition: 'inline'
+    )
   end
-
-  def forgot
-  end
-
-  def create
-  end
-
-
 end

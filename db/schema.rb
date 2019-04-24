@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190410080626) do
+ActiveRecord::Schema.define(version: 20190417202143) do
 
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.string   "content"
+  create_table "codes", force: :cascade do |t|
+    t.string   "code_type"
+    t.string   "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
