@@ -116,6 +116,7 @@ Scenario: find user by team name, full name sad
 Scenario: no input sad path
   Given I am on the users page
   And I press "Search"
+  Then I should be on the Database page
   Then I should see "Chau"
   And I should see "George"
   And I should see "Jason"
