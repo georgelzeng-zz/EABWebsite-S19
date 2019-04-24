@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   #to change an access code, as well as current members' access code (if having corresponding code)
   def self.change_code(type, newCode)
     old_code = Code.get_code(type)
-    
+
     if newCode == old_code
       return Code.changing_to_same_value(type, newCode)
     end
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     if !search.blank?
       @results = []
       if !search.strip.include? " "
-        @results = self.search_singular(search, admin)
+        @results = self.search_keyword(search, admin)
       else
         @results = self.search_phrase(search, admin)
       end
@@ -54,27 +54,28 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.search_singular(search, admin)
-    @access, @results = [], []
-    if admin
-      for col in @admin_only
-        @access = @access | User.where("#{col} = lower(?)", "#{search}").order(:first)
-      end
-    end
 
-    for col in @member
-      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
-    end
+  def self.search_keyword(search, admin)
+    @permissions = admin ? @member.concat(@admin_only) : @member
+    @results = []
 
-    @results = @results | @access
+    for col in @permissions
+      @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{search}").order(:first) |
+                 User.where("lower(#{col}) LIKE lower(?)", "%#{search}%").order(:first)
+    end
+    @results
   end
+
 
   def self.search_phrase(search, admin)
     search = search.split(" ")
+    @permissions = admin ? @member.concat(@admin_only) : @member
+    @results = []
 
-    for col in @member
+    for col in @permissions
       for term in search
-        @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first)
+        @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first) |
+                   User.where("lower(#{col}) = lower(?)", "%#{term}%").order(:first)
       end
     end
     @results
