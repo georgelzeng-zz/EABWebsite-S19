@@ -20,6 +20,9 @@ Rails.application.routes.draw do
   patch 'code/registration', to: 'users#registration_code', as: 'change_registration_code'
 
   patch 'code/admin', to: 'users#admin_code', as: 'change_admin_code'
+
+  get 'admin/download_roster', to: 'users#download_roster', as: 'download_roster'
+
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'
