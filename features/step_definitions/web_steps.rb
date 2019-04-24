@@ -114,6 +114,14 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
+Then /^I should receive a file(?: "([^"]*)")?/ do |file|
+  result = page.response_headers['Content-Type'].should == "application/octet-stream"
+  if result
+    result = page.response_headers['Content-Disposition'].should =~ /#{file}/
+  end
+  result
+end
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)
