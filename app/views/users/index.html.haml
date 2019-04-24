@@ -79,14 +79,28 @@
               %h4= "#{user.first} #{user.last}"
               %p.team= user.team
 
-              %p.fb
-                %i.fab.fa-facebook-square
-                = "#{user.facebook}"
-              %p.linkedin
-                %i.fab.fa-linkedin
-                = "#{user.linkedinLstring}"
+              -# %a= link_to %i.fab.fa-facebook-square, user.facebook
+
+              -#
+              -# %p.fb
+              -#   %i.fab.fa-facebook-square
+              -#   = "#{user.facebook}"
+              -# %p.linkedin
+              -#   %i.fab.fa-linkedin
+              -#   = "#{user.linkedinLstring}"
+
+
               %p.skillset= "Skills: #{user.skillset}"
-              %p= user.privileges
-              %a= link_to "More about #{user.first} #{user.last}", user_path(user)
+              -# %p= user.privileges
+
+              %a{:href => "www.#{user.facebook}"}
+                %i.fab.fa-facebook-square
+
+              %a{:href => "www.#{user.linkedinLstring}"}
+                %i.fab.fa-linkedin
+
+
+
+              -# %a= link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path
