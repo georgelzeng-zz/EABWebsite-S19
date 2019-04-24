@@ -27,13 +27,14 @@ class User < ActiveRecord::Base
   #to change an access code, as well as current members' access code (if having corresponding code)
   def self.change_code(type, newCode)
     old_code = Code.get_code(type)
-    
+
     if newCode == old_code
       return Code.changing_to_same_value(type, newCode)
     end
 
-    User.where(code: old_code).update_all(code: newCode)
     Code.set_code(type, newCode)
+    User.where(code: old_code).update_all(code: newCode)
+    
     return Code.changed_successful_message(type, old_code, newCode)
   end
 
@@ -78,5 +79,11 @@ class User < ActiveRecord::Base
       end
     end
     @results
+  end
+
+  ##Methods dealing with download-roster
+
+  def to_XML
+    User.column_names.each do |
   end
 end
