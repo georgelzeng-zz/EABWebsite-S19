@@ -31,3 +31,6 @@
 /coverage/.resultset.json
 /coverage/.resultset.json.lock
 /coverage/index.html
+
+# Ignore download-roster file
+EAB_roster.xml

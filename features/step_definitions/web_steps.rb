@@ -114,8 +114,10 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
-Then /^I should receive a file(?: "([^"]*)")?/ do |file|
-  result = page.response_headers['Content-Type'].should == "application/octet-stream"
+Then /^I should receive a file: "([^"]*)"$/ do |file|
+  fileExtenstion = file.split('.')[1]
+
+  result = page.response_headers['Content-Type'].should == "application/#{fileExtenstion}"
   if result
     result = page.response_headers['Content-Disposition'].should =~ /#{file}/
   end
