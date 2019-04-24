@@ -13,15 +13,20 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.ml-auto
         %li.nav-item
+          %a.nav-link#user-link{:href => user_path(current_user)}
+            = image_tag current_user.image.url
+            -# = image_tag current_user.image.url(:small)
+            #{current_user.first} #{current_user.last}
+
+        &nbsp &nbsp &nbsp
+
+        %li.nav-item
           %a.nav-link{:href => new_user_session_path} Login
         %li.nav-item
           %a.nav-link{:href => new_user_registration_path} Create New Account
         %li.nav-item
           %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
-        %li.nav-item
-          %a.nav-link{:href => user_path(current_user)}
-            = image_tag(current_user.image.url(:small))
-            #{current_user.first} #{current_user.last}
+
 
 -# %table{:border => 0}
 -#   %tbody
@@ -66,15 +71,21 @@
         %div.user-tile-wrapper.col-sm-12.col-md-3
           %div.user-tile
 
-            %div.user-tile-img
-              = image_tag(user.image.url(:small))
+            %div.user-tile-img{:style => "background-image: url('#{user.image.url}')"}
+              -# %div.user-tile-img-overlay
+              -#   %p= "More about #{user.first} #{user.last}"
 
             %div.user-tile-info
-              %p= "#{user.first} #{user.last}"
-              %p= user.team
-              %p= user.skillset
-              %p= user.facebook
-              %p= user.linkedinLstring
+              %h4= "#{user.first} #{user.last}"
+              %p.team= user.team
+
+              %p.fb
+                %i.fab.fa-facebook-square
+                = "#{user.facebook}"
+              %p.linkedin
+                %i.fab.fa-linkedin
+                = "#{user.linkedinLstring}"
+              %p.skillset= "Skills: #{user.skillset}"
               %p= user.privileges
               %a= link_to "More about #{user.first} #{user.last}", user_path(user)
 
