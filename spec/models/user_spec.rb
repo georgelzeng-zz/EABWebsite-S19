@@ -12,7 +12,6 @@ RSpec.describe User, type: :model do
 
   #tests for change-access-code feature
   it "changes the registration code" do
-    print(User.column_names)
     newCode = Code.regular_code + "nonsense"
     User.change_code("regular", newCode)
 
