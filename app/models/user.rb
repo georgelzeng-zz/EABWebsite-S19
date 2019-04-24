@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   @member = ["first", "last", "team"]
   @admin_only = ["email", "sid"]
 
+  # Search by keyword, phrase or alphabetically order by first name by default
   def self.search(search, admin)
     if !search.blank?
       @results = []
@@ -54,25 +55,25 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  # Search keyword within respective member or admin fields
   def self.search_keyword(search, admin)
-    @permissions = admin ? @member.concat(@admin_only) : @member
+    permissions = admin ? @member.concat(@admin_only) : @member
     @results = []
 
-    for col in @permissions
+    for col in permissions
       @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{search}").order(:first) |
                  User.where("lower(#{col}) LIKE lower(?)", "%#{search}%").order(:first)
     end
     @results
   end
 
-
+  # Search for a phrase within respective member or admin fields
   def self.search_phrase(search, admin)
     search = search.split(" ")
-    @permissions = admin ? @member.concat(@admin_only) : @member
+    permissions = admin ? @member.concat(@admin_only) : @member
     @results = []
 
-    for col in @permissions
+    for col in permissions
       for term in search
         @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first) |
                    User.where("lower(#{col}) = lower(?)", "%#{term}%").order(:first)
