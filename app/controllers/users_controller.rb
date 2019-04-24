@@ -76,7 +76,8 @@ class UsersController < ApplicationController
     send_file(
       User.full_file_path,
       filename: User.roster_file_name,
-      type: "application/xml"
+      type: "application/xml",
+      disposition: 'inline'
     )
   end
 end

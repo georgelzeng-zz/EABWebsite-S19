@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     content = ""
     if User.all != nil
       User.all.each do |user|
-        content += user.to_XML + "\n"
+        content += user.to_XML + "<br />\n"
       end
     end
 
