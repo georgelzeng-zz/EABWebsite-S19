@@ -5,6 +5,7 @@ So that I may know whether I successfully changed an access code
 I want to be able to see an appropriate notification
 
 Background: I am an admin and access codes already have a value
+  Given spam
   Given I am logged in as "an admin"
   And the current "regular access code" is "regular"
   And the current "admin access code" is "admin"

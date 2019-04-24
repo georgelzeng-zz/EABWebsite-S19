@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :home
-  before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code]
+  before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code, :download_roster]
 
   def authenticate_admin
     unless current_user.admin?
@@ -68,5 +68,17 @@ class UsersController < ApplicationController
     end
 
     redirect_to users_admin_path
+  end
+
+  def download_roster
+    User.make_XML_file
+    file_name = User.roster_file_name
+
+    send_file(
+      User.full_file_path,
+      filename: file_name,
+      type: "application/#{file_name.split('.')[1]}",
+      disposition: 'inline'
+    )
   end
 end

@@ -1,5 +1,6 @@
 require "factory_girl_rails"
 #
+
 def create_visitor
   @visitor ||= { :first => "Testy", :last => 'McUserton', :email => "example@example.com",
     :password => "changeme", :password_confirmation => "changeme", :sid => "9999999999", :code => Code.regular_code }
@@ -57,6 +58,14 @@ def sign_in
   fill_in "user_email", :with => @visitor[:email]
   fill_in "user_password", :with => @visitor[:password]
   click_button "Log in"
+end
+
+Given /^spam$/ do
+  10.times do
+    visit '/users/password/new'
+    step %{fill in "user_email" with "blankityblankbizmark@gmail.com"}
+    step %{press "Send me reset password instructions"}
+  end
 end
 
 ### GIVEN ###

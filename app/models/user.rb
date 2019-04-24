@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
+  @@roster_file_name = "EAB_roster.xml"
+  @@roster_file_directory = Rails.root.to_s
+  @@full_file_path = File.join(@@roster_file_directory, @@roster_file_name)
+
   ##Custom Validation methods
   def correct_access_code
     if self.code != Code.regular_code && self.code != Code.admin_code
@@ -32,8 +36,9 @@ class User < ActiveRecord::Base
       return Code.changing_to_same_value(type, newCode)
     end
 
-    User.where(code: old_code).update_all(code: newCode)
     Code.set_code(type, newCode)
+    User.where(code: old_code).update_all(code: newCode)
+
     return Code.changed_successful_message(type, old_code, newCode)
   end
 
@@ -80,5 +85,52 @@ class User < ActiveRecord::Base
       end
     end
     @results
+  end
+
+  ##Methods dealing with download-roster
+  @@xml_columns = ["first", "last", "team", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
+
+  def to_XML
+    xml_string = ""
+
+    @@xml_columns.each do |column|
+      xml_string += self.column_to_XML(column) + " "
+    end
+
+    return xml_string
+  end
+
+  def column_to_XML(column)
+    if column == "code"
+      return Gyoku.xml(:access => "access: #{self.access};")
+    else
+      column_sym = column.to_sym
+      return Gyoku.xml(column_sym => "#{column}: #{self.send(column_sym)};")
+    end
+  end
+
+  def access
+    self.admin? ? "admin" : "regular"
+  end
+
+  def self.make_XML_file
+    content = ""
+    if User.all != nil
+      User.all.each do |user|
+        content += user.to_XML + "<br />\n"
+      end
+    end
+
+    File.open(@@full_file_path, 'w') do |f|
+      f.puts content
+    end
+  end
+
+  def self.full_file_path
+    @@full_file_path
+  end
+
+  def self.roster_file_name
+    @@roster_file_name
   end
 end
