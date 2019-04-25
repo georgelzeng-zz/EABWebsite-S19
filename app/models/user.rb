@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with search
-  @member = ["first", "last", "team"]
-  @admin_only = ["email", "sid"]
+  @member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
+  @admin_only = ["email", "sid", "code"]
 
   # Search by keyword, phrase or alphabetically order by first name by default
   def self.search(search, admin)
@@ -79,9 +79,9 @@ class User < ActiveRecord::Base
     @results = []
 
     for col in permissions
-      for term in search
-        @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{term}").order(:first) |
-                   User.where("lower(#{col}) LIKE lower(?)", "%#{term}%").order(:first)
+      for word in search
+        @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{word}").order(:first) |
+                   User.where("lower(#{col}) LIKE lower(?)", "%#{word}%").order(:first)
       end
     end
     @results
