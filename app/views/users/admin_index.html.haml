@@ -5,28 +5,24 @@
     %button.close &times;
     = msg if msg.is_a?(String)
 
-%table{:border => 0}
-  %tbody
-    %tr
-      %td
-        %h1.lol= link_to 'Entrepreneurs @ Berkeley', home_path
-      %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      %td
-        &nbsp &nbsp
-      %td
-        &nbsp &nbsp
-      %td
-        = link_to 'Logout', destroy_user_session_path, :method => :delete
-        &nbsp &nbsp
-      %td
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      %td
-        &nbsp &nbsp
-      %td
-        = image_tag(current_user.image.url(:small))
-      %td
-        = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %div.container
+    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+
+    #navbarSupportedContent.collapse.navbar-collapse
+      %ul.navbar-nav.ml-auto
+        %li.nav-item
+          %a.nav-link#user-link{:href => user_path(current_user)}
+            = image_tag current_user.image.url
+            -# = image_tag current_user.image.url(:small)
+            #{current_user.first} #{current_user.last}
+
+        &nbsp &nbsp &nbsp
+
+        %li.nav-item
+          %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
 
 - if current_user.admin?
   =link_to 'Regular View', users_path
