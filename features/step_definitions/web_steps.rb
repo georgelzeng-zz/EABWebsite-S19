@@ -72,9 +72,8 @@ end
 
 When /^I press the "([^"]*)" button with confirmation$/ do |button|
   Capybara.current_driver = :selenium
-  page.accept_confirm do
-    click_button(button)
-  end
+  page.evaluate_script('window.confirm = function() { return true; }')
+  page.click('Remove')
 end
 
 # Use this to fill in an entire form with data from a table. Example:

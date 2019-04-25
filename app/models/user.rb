@@ -43,14 +43,15 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with search
-  @member = ["first", "last", "team"]
-  @admin_only = ["email", "sid"]
+  @member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
+  @admin_only = ["email", "sid", "code"]
 
+  # Search by keyword, phrase or alphabetically order by first name by default
   def self.search(search, admin)
     if !search.blank?
       @results = []
       if !search.strip.include? " "
-        @results = self.search_singular(search, admin)
+        @results = self.search_keyword(search, admin)
       else
         @results = self.search_phrase(search, admin)
       end
@@ -59,27 +60,28 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.search_singular(search, admin)
-    @access, @results = [], []
-    if admin
-      for col in @admin_only
-        @access = @access | User.where("#{col} = lower(?)", "#{search}").order(:first)
-      end
-    end
+  # Search keyword within respective member or admin fields
+  def self.search_keyword(search, admin)
+    permissions = admin ? @member.concat(@admin_only) : @member
+    @results = []
 
-    for col in @member
-      @results = @results | User.where("lower(#{col}) = lower(?)", "#{search}").order(:first)
+    for col in permissions
+      @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{search}").order(:first) |
+                 User.where("lower(#{col}) LIKE lower(?)", "%#{search}%").order(:first)
     end
-
-    @results = @results | @access
+    @results
   end
 
+  # Search for a phrase within respective member or admin fields
   def self.search_phrase(search, admin)
     search = search.split(" ")
+    permissions = admin ? @member.concat(@admin_only) : @member
+    @results = []
 
-    for col in @member
-      for term in search
-        @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first)
+    for col in permissions
+      for word in search
+        @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{word}").order(:first) |
+                   User.where("lower(#{col}) LIKE lower(?)", "%#{word}%").order(:first)
       end
     end
     @results
