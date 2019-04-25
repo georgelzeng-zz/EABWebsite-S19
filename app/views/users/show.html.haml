@@ -82,7 +82,11 @@
 
 
 = link_to 'Back', users_path
-= link_to 'Edit User', edit_page_path(@user)
+
+- if current_user.id == @user.id
+  = link_to 'Edit User', edit_page_path(@user)
+
 - if current_user.admin?
   = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete
+
 = link_to 'Home', home_path
