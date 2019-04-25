@@ -80,8 +80,8 @@ class User < ActiveRecord::Base
 
     for col in permissions
       for term in search
-        @results = @results | User.where("lower(#{col}) = lower(?)", "#{term}").order(:first) |
-                   User.where("lower(#{col}) = lower(?)", "%#{term}%").order(:first)
+        @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{term}").order(:first) |
+                   User.where("lower(#{col}) LIKE lower(?)", "%#{term}%").order(:first)
       end
     end
     @results
