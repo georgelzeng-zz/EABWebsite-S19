@@ -43,7 +43,11 @@
               %h3 #{@user.first} #{@user.last}
           %tr
             %td.profileMajor{ style: 'font-size: 20px;' }
-              %h5 #{@user.major}
+              %h5 Major: #{@user.major}
+          %tr
+            %td.profileYear{ style: 'font-size: 17px;' }
+              Year:
+              = @user.year
           %tr
             %td.profileTeam{ style: 'font-size: 17px;' }
               Team:
@@ -64,21 +68,21 @@
             %td.profileEmail{ style: 'font-size: 17px;' }
               Skills: #{@user.skillset}
 
-%ul#details
-  %li
-    Team:
-    = @user.team
-  %li
-    Email:
-    - if current_user.admin?
-      = @user.email
-    -else
-      = "      "
-      = @emailName
-      = image_tag "atSymbol.jpg", :size => "20x20"
-      = @emailHost
-      = image_tag "period.png",  :size => "20x20"
-      = @emailDomain
+-#%ul#details
+-#  %li
+-#    Team:
+-#    = @user.team
+-#  %li
+-#    Email:
+-#    - if current_user.admin?
+-#      = @user.email
+-#    -else
+-#      = "      "
+-#      = @emailName
+-#      = image_tag "atSymbol.jpg", :size => "20x20"
+-#      = @emailHost
+-#      = image_tag "period.png",  :size => "20x20"
+-#      = @emailDomain
 
 
 = link_to 'Back', users_path
