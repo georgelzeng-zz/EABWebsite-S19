@@ -63,11 +63,11 @@
         %td= user.privileges
         %td= link_to "More about #{user.first}", user_path(user)
 
-= form_tag(change_registration_code_path, :method => 'PATCH') do
+= form_tag(change_code_path(access_level: "regular"), :method => 'PATCH') do
   = text_field_tag(:registration_code, Code.regular_code)
   = submit_tag "Change Regular Access Code", name: nil
 
-= form_tag(change_admin_code_path, :method => 'PATCH') do
+= form_tag(change_code_path(access_level: "admin"), :method => 'PATCH') do
   = text_field_tag(:admin_code, Code.admin_code)
   = submit_tag "Change Admin Access Code", name: nil
 

@@ -87,6 +87,8 @@ class User < ActiveRecord::Base
     @results
   end
 
+  #
+
   ##Methods dealing with download-roster
   @@xml_columns = ["first", "last", "team", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
 
