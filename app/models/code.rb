@@ -2,10 +2,11 @@ class Code < ActiveRecord::Base
   validates :code_type, uniqueness: true
   validates :code, uniqueness: true
   validate :correct_type
+  @@valid_access_levels = ["regular", "admin"]
 
   ##Custom validation methods
   def correct_type
-    if self.code_type != "regular" && self.code_type != "admin"
+    unless @@valid_access_levels.include? self.code_type
       errors.add(:code_type, "-- Not valid access code type")
     end
   end
@@ -39,6 +40,10 @@ class Code < ActiveRecord::Base
 
   def self.admin_code
     Code.get_code("admin")
+  end
+
+  def self.valid_access_levels
+    @@valid_access_levels
   end
 
   ##Setter_method

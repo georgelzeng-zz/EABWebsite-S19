@@ -43,17 +43,17 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with search
-  @member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
-  @admin_only = ["email", "sid", "code"]
+  @@member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
+  @@admin_only = ["email", "sid", "code"]
 
   # Search by keyword, phrase or alphabetically order by first name by default
   def self.search(search, admin)
     if !search.blank?
-      @results = []
+      @@results = []
       if !search.strip.include? " "
-        @results = self.search_keyword(search, admin)
+        @@results = self.search_keyword(search, admin)
       else
-        @results = self.search_phrase(search, admin)
+        @@results = self.search_phrase(search, admin)
       end
     else
       all.order(:first)
@@ -62,29 +62,33 @@ class User < ActiveRecord::Base
 
   # Search keyword within respective member or admin fields
   def self.search_keyword(search, admin)
-    permissions = admin ? @member.concat(@admin_only) : @member
-    @results = []
+    permissions = admin ? @@member.concat(@@admin_only) : @@member
+    @@results = []
 
     for col in permissions
-      @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{search}").order(:first) |
-                 User.where("lower(#{col}) LIKE lower(?)", "%#{search}%").order(:first)
+      self.update_results(col, search)
     end
-    @results
+    @@results
   end
 
   # Search for a phrase within respective member or admin fields
   def self.search_phrase(search, admin)
     search = search.split(" ")
-    permissions = admin ? @member.concat(@admin_only) : @member
-    @results = []
+    permissions = admin ? @@member.concat(@@admin_only) : @@member
+    @@results = []
 
     for col in permissions
       for word in search
-        @results = @results | User.where("lower(#{col}) LIKE lower(?)", "#{word}").order(:first) |
-                   User.where("lower(#{col}) LIKE lower(?)", "%#{word}%").order(:first)
+        self.update_results(col, word)
       end
     end
-    @results
+    @@results
+  end
+
+  #generalize updating @results for search
+  def self.update_results(column, search)
+    @@results = @@results | User.where("lower(#{column}) LIKE lower(?)", "#{search}").order(:first) |
+               User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
   end
 
   ##Methods dealing with download-roster

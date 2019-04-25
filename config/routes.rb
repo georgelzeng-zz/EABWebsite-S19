@@ -17,9 +17,7 @@ Rails.application.routes.draw do
 
   get 'users/edit', to: 'users/registrations#edit', as: 'edit_page'
 
-  patch 'code/registration', to: 'users#registration_code', as: 'change_registration_code'
-
-  patch 'code/admin', to: 'users#admin_code', as: 'change_admin_code'
+  patch 'code/:access_level', to: 'users#change_code', as: 'change_code'
 
   get 'admin/download_roster', to: 'users#download_roster', as: 'download_roster'
 

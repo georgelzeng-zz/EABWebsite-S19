@@ -1,11 +1,16 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :home
   before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code, :download_roster]
+  before_action :validate_change_code_params, only: [:change_code]
 
   def authenticate_admin
     unless current_user.admin?
       redirect_to home_path
     end
+  end
+
+  def validate_change_code_params
+    redirect_to home_path unless Code.valid_access_levels.include? params[:access_level]
   end
 
   def home
@@ -50,19 +55,11 @@ class UsersController < ApplicationController
     @user = User.find(id)
   end
 
-  def registration_code
-    begin
-      flash[:notice] = User.change_code("regular", params[:registration_code])
-    rescue ActiveRecord::RecordInvalid => e
-      flash[:notice] = Code.code_uniqueness_message
-    end
+  def change_code
+    newCode = params[:registration_code] || params[:admin_code]
 
-    redirect_to users_admin_path
-  end
-
-  def admin_code
     begin
-      flash[:notice] = User.change_code("admin", params[:admin_code])
+      flash[:notice] = User.change_code(params[:access_level], newCode)
     rescue ActiveRecord::RecordInvalid => e
       flash[:notice] = Code.code_uniqueness_message
     end

@@ -85,18 +85,21 @@
               -#   %i.fab.fa-linkedin
               -#   = "#{user.linkedinLstring}"
 
+              %p.year= "Year: #{user.year}"
+
+              %p.major= "Major: #{user.major}"
 
               %p.skillset= "Skills: #{user.skillset}"
               -# %p= user.privileges
 
-              %a{:href => "www.#{user.facebook}"}
+              %a{:href => "#{user.facebook}"}
                 %i.fab.fa-facebook-square
 
-              %a{:href => "www.#{user.linkedinLstring}"}
+              %a{:href => "#{user.linkedinLstring}"}
                 %i.fab.fa-linkedin
 
 
 
-              -# %a= link_to "More about #{user.first} #{user.last}", user_path(user)
+              = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path
