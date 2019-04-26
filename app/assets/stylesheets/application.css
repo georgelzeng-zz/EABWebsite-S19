@@ -46,11 +46,11 @@
 }
 
 .profile-side-wrapper {
-  background-color: coral;
+  /* background-color: coral; */
 }
 
-.profile-main-wrapper {
-  background-color: lightskyblue;
+.profile-button-wrapper {
+  margin-top: 100px;
 }
 
 
