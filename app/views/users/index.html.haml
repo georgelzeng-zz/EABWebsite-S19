@@ -1,3 +1,5 @@
+
+
 - flash.each do |type, msg|
   %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
     %button.close &times;
@@ -56,8 +58,14 @@
   %h2 Members
 
   = form_tag(users_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
-    = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control])
+    = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
     = submit_tag "Search", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+  :javascript
+    var options = {
+      data: #{@autoComplete}
+    };
+    $("#searchField").easyAutocomplete(options);
+   
 
 
 %div.container
