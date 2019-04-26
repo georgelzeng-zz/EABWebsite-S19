@@ -22,7 +22,6 @@ Scenario: navigate to profile page from users database
   And I follow "Testy McUserton"
   Then I should see "Skills"
   And I should see "Testy McUserton"
-  Then I should see the link "Home"
   And I should not see "SID"
   And I should see "Email"
   And I should see the link "Edit User"
