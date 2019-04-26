@@ -6,7 +6,10 @@ I want to input my information and Michael's code to make an account
 
 
     Scenario: User signs up with valid data
-      When I sign up with valid user data
+      Given I start signing up with valid user data
+      And the current "regular access code" is "regular"
+      And I register my "code" as "regular"
+      And I sign up
       Then I should see a successful sign up message
       
     Scenario: User signs up with invalid email
