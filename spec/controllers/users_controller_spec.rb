@@ -18,7 +18,7 @@ end
 RSpec.describe UsersController, type: :controller do
   #tests for change-access-code feature
   before(:each) do
-    @admin_user = FactoryGirl.create(:admin, {email: "admin@gmail.com", sid: "0", code: Code.admin_code})
+    @admin_user = FactoryBot.create(:admin, {email: "admin@gmail.com", sid: "0", code: Code.admin_code})
     sign_in(@admin_user)
   end
 

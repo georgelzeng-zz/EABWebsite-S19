@@ -1,4 +1,4 @@
-require "factory_girl_rails"
+require "factory_bot_rails"
 #
 
 def create_visitor
@@ -25,13 +25,13 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, @visitor)
+  @user = FactoryBot.create(:user, @visitor)
 end
 
 def create_admin
   create_admin_visitor
   delete_user
-  @user = FactoryGirl.create(:user, @visitor)
+  @user = FactoryBot.create(:user, @visitor)
 end
 
 def delete_user
