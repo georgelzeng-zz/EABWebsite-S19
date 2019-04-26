@@ -23,7 +23,6 @@ Scenario: navigate to profile page from users database
   Then I should see "Skills"
   And I should see "Testy McUserton"
   And I should not see "SID"
-  And I should see "Email"
   And I should see the link "Edit User"
 
 Scenario: navigate to profile page from admin database
