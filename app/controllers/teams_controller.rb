@@ -16,7 +16,13 @@ class TeamsController < ApplicationController
 	  name = params['name']
     description = params['description']
   	password = params['password']
-  	Team.seed_team(current_user.email, name, password)
+
+    if current_user.team == nil
+      Team.seed_team(current_user.email, name, password)
+    else
+      flash[:alert] = "You can only be in one team!"
+    end
+
   	redirect_to teams_path
   end
 end
