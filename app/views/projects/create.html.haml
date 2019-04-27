@@ -1,0 +1,13 @@
+%h1 Create Team Page
+
+= form_tag project_create_path do
+
+  = label :project, 'Name'
+  = text_field :name, 'name'
+
+  = label :project, 'SID'
+  = text_field :admin, 'sid'
+
+  = submit_tag 'Create Team'
+
+= link_to 'Back', projects_path

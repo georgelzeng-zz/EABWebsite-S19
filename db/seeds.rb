@@ -23,3 +23,5 @@ User.create!(first: 'Jennifer', last: 'White', email: 'jennifer123@gmail.com', t
 
 User.create!(first: 'Eric', last: 'Brown', email: 'ebrown@gmail.com', team: 'chair', skillset: 'None', sid: '8241025001', password: 'pancakes', password_confirmation: 'pancakes', code: Code.regular_code)
 User.create!(first: 'Anna', last: 'Smith', email: 'blankityblankbizmark@gmail.com', team: 'chair', skillset: 'None', sid: '38654797', password: 'pancakes', password_confirmation: 'pancakes', code: Code.regular_code)
+
+Project.create!(name: 'kiwi', admin: '88654321')

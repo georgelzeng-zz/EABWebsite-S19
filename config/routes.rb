@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'projects', to: 'projects#index', as: 'projects'
+
+  get 'projects/proj/:id', to: 'projects#show', as: 'project_prof'
+
+  get 'projects/create', to: 'projects#create', as: 'project_create'
+
+  post 'projects/create', to: 'projects#new_project'
+
   #necessary for sessions(login, registration, etc.)
   devise_for :users, controllers: {
     sessions: 'users/sessions',

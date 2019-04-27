@@ -11,6 +11,10 @@ def create_admin_visitor
   :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  Code.admin_code }
 end
 
+def create_project_fields
+  @project = { :name => 'Poopy', :admin => '88654321'}
+end
+
 def find_user
   @user = User.where(:email => @visitor[:email]).first
 end
@@ -32,6 +36,12 @@ def create_admin
   create_admin_visitor
   delete_user
   @user = FactoryBot.create(:user, @visitor)
+end
+
+def create_project
+  create_project_fields
+  delete_project
+  @project = FactoryBot.create(:project, @project)
 end
 
 def delete_user
@@ -59,6 +69,14 @@ def sign_in
   fill_in "user_password", :with => @visitor[:password]
   click_button "Log in"
 end
+
+def sign_in_proj
+  visit '/projects/create'
+  fill_in "name_name", :with => @project[:name]
+  fill_in "admin_sid", :with => @project[:admin]
+  click_button "Create Team"
+end
+
 
 Given /^spam$/ do
   10.times do
@@ -145,6 +163,13 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
 end
 
 ### WHEN ###
+
+When /^I create a project with valid fields$/ do
+  create_project_fields
+  sign_in_proj
+  end
+
+
 When /^I sign in with valid credentials$/ do
   create_visitor
   sign_in
@@ -298,6 +323,7 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I fill in "#{textField}" with "#{code}"}
   step %{I press "Change #{code_type}"}
 end
+
 
 ### THEN ###
 Then /^I should be an admin$/ do
