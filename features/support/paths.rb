@@ -31,8 +31,8 @@ module NavigationHelpers
     when /^the login page$/
       '/users/sign_in'
 
-    when /^the project creation page$/
-      '/projects/create'
+    when /^the team creation page$/
+      '/teams/create'
 
     else
       begin

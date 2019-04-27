@@ -12,10 +12,11 @@ class TeamsController < ApplicationController
   def create
   end
 
-  def new_project
-	  name = params['name']['name']
-  	sid = params['admin']['admin']
-  	Team.create!(name: name, admin: sid)
-  	redirect_to projects_path
+  def new_team
+	  name = params['name']
+    description = params['description']
+  	password = params['password']
+  	Team.seed_team(current_user.email, name, password)
+  	redirect_to teams_path
   end
 end

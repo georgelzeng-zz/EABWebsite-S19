@@ -17,18 +17,15 @@ User.create!(first: 'Jennifer', last: 'White', email: 'jennifer123@gmail.com', s
 
 User.create!(first: 'Anna', last: 'Smith', email: 'blankityblankbizmark@gmail.com', skillset: 'None', sid: '38654797', password: 'pancakes', password_confirmation: 'pancakes', code: Code.regular_code)
 
-def seed_team(leaders_email, team_name)
-  team_leader = User.find_by email: leaders_email
-  new_team = Team.create!(name: team_name, user_id: team_leader.id, password: "pancakes")
-  team_leader.update!(team_id: new_team.id)
-  return new_team
+def seed_team_pancakes(leaders_email, team_name)
+  return Team.seed_team(leaders_email, team_name, "pancakes")
 end
 
-team_kiwi = seed_team("kylengo357@berkeley.edu", "kiwi")
-team_dog = seed_team("kylengo357@gmail.com", "dog")
-team_red = seed_team("jonhill@gmail.com", "red team")
-team_blue = seed_team("jennifer123@gmail.com", "blue team")
-team_chair = seed_team("blankityblankbizmark@gmail.com", "chair")
+team_kiwi = seed_team_pancakes("kylengo357@berkeley.edu", "kiwi")
+team_dog = seed_team_pancakes("kylengo357@gmail.com", "dog")
+team_red = seed_team_pancakes("jonhill@gmail.com", "red team")
+team_blue = seed_team_pancakes("jennifer123@gmail.com", "blue team")
+team_chair = seed_team_pancakes("blankityblankbizmark@gmail.com", "chair")
 
 User.create!(first: 'George', last: 'Zeng', email: 'georgelzeng@berkeley.edu', team_id: team_kiwi.id, skillset: 'None', sid: '88654321', password: 'pancakes', password_confirmation: 'pancakes', code: Code.admin_code)
 User.create!(first: 'Mihir', last: 'Chitalia', email: 'mihirchitalia@berkeley.edu', team_id: team_kiwi.id, skillset: 'None', sid: '87634321', password: 'pancakes', password_confirmation: 'pancakes', code: Code.admin_code)

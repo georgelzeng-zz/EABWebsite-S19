@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   get 'teams', to: 'teams#index', as: 'teams'
 
-  get 'teams/:id', to: 'teams#show', as: 'team'
+  get 'teams/show/:id', to: 'teams#show', as: 'team'
 
   get 'teams/create', to: 'teams#create', as: 'team_create'
 

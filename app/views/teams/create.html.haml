@@ -3,13 +3,13 @@
 = form_tag team_create_path do
 
   = label :team, 'Name'
-  = text_field :name, 'name'
+  = text_field_tag 'name'
 
   = label :team, 'Description'
-  = text_field :description, 'optional'
+  = text_field_tag 'description'
 
   = label :team, 'Password'
-  = text_field :password, 'optional'
+  = text_field_tag 'password'
 
   = submit_tag 'Create Team'
 
