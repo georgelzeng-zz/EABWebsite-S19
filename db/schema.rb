@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190427193456) do
+ActiveRecord::Schema.define(version: 20190427213816) do
 
   create_table "codes", force: :cascade do |t|
     t.string   "code_type"
@@ -20,17 +20,24 @@ ActiveRecord::Schema.define(version: 20190427193456) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "teams", force: :cascade do |t|
     t.string   "name"
-    t.string   "admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "description"
+    t.string   "password"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "user_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
+
+  add_index "teams", ["user_id"], name: "index_teams_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "first"
     t.string   "last"
-    t.string   "team"
     t.string   "major"
     t.string   "skillset"
     t.string   "sid"
@@ -50,9 +57,11 @@ ActiveRecord::Schema.define(version: 20190427193456) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.integer  "team_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["team_id"], name: "index_users_on_team_id"
 
 end

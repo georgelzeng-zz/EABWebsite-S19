@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates_attachment_size :image, :less_than => 5.megabytes
 
+  belongs_to :team
 
   @@roster_file_name = "EAB_roster.xml"
   @@roster_file_directory = Rails.root.to_s

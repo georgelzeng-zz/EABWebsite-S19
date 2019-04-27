@@ -1,21 +1,21 @@
-class ProjectsController < ApplicationController
+class TeamsController < ApplicationController
   def index
   	@message = "Hello, #{current_user.first}!"
-    @projects = Project.all.each
+    @teams = Team.all
   end
 
   def show
   	id = params[:id]
-    @project = Project.find(id)
+    @team = Team.find(id)
   end
 
   def create
   end
 
   def new_project
-	name = params['name']['name']
+	  name = params['name']['name']
   	sid = params['admin']['admin']
-  	Project.create!(name: name, admin: sid)
+  	Team.create!(name: name, admin: sid)
   	redirect_to projects_path
   end
 end

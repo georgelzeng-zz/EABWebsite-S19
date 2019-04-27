@@ -73,7 +73,7 @@
 
             %div.user-tile-info
               %h4= "#{user.first} #{user.last}"
-              %p.team= user.team
+              %p.team= user.team.name
 
               -# %a= link_to %i.fab.fa-facebook-square, user.facebook
 
@@ -103,4 +103,4 @@
               = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path
-= link_to 'Teams', projects_path
+= link_to 'Teams', teams_path
