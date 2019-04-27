@@ -28,6 +28,13 @@ class UsersController < ApplicationController
   def index
     @message = "Hello, #{current_user.first}!"
     @users = User.search(params[:search], false)
+    @autoComplete = Array.new()
+    @users.each do |user|
+      s = user.first
+      s = s + " " + user.last
+      @autoComplete.push(s)
+    end
+   
     if @users.empty? & params[:search].nil?
       redirect_to users_path
     end
