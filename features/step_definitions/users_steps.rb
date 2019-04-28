@@ -106,7 +106,6 @@ Given /^I am logged in as "(.*)"$/ do |userType|
   case userType
   when "a regular user"
     @code = Code.regular_code
-    p "REGULAR USER CODE #{@code}"
   when "an admin"
     @code = Code.admin_code
   end
