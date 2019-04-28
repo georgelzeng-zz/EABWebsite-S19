@@ -12,7 +12,7 @@ def create_admin_visitor
 end
 
 def create_team_fields
-  @team = { :name => 'Poopy', :user_id => @user.id, :password => "123456"}
+  @team = { :name => 'Poppy', :user_id => @user.id, :password => "123456"}
 end
 
 def find_user

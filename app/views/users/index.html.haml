@@ -16,38 +16,13 @@
           %a.nav-link#user-link{:href => user_path(current_user)}
             = image_tag current_user.image.url
             -# = image_tag current_user.image.url(:small)
-            #{current_user.first} #{current_user.last}
+            #{current_user.first}
 
         &nbsp &nbsp &nbsp
 
         %li.nav-item
           %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
 
-
--# %table{:border => 0}
--#   %tbody
--#     %tr
--#       %td
--#         %h1= link_to 'Entrepreneurs @ Berkeley', home_path
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         = link_to 'Login', new_user_session_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Create New Account', new_user_registration_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Logout', destroy_user_session_path, :method => :delete
--#         &nbsp &nbsp
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         &nbsp &nbsp
--#       %td
--#         = image_tag(current_user.image.url(:small))
--#       %td
--#         = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
 - if current_user.admin?
   =link_to 'Admin View', users_admin_path
@@ -74,16 +49,6 @@
             %div.user-tile-info
               %h4= "#{user.first} #{user.last}"
               %p.team= user.team_name
-
-              -# %a= link_to %i.fab.fa-facebook-square, user.facebook
-
-              -#
-              -# %p.fb
-              -#   %i.fab.fa-facebook-square
-              -#   = "#{user.facebook}"
-              -# %p.linkedin
-              -#   %i.fab.fa-linkedin
-              -#   = "#{user.linkedinLstring}"
 
               %p.year= "Year: #{user.year}"
 
