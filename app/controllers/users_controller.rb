@@ -45,7 +45,7 @@ class UsersController < ApplicationController
 
   def admin_index
     @message = "Hello, #{current_user.first}!"
-    @users = User.search(params[:search], true)
+    @users = User.search(params[:search], true) || User.order(params[:sort])
     if @users.empty? & params[:search].nil?
       redirect_to users_admin_path
     end

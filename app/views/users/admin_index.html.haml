@@ -36,8 +36,8 @@
 %table.table-striped.col-md-10#users
   %thead
     %tr
-      %th First
-      %th Last
+      %th= link_to "First", :sort => :first
+      %th= link_to "Last", :sort => :last
       %th Email
       %th Team
       %th Skillset
