@@ -111,6 +111,16 @@ Given /^I am logged in as "(.*)"$/ do |userType|
   sign_up
 end
 
+Given /^I am logged in as the user with email "(.*)"$/ do |email|
+  step %{I am not logged in}
+  step %{I am on the login page}
+  @user = User.find_by email: email
+  fill_in "user_email", :with => email
+  fill_in "user_password", :with => "123456"
+  click_button "Log in"
+  step %{I should be on the Database page}
+end
+
 Given /^I exist as a user$/ do
   create_user
 

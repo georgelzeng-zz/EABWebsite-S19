@@ -1,4 +1,6 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
   	@message = "Hello, #{current_user.first}!"
     @teams = Team.all

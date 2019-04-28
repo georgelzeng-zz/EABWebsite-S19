@@ -28,6 +28,9 @@ module NavigationHelpers
     when /^the Database page$/
       '/users'
 
+    when /^the Team Database page$/
+      '/teams'
+
     when /^the login page$/
       '/users/sign_in'
 
