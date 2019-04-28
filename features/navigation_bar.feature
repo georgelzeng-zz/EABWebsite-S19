@@ -19,7 +19,8 @@ Scenario: navigate to homepage from admin database
 Scenario: navigate to profile page from users database
   Given I am logged in as "a regular user"
   When I go to the Database page
-  And I follow "Testy"
+  And I follow "More"
+  And I follow "View Profile"
   Then I should see "Skills"
   And I should see "Testy McUserton"
   Then I should see the link "Home"
@@ -39,6 +40,7 @@ Scenario: navigate to profile page from admin database
 Scenario: navigate to home from profile page
   Given I am logged in as "a regular user"
   When I go to the Database page
-  And I follow "Testy"
+  And I follow "More"
+  And I follow "View Profile"
   And I follow "Entrepreneurs @ Berkeley"
   Then I should be on the homepage
