@@ -9,7 +9,7 @@ Scenario: User creates a team
   Given I am on the team creation page
   And I am logged in as "a regular user"
   When I create a team with valid fields
-  Then I should see "Poopy"
+  Then I should see "Poppy"
 
 Scenario: User tries to create a team when already in a team
   Given the following users exist
