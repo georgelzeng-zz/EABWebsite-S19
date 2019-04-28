@@ -1,0 +1,3 @@
+version: "2"
+exclude_patterns:
+ - "app/assets/javascripts/jquery.easy-autocomplete.js"  
