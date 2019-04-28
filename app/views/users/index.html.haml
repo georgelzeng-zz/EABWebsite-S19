@@ -15,7 +15,7 @@
       %ul.navbar-nav.mr-auto
 
         %li.nav-item
-          %a.nav-link{:href => projects_path} Teams
+          %a.nav-link{:href => teams_path} Teams
 
         %li.nav-item
           %a.nav-link{:href => users_path, :method => :get} Search Users
@@ -99,4 +99,4 @@
               -# = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path
-= link_to 'Teams', projects_path
+= link_to 'Teams', teams_path

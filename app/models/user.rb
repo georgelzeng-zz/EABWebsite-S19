@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates_attachment_size :image, :less_than => 5.megabytes
 
+  belongs_to :team
+
+  scope :search_team_name, lambda { |search|
+    joins(:team).where("lower(name) LIKE lower(?)", "%#{search}%").order(:first)}
 
   @@roster_file_name = "EAB_roster.xml"
   @@roster_file_directory = Rails.root.to_s
@@ -89,8 +93,13 @@ class User < ActiveRecord::Base
 
   #generalize updating @results for search
   def self.update_results(column, search)
-    @@results = @@results | User.where("lower(#{column}) LIKE lower(?)", "#{search}").order(:first) |
-               User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
+    if column == "team"
+      find = User.search_team_name(search)
+    else
+      find = User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
+    end
+
+    @@results = @@results | find
   end
 
   ##Methods dealing with download-roster
@@ -138,5 +147,12 @@ class User < ActiveRecord::Base
 
   def self.roster_file_name
     @@roster_file_name
+  end
+
+  ##methods dealing with teams
+
+  #for calling in index.html
+  def team_name
+    self.team == nil ? "" : self.team.name
   end
 end

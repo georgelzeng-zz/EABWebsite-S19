@@ -28,11 +28,14 @@ module NavigationHelpers
     when /^the Database page$/
       '/users'
 
+    when /^the Team Database page$/
+      '/teams'
+
     when /^the login page$/
       '/users/sign_in'
 
-    when /^the project creation page$/
-      '/projects/create'
+    when /^the team creation page$/
+      '/teams/create'
 
     else
       begin

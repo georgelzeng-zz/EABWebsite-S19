@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  get 'projects', to: 'projects#index', as: 'projects'
-
-  get 'projects/proj/:id', to: 'projects#show', as: 'project_prof'
-
-  get 'projects/create', to: 'projects#create', as: 'project_create'
-
-  post 'projects/create', to: 'projects#new_project'
-
   #necessary for sessions(login, registration, etc.)
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -28,6 +20,14 @@ Rails.application.routes.draw do
   patch 'code/:access_level', to: 'users#change_code', as: 'change_code'
 
   get 'admin/download_roster', to: 'users#download_roster', as: 'download_roster'
+
+  get 'teams', to: 'teams#index', as: 'teams'
+
+  get 'teams/show/:id', to: 'teams#show', as: 'team'
+
+  get 'teams/create', to: 'teams#create', as: 'team_create'
+
+  post 'teams/create', to: 'teams#new_team', as: 'new_team'
 
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
