@@ -34,10 +34,6 @@ class UsersController < ApplicationController
       s = s + " " + user.last
       @autoComplete.push(s)
     end
-    puts("sadflasdhflqerwqerh;laskdj;lasjf;laksjfla;skjdf;alsdjf;laksdjf;lasjdf;laskjdf;lasjdf;lkasjdf;lakjsdf;lajsd;fljas;dlfjas;dlfkjas;lfj")
-    @autoComplete.each do |user|
-      puts(user)
-    end
     if @users.empty? & params[:search].nil?
       redirect_to users_path
     end
