@@ -12,7 +12,7 @@
           %a.nav-link#user-link{:href => user_path(current_user)}
             = image_tag current_user.image.url
             -# = image_tag current_user.image.url(:small)
-            #{current_user.first} #{current_user.last}
+            #{current_user.first}
 
         &nbsp &nbsp &nbsp
 
@@ -88,7 +88,7 @@
 = link_to 'Back', users_path
 
 - if current_user.id == @user.id
-  = link_to 'Edit User', edit_page_path(@user)
+  = link_to 'Edit Account', edit_page_path(@user)
 
 - if current_user.admin?
   = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete
