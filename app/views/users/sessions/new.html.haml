@@ -31,6 +31,7 @@
 
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              More
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
               %a.dropdown-item{:href => user_path(current_user)} View Profile
               %a.dropdown-item{:href => edit_page_path(current_user)} Edit Profile
@@ -47,7 +48,7 @@
         .field
           = f.label :email
           %br/
-          = f.email_field :email, :placeholder => "ex. mihir@berkeley.edu", autofocus: true, autocomplete: "email", class: %w[input form-control session-input]
+          = f.email_field :email, :placeholder => "ex. michael@berkeley.edu", autofocus: true, autocomplete: "email", class: %w[input form-control session-input]
 
         .field
           = f.label :password

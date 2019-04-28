@@ -1,7 +1,7 @@
--# - flash.each do |type, msg|
--#   %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
--#     %button.close &times;
--#     = msg if msg.is_a?(String)
+- flash.each do |type, msg|
+  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
+    %button.close &times;
+    = msg if msg.is_a?(String)
 
 
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
@@ -37,6 +37,7 @@
 
           %li.nav-item.dropdown
             %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              More
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
               %a.dropdown-item{:href => user_path(current_user)} View Profile
               %a.dropdown-item{:href => edit_page_path(current_user)} Edit Profile
