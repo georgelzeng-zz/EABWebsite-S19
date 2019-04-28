@@ -59,7 +59,7 @@ def sign_up
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
   fill_in "user_code", :with => @visitor[:code]
-  click_button "Sign up"
+  click_button "Create Account"
   find_user
 end
 
@@ -82,14 +82,18 @@ Given /^spam$/ do
   10.times do
     visit '/users/password/new'
     step %{fill in "user_email" with "blankityblankbizmark@gmail.com"}
-    step %{press "Send me reset password instructions"}
+    step %{press "Email me reset password instructions"}
   end
 end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
   visit '/'
-  step %{follow "Logout"}
+
+  if page.has_content?("Logout")
+    step %{follow "More"}
+    step %{follow "Logout"}
+  end
 end
 
 Given /^I am logged in$/ do
