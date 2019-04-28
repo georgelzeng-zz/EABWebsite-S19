@@ -5,36 +5,39 @@
       %span.navbar-toggler-icon
 
     #navbarSupportedContent.collapse.navbar-collapse
+
+      %ul.navbar-nav.mr-auto
+
+        %li.nav-item
+          %a.nav-link{:href => projects_path} Teams
+
+        %li.nav-item
+          %a.nav-link{:href => users_path, :method => :get} Search Users
+
       %ul.navbar-nav.ml-auto
 
         - if !user_signed_in?
           %li.nav-item
             %a.nav-link{:href => new_user_session_path} Login
-        - if !user_signed_in?
+
           %li.nav-item
             %a.nav-link{:href => new_user_registration_path} Create New Account
-      
-        %li.nav-item
-          %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
 
+        - if user_signed_in?
+          %li.nav-item
+            %a.nav-link#user-link{:href => user_path(current_user)}
+              = image_tag current_user.image.url
+              #{current_user.first} #{current_user.last}
 
--# %table{:border => 0}
--#   %tbody
--#     %tr
--#       %td
--#         %h1.lol Entrepreneurs @ Berkeley
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         = link_to 'Login', new_user_session_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Create New Account', new_user_registration_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Logout', destroy_user_session_path, :method => :delete
--#         &nbsp &nbsp
+          %li.nav-item.dropdown
+            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+              %a.dropdown-item{:href => user_path(current_user)} View Profile
+              %a.dropdown-item{:href => edit_page_path(current_user)} Edit Profile
+              .dropdown-divider
+              %a.dropdown-item{:href => destroy_user_session_path, "data-method" => "delete"} Logout
 
+              
 = javascript_include_tag "application"
 
 
@@ -44,6 +47,3 @@
   = @message
 
 = button_to 'Search Users', users_path(), :method => :get
-
-/ home page content to fill in later.
-/ can be static
