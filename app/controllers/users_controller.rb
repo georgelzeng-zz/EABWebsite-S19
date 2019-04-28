@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       s = s + " " + user.last
       @autoComplete.push(s)
     end
-   
+
     if @users.empty? & params[:search].nil?
       redirect_to users_path
     end
