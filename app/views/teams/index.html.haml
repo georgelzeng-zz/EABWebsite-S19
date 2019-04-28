@@ -28,23 +28,27 @@
       %td
         = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
-
 %div.container
   %h2 All Teams
 
-%table.table-striped.col-md-10#teams
-  %thead
-    %tr
-      %th Name
-      %th Profile
+%div.container
+  - @teams.each_slice(4) do |slice|
+    %div.row
+      - slice.each do |team|
+        %div.team-tile-wrapper.col-sm-12.col-md-3
+          %div.team-tile
 
-  %tbody
-    - @projects.each do |project|
-      %tr
-        %td= project.name
-        %td= link_to "More about #{project.name}", project_prof_path(project)
+            %div.team-tile-img{:style => "background-image: url('#{team.image.url}')"}
+              -# %div.team-tile-img-overlay
 
 
+            %div.team-tile-info
+              %h4= "#{team.name}"
+              %p.leader= "Leader: #{team.leader.first} #{team.leader.last}"
+
+              %p.size= "Size: #{team.members.length}"
+
+              = link_to "More about #{team.name}", team_path(team)
 
 = link_to 'Back', users_path
-= link_to 'Create Team', project_create_path
+= link_to 'Create Team', team_create_path

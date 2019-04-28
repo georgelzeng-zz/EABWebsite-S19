@@ -11,8 +11,8 @@ def create_admin_visitor
   :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  Code.admin_code }
 end
 
-def create_project_fields
-  @project = { :name => 'Poopy', :admin => '88654321'}
+def create_team_fields
+  @team = { :name => 'Poopy', :user_id => @user.id, :password => "123456"}
 end
 
 def find_user
@@ -38,10 +38,10 @@ def create_admin
   @user = FactoryBot.create(:user, @visitor)
 end
 
-def create_project
-  create_project_fields
-  delete_project
-  @project = FactoryBot.create(:project, @project)
+def create_team
+  create_team_fields
+  delete_team
+  @team = FactoryBot.create(:team, @team)
 end
 
 def delete_user
@@ -70,10 +70,10 @@ def sign_in
   click_button "Log in"
 end
 
-def sign_in_proj
-  visit '/projects/create'
-  fill_in "name_name", :with => @project[:name]
-  fill_in "admin_sid", :with => @project[:admin]
+def sign_in_team
+  visit '/teams/create'
+  fill_in "name", :with => @team[:name]
+  fill_in "password", :with => @team[:password]
   click_button "Create Team"
 end
 
@@ -111,6 +111,16 @@ Given /^I am logged in as "(.*)"$/ do |userType|
   sign_up
 end
 
+Given /^I am logged in as the user with email "(.*)"$/ do |email|
+  step %{I am not logged in}
+  step %{I am on the login page}
+  @user = User.find_by email: email
+  fill_in "user_email", :with => email
+  fill_in "user_password", :with => "123456"
+  click_button "Log in"
+  step %{I should be on the Database page}
+end
+
 Given /^I exist as a user$/ do
   create_user
 
@@ -127,8 +137,20 @@ Given /^the following users exist$/ do |users_table|
     code
   end
 
+  team_names = Set.new
+
   users_table.hashes.each do |user|
-    User.create!(user)
+    team_name = user['team']
+    user['team'] = nil
+
+    if team_names.include? team_name
+      user['team_id'] = Team.find_by(name: team_name).id
+      User.create!(user)
+    else
+      User.create!(user)
+      Team.seed_team(user['email'], team_name, '123456')
+      team_names.add(team_name)
+    end
   end
 end
 
@@ -164,9 +186,9 @@ end
 
 ### WHEN ###
 
-When /^I create a project with valid fields$/ do
-  create_project_fields
-  sign_in_proj
+When /^I create a team with valid fields$/ do
+  create_team_fields
+  sign_in_team
   end
 
 
