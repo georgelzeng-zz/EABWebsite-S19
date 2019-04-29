@@ -1,0 +1,39 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %div.container
+    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
+    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+      %span.navbar-toggler-icon
+
+    #navbarSupportedContent.collapse.navbar-collapse
+
+      %ul.navbar-nav.mr-auto
+
+        %li.nav-item
+          %a.nav-link{:href => teams_path} Teams
+
+        %li.nav-item
+          %a.nav-link{:href => users_path, :method => :get} Search Users
+
+      %ul.navbar-nav.ml-auto
+
+        - if !user_signed_in?
+          %li.nav-item
+            %a.nav-link{:href => new_user_session_path} Login
+
+          %li.nav-item
+            %a.nav-link{:href => new_user_registration_path} Create New Account
+
+        - if user_signed_in?
+          %li.nav-item
+            %a.nav-link#user-link{:href => user_path(current_user)}
+              = image_tag current_user.image.url
+              #{current_user.first} #{current_user.last}
+
+          %li.nav-item.dropdown
+            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              More
+            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+              %a.dropdown-item{:href => user_path(current_user)} View Profile
+              %a.dropdown-item{:href => edit_page_path(current_user)} Edit Profile
+              .dropdown-divider
+              %a.dropdown-item{:href => destroy_user_session_path, "data-method" => "delete"} Logout

@@ -1,28 +1,14 @@
 = javascript_include_tag "application"
 
+.content
+  = render :partial => 'nav_bar', :locals => { :current_user => current_user }
+
+
 - flash.each do |type, msg|
   %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
     %button.close &times;
     = msg if msg.is_a?(String)
 
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %div.container
-    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
-
-    #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navbar-nav.ml-auto
-        %li.nav-item
-          %a.nav-link#user-link{:href => user_path(current_user)}
-            = image_tag current_user.image.url
-            -# = image_tag current_user.image.url(:small)
-            #{current_user.first}
-
-        &nbsp &nbsp &nbsp
-
-        %li.nav-item
-          %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
 
 - if current_user.admin?
   =link_to 'Regular View', users_path
@@ -54,7 +40,7 @@
         %td= user.first
         %td= user.last
         %td= user.email
-        %td= user.team
+        %td= user.team_name
         %td= user.skillset
         %td= user.sid
         %td= user.major
