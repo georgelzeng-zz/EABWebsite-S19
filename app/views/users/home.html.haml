@@ -12,7 +12,7 @@
           %a.nav-link{:href => teams_path} Teams
 
         %li.nav-item
-          %a.nav-link{:href => users_path, :method => :get} Search Users
+          %a.nav-link{:href => users_path, :method => :get} Members
 
       %ul.navbar-nav.ml-auto
 
@@ -45,4 +45,4 @@
 %ul#details
   = @message
 
-= button_to 'Search Users', users_path(), :method => :get
+= button_to 'Members', users_path(), :method => :get
