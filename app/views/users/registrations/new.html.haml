@@ -1,0 +1,63 @@
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
+
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
+.container-fluid.session-container
+  .row
+    .col
+    .form-wrapper.col-md-5.col-10
+      %h2 Create a New Account
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), class: %w[form form-inline my-2 my-lg-0]) do |f|
+        = render "devise/shared/error_messages", resource: resource
+
+        .container.actions
+          .row
+            .field.col-6
+              = f.label :first_name
+              %br/
+              = f.text_field :first, :placeholder => "ex. Michael", autofocus: true, class: %w[input form-control session-input]
+            .field.col
+              = f.label :last_name
+              %br/
+              = f.text_field :last, :placeholder => "ex. Wu", autofocus: true, class: %w[input form-control session-input]
+
+        .container.actions
+          .row
+            .field.col-7
+              = f.label :email
+              %br/
+              = f.email_field :email, :placeholder => "ex. michael@berkeley.edu", autofocus: true, autocomplete: "email", class: %w[input form-control session-input]
+            .field.col
+              = f.label :sid
+              %br/
+              = f.text_field :sid, :placeholder => "ex. 123456789", autofocus: true, class: %w[input form-control session-input]
+
+        .field
+          = f.label :password
+          - if @minimum_password_length
+            %em
+              (#{@minimum_password_length} characters minimum)
+          %br/
+          = f.password_field :password, autocomplete: "new-password", class: %w[input form-control session-input]
+        .field
+          = f.label :password_confirmation
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: %w[input form-control session-input]
+
+        .container.actions
+          .row
+            .field.col-5
+              = f.label :access_code
+              %br/
+              = f.text_field :code, :placeholder => "Don't share this!", autofocus: true, class: %w[input form-control session-input]
+
+        .container.actions
+          .row
+            .col-8
+              = f.submit "Create Account", class: %w[btn btn-primary]
+            .col
+              %a{:href => home_path, class: %w[btn btn-light]} Cancel
+      = render "users/shared/links"
+    .col

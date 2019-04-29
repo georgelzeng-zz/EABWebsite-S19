@@ -1,46 +1,10 @@
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %div.container
-    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
-
-    #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navbar-nav.ml-auto
-
-        %li.nav-item
-          %a.nav-link{:href => new_user_session_path} Login
-        %li.nav-item
-          %a.nav-link{:href => new_user_registration_path} Create New Account
-        %li.nav-item
-          %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
-
-
--# %table{:border => 0}
--#   %tbody
--#     %tr
--#       %td
--#         %h1.lol Entrepreneurs @ Berkeley
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         = link_to 'Login', new_user_session_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Create New Account', new_user_registration_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Logout', destroy_user_session_path, :method => :delete
--#         &nbsp &nbsp
-
 = javascript_include_tag "application"
 
-
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
 
 %ul#details
   = @message
 
-= button_to 'Search Users', users_path(), :method => :get
-
-/ home page content to fill in later.
-/ can be static
+= button_to 'Members', users_path(), :method => :get

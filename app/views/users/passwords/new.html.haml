@@ -1,0 +1,21 @@
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
+
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
+.container-fluid.session-container
+  .row
+    .col
+    .form-wrapper.col-md-4.col-10
+      %h2 Password Reset
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, class: %w[form form-inline my-2 my-lg-0]) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        .field
+          = f.label :email
+          %br/
+          = f.email_field :email, :placeholder => "michael@berkeley.edu", autofocus: true, autocomplete: "email", class: %w[input form-control session-input]
+        .actions
+          = f.submit "Email me reset password instructions", class: %w[btn btn-secondary]
+      = render "users/shared/links"
+    .col

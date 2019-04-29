@@ -1,0 +1,35 @@
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
+
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
+.container-fluid.session-container
+  .row
+    .col
+    .form-wrapper.col-md-4.col-10
+      %h2 Log in
+      = form_for(resource, as: resource_name, url: session_path(resource_name), class: %w[form form-inline my-2 my-lg-0]) do |f|
+        .field
+          = f.label :email
+          %br/
+          = f.email_field :email, :placeholder => "ex. michael@berkeley.edu", autofocus: true, autocomplete: "email", class: %w[input form-control session-input]
+
+        .field
+          = f.label :password
+          %br/
+          = f.password_field :password, :placeholder => "ex. 123456", autocomplete: "current-password", class: %w[input form-control session-input]
+
+        - if devise_mapping.rememberable?
+          .field
+            = f.check_box :remember_me
+            = f.label :remember_me
+
+        .container.actions
+          .row
+            .col-8
+              = f.submit "Log in", class: %w[btn btn-primary]
+            .col
+              %a{:href => home_path, class: %w[btn btn-light]} Cancel
+      = render "users/shared/links"
+    .col

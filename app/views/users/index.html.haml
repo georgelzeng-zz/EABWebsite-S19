@@ -1,53 +1,10 @@
-- flash.each do |type, msg|
-  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
-    %button.close &times;
-    = msg if msg.is_a?(String)
 
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %div.container
-    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
-    #navbarSupportedContent.collapse.navbar-collapse
-      %ul.navbar-nav.ml-auto
-        %li.nav-item
-          %a.nav-link#user-link{:href => user_path(current_user)}
-            = image_tag current_user.image.url
-            -# = image_tag current_user.image.url(:small)
-            #{current_user.first} #{current_user.last}
-
-        &nbsp &nbsp &nbsp
-
-        %li.nav-item
-          %a.nav-link{:href => destroy_user_session_path, "data-method" => "delete"} Logout
-
-
--# %table{:border => 0}
--#   %tbody
--#     %tr
--#       %td
--#         %h1= link_to 'Entrepreneurs @ Berkeley', home_path
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         = link_to 'Login', new_user_session_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Create New Account', new_user_registration_path
--#         &nbsp &nbsp
--#       %td
--#         = link_to 'Logout', destroy_user_session_path, :method => :delete
--#         &nbsp &nbsp
--#       %td
--#         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
--#       %td
--#         &nbsp &nbsp
--#       %td
--#         = image_tag(current_user.image.url(:small))
--#       %td
--#         = link_to "#{current_user.first} #{current_user.last}", user_path(current_user)
 
 - if current_user.admin?
   =link_to 'Admin View', users_admin_path
@@ -56,50 +13,36 @@
   %h2 Members
 
   = form_tag(users_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
-    = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control])
+    = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
     = submit_tag "Search", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
-
+  :javascript
+    var list = #{raw @autoComplete};
+    var json = [];
+    for (var i = 0; i < list.length; i++) {
+      var dict = {};
+      dict["name"] = list[i];
+      json.push(dict)
+    }
+    var options = {
+      data: json,
+      getValue: "name",
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+    $("#searchField").easyAutocomplete(options);
 
 %div.container
-  - @users.each_slice(4) do |slice|
-    %div.row
-      - slice.each do |user|
-        %div.user-tile-wrapper.col-sm-12.col-md-3
-          %div.user-tile
+  %h6= sortable "first", "First"
+  %h6= sortable "last", "Last"
+  %h6= sortable "team", "Team"
+  %h6= sortable "major", "Major"
+  %h6= sortable "year", "Year"
 
-            %div.user-tile-img{:style => "background-image: url('#{user.image.url}')"}
-              -# %div.user-tile-img-overlay
-              -#   %p= "More about #{user.first} #{user.last}"
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => @users}
 
-            %div.user-tile-info
-              %h4= "#{user.first} #{user.last}"
-              %p.team= user.team
-
-              -# %a= link_to %i.fab.fa-facebook-square, user.facebook
-
-              -#
-              -# %p.fb
-              -#   %i.fab.fa-facebook-square
-              -#   = "#{user.facebook}"
-              -# %p.linkedin
-              -#   %i.fab.fa-linkedin
-              -#   = "#{user.linkedinLstring}"
-
-              %p.year= "Year: #{user.year}"
-
-              %p.major= "Major: #{user.major}"
-
-              %p.skillset= "Skills: #{user.skillset}"
-              -# %p= user.privileges
-
-              %a{:href => "#{user.facebook}"}
-                %i.fab.fa-facebook-square
-
-              %a{:href => "#{user.linkedinLstring}"}
-                %i.fab.fa-linkedin
-
-
-
-              = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path

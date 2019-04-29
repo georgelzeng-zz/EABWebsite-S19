@@ -28,9 +28,17 @@ module NavigationHelpers
     when /^the Database page$/
       '/users'
 
+    when /^the Team Database page$/
+      '/teams'
+
     when /^the login page$/
       '/users/sign_in'
 
+    when /^the team creation page$/
+      '/teams/create'
+
+    when /^the "(.*)" team page$/i
+      team_path(Team.find_by name: $1)
 
     else
       begin

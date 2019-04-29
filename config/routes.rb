@@ -21,6 +21,16 @@ Rails.application.routes.draw do
 
   get 'admin/download_roster', to: 'users#download_roster', as: 'download_roster'
 
+  get 'teams', to: 'teams#index', as: 'teams'
+
+  get 'teams/show/:id', to: 'teams#show', as: 'team'
+
+  get 'teams/create', to: 'teams#create', as: 'team_create'
+
+  post 'teams/create', to: 'teams#new_team', as: 'new_team'
+
+  patch 'teams/add_member/:id', to: 'teams#add_member', as: 'add_member'
+
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'

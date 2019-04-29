@@ -9,6 +9,12 @@ class User < ActiveRecord::Base
 
   has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+    validates_attachment_size :image, :less_than => 5.megabytes
+
+  belongs_to :team
+
+  scope :search_team_name, lambda { |search|
+    joins(:team).where("lower(name) LIKE lower(?)", "%#{search}%").order(:first)}
 
   @@roster_file_name = "EAB_roster.xml"
   @@roster_file_directory = Rails.root.to_s
@@ -55,8 +61,6 @@ class User < ActiveRecord::Base
       else
         @@results = self.search_phrase(search, admin)
       end
-    else
-      all.order(:first)
     end
   end
 
@@ -87,12 +91,17 @@ class User < ActiveRecord::Base
 
   #generalize updating @results for search
   def self.update_results(column, search)
-    @@results = @@results | User.where("lower(#{column}) LIKE lower(?)", "#{search}").order(:first) |
-               User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
+    if column == "team"
+      find = User.search_team_name(search)
+    else
+      find = User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
+    end
+
+    @@results = @@results | find
   end
 
   ##Methods dealing with download-roster
-  @@xml_columns = ["first", "last", "team", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
+  @@xml_columns = ["first", "last", "team_name", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
 
   def to_XML
     xml_string = ""
@@ -136,5 +145,20 @@ class User < ActiveRecord::Base
 
   def self.roster_file_name
     @@roster_file_name
+  end
+
+  ##methods dealing with teams
+
+  #for calling in index.html
+  def team_name
+    self.team == nil ? "" : self.team.name
+  end
+
+  def is_member_of(team)
+    return self.team == team
+  end
+
+  def has_a_team
+    return self.team != nil
   end
 end

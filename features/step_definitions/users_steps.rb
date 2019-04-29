@@ -1,4 +1,4 @@
-require "factory_girl_rails"
+require "factory_bot_rails"
 #
 
 def create_visitor
@@ -9,6 +9,10 @@ end
 def create_admin_visitor
   @visitor = { :first => "Admin", :last => 'Adminton', :email => "admin@admin.com",
   :password => "changeme", :password_confirmation => "changeme", :sid => "11111111", :code =>  Code.admin_code }
+end
+
+def create_team_fields
+  @team = { :name => 'Poppy', :user_id => @user.id, :password => "123456"}
 end
 
 def find_user
@@ -25,13 +29,19 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, @visitor)
+  @user = FactoryBot.create(:user, @visitor)
 end
 
 def create_admin
   create_admin_visitor
   delete_user
-  @user = FactoryGirl.create(:user, @visitor)
+  @user = FactoryBot.create(:user, @visitor)
+end
+
+def create_team
+  create_team_fields
+  delete_team
+  @team = FactoryBot.create(:team, @team)
 end
 
 def delete_user
@@ -49,7 +59,7 @@ def sign_up
   fill_in "user_password", :with => @visitor[:password]
   fill_in "user_password_confirmation", :with => @visitor[:password_confirmation]
   fill_in "user_code", :with => @visitor[:code]
-  click_button "Sign up"
+  click_button "Create Account"
   find_user
 end
 
@@ -60,18 +70,33 @@ def sign_in
   click_button "Log in"
 end
 
+def sign_in_team
+  visit '/teams/create'
+  fill_in "name", :with => @team[:name]
+  fill_in "password", :with => @team[:password]
+  click_button "Create Team"
+end
+
+def update_user_variable
+  @user = User.find_by email: @user.email
+end
+
 Given /^spam$/ do
   10.times do
     visit '/users/password/new'
     step %{fill in "user_email" with "blankityblankbizmark@gmail.com"}
-    step %{press "Send me reset password instructions"}
+    step %{press "Email me reset password instructions"}
   end
 end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
   visit '/'
-  step %{follow "Logout"}
+
+  if page.has_content?("Logout")
+    step %{follow "More"}
+    step %{follow "Logout"}
+  end
 end
 
 Given /^I am logged in$/ do
@@ -93,9 +118,18 @@ Given /^I am logged in as "(.*)"$/ do |userType|
   sign_up
 end
 
+Given /^I am logged in as the user with email "(.*)"$/ do |email|
+  step %{I am not logged in}
+  step %{I am on the login page}
+  @user = User.find_by email: email
+  fill_in "user_email", :with => email
+  fill_in "user_password", :with => "123456"
+  click_button "Log in"
+  step %{I should be on the Database page}
+end
+
 Given /^I exist as a user$/ do
   create_user
-
 end
 
 Given /^the following users exist$/ do |users_table|
@@ -109,8 +143,20 @@ Given /^the following users exist$/ do |users_table|
     code
   end
 
+  team_names = Set.new
+
   users_table.hashes.each do |user|
-    User.create!(user)
+    team_name = user['team']
+    user['team'] = nil
+
+    if team_names.include? team_name
+      user['team_id'] = Team.find_by(name: team_name).id
+      User.create!(user)
+    else
+      User.create!(user)
+      Team.seed_team(user['email'], team_name, '123456')
+      team_names.add(team_name)
+    end
   end
 end
 
@@ -145,6 +191,13 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
 end
 
 ### WHEN ###
+
+When /^I create a team with valid fields$/ do
+  create_team_fields
+  sign_in_team
+  end
+
+
 When /^I sign in with valid credentials$/ do
   create_visitor
   sign_in
@@ -279,7 +332,7 @@ end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I am on the homepage}
-  step %{I press "Search Users"}
+  step %{I press "Members"}
 
   step %{I should be on the Database page}
   step %{I should be an admin}
@@ -298,6 +351,7 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I fill in "#{textField}" with "#{code}"}
   step %{I press "Change #{code_type}"}
 end
+
 
 ### THEN ###
 Then /^I should be an admin$/ do
@@ -329,6 +383,7 @@ end
 
 Then /^I should see a successful sign up message$/ do
   page.should have_content "Welcome! You have signed up successfully."
+
 end
 
 Then /^I should see I am not logged in$/ do
@@ -394,4 +449,14 @@ end
 
 Then /^I click on my profile picture$/ do
   page.should have_link "Logout"
+end
+
+Then /^I should be a member of Team "(.*)"/ do |team_name|
+  update_user_variable
+  expect(@user.team).to eq(Team.find_by name: team_name)
+end
+
+Then /^I should not be on a team/ do
+  update_user_variable
+  expect(@user.team).to eq(nil)
 end

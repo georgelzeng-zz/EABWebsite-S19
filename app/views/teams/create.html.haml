@@ -1,0 +1,16 @@
+%h1 Create Team Page
+
+= form_tag team_create_path do
+
+  = label :team, 'Name'
+  = text_field_tag 'name'
+
+  = label :team, 'Description'
+  = text_field_tag 'description'
+
+  = label :team, 'Password'
+  = text_field_tag 'password'
+
+  = submit_tag 'Create Team'
+
+= link_to 'Back', teams_path
