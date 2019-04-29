@@ -61,9 +61,6 @@ class User < ActiveRecord::Base
       else
         @@results = self.search_phrase(search, admin)
       end
-
-    else
-      all.order(:first)
     end
   end
 
