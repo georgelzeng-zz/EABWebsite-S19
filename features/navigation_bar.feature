@@ -31,7 +31,7 @@ Scenario: navigate to profile page from users database
 Scenario: navigate to profile page from admin database
   Given I am logged in as "an admin"
   When I go to the Admin Database page
-  And I follow "Testy McUserton"
+  And I follow "View Profile"
   Then I should see "Skills"
   And I should see the link "Edit Account"
   And I should see "example@example.com"
