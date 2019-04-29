@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def auto_complete(users)
     @autoComplete = Array.new()
-    @users.each do |user|
+    users.each do |user|
       s = user.first
       s = s + " " + user.last
       @autoComplete.push(s)
