@@ -11,9 +11,27 @@
 
 %h2 All Users
 
-= form_tag(users_admin_path, :method => 'GET') do
-  = text_field_tag(:search, params[:search])
-  = submit_tag "Search", name: nil
+= form_tag(users_admin_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
+  = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
+  = submit_tag "Search", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+:javascript
+  var list = #{raw @autoComplete};
+  var json = [];
+  for (var i = 0; i < list.length; i++) {
+    var dict = {};
+    dict["name"] = list[i];
+    json.push(dict)
+  }
+  var options = {
+    data: json,
+    getValue: "name",
+    list: {
+      match: {
+        enabled: true
+      }
+    }
+  };
+    $("#searchField").easyAutocomplete(options);
 
 %table.table-striped.col-md-10#users
   %thead
@@ -54,5 +72,4 @@
   = submit_tag "Change Admin Access Code", name: nil
 
 = link_to 'Download Roster', download_roster_path
-
 = link_to 'Back', home_path

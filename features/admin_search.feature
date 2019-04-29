@@ -57,6 +57,7 @@ Scenario: find user by team name, alphabetical results happy path
 Scenario: find user by full name, case insensitive sad path
   Given I am on the users page
   When I fill in "search" with "nick cai"
+  Then I should see "Nick"
   And I press "Search"
   Then I should see "Nick"
   And I should not see "Jason"
