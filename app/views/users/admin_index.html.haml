@@ -19,14 +19,14 @@
 %table.table-striped.col-md-10#users
   %thead
     %tr
-      %th First
-      %th Last
-      %th Email
-      %th Team
+      %th= sortable "first", "First"
+      %th= sortable "last", "Last"
+      %th= sortable "email", "Email"
+      %th= sortable "team", "Team"
       %th Skillset
-      %th SID
-      %th Year
-      %th Major
+      %th= sortable "sid", "SID"
+      %th= sortable "year", "Year"
+      %th= sortable "major", "Major"
       %th Facebook
       %th LinkedIn
       %th Privileges
