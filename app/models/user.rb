@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with download-roster
-  @@xml_columns = ["first", "last", "team", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
+  @@xml_columns = ["first", "last", "team_name", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
 
   def to_XML
     xml_string = ""

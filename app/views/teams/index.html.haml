@@ -1,10 +1,8 @@
 .content
   = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
-- flash.each do |type, msg|
-  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
-    %button.close &times;
-    = msg if msg.is_a?(String)
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
 %div.container
   %h2 All Teams
