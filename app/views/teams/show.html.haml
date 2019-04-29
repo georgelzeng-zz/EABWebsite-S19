@@ -1,5 +1,21 @@
 .content
   = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
-%h1 Teams#show
-%p Find me in app/views/teams/show.html.haml
+%h1= "#{@team.name}"
+
+%table{:border => 0}
+  %tbody
+    %tr
+      %td.some{ style: '' }
+        = image_tag @team.image.url(:medium), :style => "border-radius: 50%; max-height: 200px;", class:"img-responsive img-circle"
+        &nbsp &nbsp
+
+%h4 Team Leader
+
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
+
+%h4 Members
+
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => @team.members - [@team.leader]}

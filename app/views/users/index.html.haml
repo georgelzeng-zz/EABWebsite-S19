@@ -1,9 +1,9 @@
 
 .content
-  = render :partial => 'nav_bar', :locals => { :current_user => current_user }
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
 .content
-  = render :partial => 'flash_messages', :locals => { :flash => flash }
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
 
 - if current_user.admin?
@@ -35,48 +35,8 @@
     $("#searchField").easyAutocomplete(options);
 
 
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => @users}
 
-%div.container
-  - @users.each_slice(4) do |slice|
-    %div.row
-      - slice.each do |user|
-        %div.user-tile-wrapper.col-sm-12.col-md-3
-
-          %div.user-tile
-
-            %a.user-tile-link{:href => user_path(user)}
-              %div.user-tile-img{:style => "background-image: url('#{user.image.url}')"}
-
-                %div.user-tile-img-overlay
-                  %p= "More about #{user.first} #{user.last}"
-
-              %div.user-tile-info
-                %p.team= user.team_name
-
-                -# %a{:href => user_path(user)}
-                %h4= "#{user.first} #{user.last}"
-
-                - if user.major
-                  %p.user-about.year= "#{user.major}"
-                - else
-                  %p.user-about.year= "No major"
-
-                - if user.year
-                  %p.user-about.year= "#{user.year}"
-                - else
-                  %p.user-about.year= "No year"
-
-
-                %p.user-about.skillset= "Skills: #{user.skillset}"
-
-            %div.user-contact
-              %a.contact.fb{:href => "https://www.#{user.facebook}"}
-                %i.fab.fa-lg.fa-facebook-square
-
-              %a.contact.linkedin{:href => "https://www.#{user.linkedinLstring}"}
-                %i.fab.fa-lg.fa-linkedin
-
-
-              -# = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path
