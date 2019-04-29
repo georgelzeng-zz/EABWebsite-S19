@@ -37,13 +37,13 @@
   %thead
     %tr
       %th= sortable "first", "First"
-      %th= link_to "Last", :sort => :last
-      %th= link_to "Email", :sort => :email
-      %th= link_to "Team", :sort => :team
+      %th= sortable "last", "Last"
+      %th= sortable "email", "Email"
+      %th= sortable "team", "Team"
       %th Skillset
-      %th= link_to "SID", :sort => :sid
-      %th= link_to "Year", :sort => :year
-      %th= link_to "Major", :sort => :year
+      %th= sortable "sid", "SID"
+      %th= sortable "year", "Year"
+      %th= sortable "major", "Major"
       %th Facebook
       %th LinkedIn
       %th Privileges

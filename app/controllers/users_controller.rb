@@ -45,9 +45,6 @@ class UsersController < ApplicationController
   def admin_index
     @message = "Hello, #{current_user.first}!"
     @users = User.search(params[:search], true) || User.order(sort_column + ' ' + sort_direction)
-    if @users.nil? || params[:search].nil?
-      @users = User.all
-    end
   end
 
   def show
