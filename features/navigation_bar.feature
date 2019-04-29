@@ -21,14 +21,14 @@ Scenario: navigate to profile page from users database
   When I go to the Database page
   And I follow "Testy"
   Then I should see "Skills"
-  And I should see "Testy"
+  And I should see "Testy "
   And I should not see "SID"
   And I should see the link "Edit User"
 
 Scenario: navigate to profile page from admin database
   Given I am logged in as "an admin"
   When I go to the Admin Database page
-  And I follow "Testy"
+  And I follow "Testy McUserton"
   Then I should see "Skills"
   And I should see the link "Edit User"
   And I should see "example@example.com"
@@ -37,6 +37,6 @@ Scenario: navigate to profile page from admin database
 Scenario: navigate to home from profile page
   Given I am logged in as "a regular user"
   When I go to the Database page
-  And I follow "Testy"
+  And I follow "Testy McUserton"
   And I follow "Entrepreneurs @ Berkeley"
   Then I should be on the homepage
