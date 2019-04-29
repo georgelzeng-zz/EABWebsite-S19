@@ -51,7 +51,7 @@
       .col-md-4.form-img-wrapper
         = image_tag @user.image.url
 
-        .img-upload.btn.btn-light
+        .img-upload.btn.btn-primary
           Upload new image
           %span{:style => "display:none;"}
             = f.file_field :image
