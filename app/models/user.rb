@@ -101,7 +101,7 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with download-roster
-  @@xml_columns = ["first", "last", "team", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
+  @@xml_columns = ["first", "last", "team_name", "major", "skillset", "sid", "linkedinLstring", "facebook", "code", "email", "year"]
 
   def to_XML
     xml_string = ""
@@ -152,5 +152,13 @@ class User < ActiveRecord::Base
   #for calling in index.html
   def team_name
     self.team == nil ? "" : self.team.name
+  end
+
+  def is_member_of(team)
+    return self.team == team
+  end
+
+  def has_a_team
+    return self.team != nil
   end
 end

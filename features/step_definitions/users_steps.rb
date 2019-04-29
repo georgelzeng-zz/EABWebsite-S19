@@ -77,6 +77,9 @@ def sign_in_team
   click_button "Create Team"
 end
 
+def update_user_variable
+  @user = User.find_by email: @user.email
+end
 
 Given /^spam$/ do
   10.times do
@@ -127,7 +130,6 @@ end
 
 Given /^I exist as a user$/ do
   create_user
-
 end
 
 Given /^the following users exist$/ do |users_table|
@@ -447,4 +449,14 @@ end
 
 Then /^I click on my profile picture$/ do
   page.should have_link "Logout"
+end
+
+Then /^I should be a member of Team "(.*)"/ do |team_name|
+  update_user_variable
+  expect(@user.team).to eq(Team.find_by name: team_name)
+end
+
+Then /^I should not be on a team/ do
+  update_user_variable
+  expect(@user.team).to eq(nil)
 end

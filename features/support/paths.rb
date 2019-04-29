@@ -37,6 +37,9 @@ module NavigationHelpers
     when /^the team creation page$/
       '/teams/create'
 
+    when /^the "(.*)" team page$/i
+      team_path(Team.find_by name: $1)
+
     else
       begin
         page_name =~ /^the (.*) page$/
