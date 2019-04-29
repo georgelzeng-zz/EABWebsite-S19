@@ -62,8 +62,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    id = params[:id]
-    @user = User.find(id)
+    @user = User.find(params[:id])
   end
 
   def change_code
