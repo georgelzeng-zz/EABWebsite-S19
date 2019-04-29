@@ -330,7 +330,7 @@ end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I am on the homepage}
-  step %{I press "Search Users"}
+  step %{I press "Members"}
 
   step %{I should be on the Database page}
   step %{I should be an admin}

@@ -27,18 +27,22 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @message = "Hello, #{current_user.first}!"
-    if @users.nil? || params[:search].nil?
-      @users = User.all
-    end
-
+  def auto_complete(users)
     @autoComplete = Array.new()
     @users.each do |user|
       s = user.first
       s = s + " " + user.last
       @autoComplete.push(s)
     end
+  end
+
+  def index
+    @message = "Hello, #{current_user.first}!"
+    if @users.nil? || params[:search].nil?
+      @users = User.all
+    end
+
+    auto_complete(@users)
 
     @users = User.search(params[:search], false) || User.order(sort_column + ' ' + sort_direction)
   end
