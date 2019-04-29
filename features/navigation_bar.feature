@@ -23,17 +23,16 @@ Scenario: navigate to profile page from users database
   And I follow "View Profile"
   Then I should see "Skills"
   And I should see "Testy McUserton"
-  Then I should see the link "Home"
   And I should not see "SID"
   And I should see "Email"
-  And I should see the link "Edit User"
+  And I should see the link ""
 
 Scenario: navigate to profile page from admin database
   Given I am logged in as "an admin"
   When I go to the Admin Database page
   And I follow "View Profile"
   Then I should see "Skills"
-  And I should see the link "Edit User"
+  And I should see the link "Edit Account"
   And I should see "example@example.com"
   Then I should see the button "Delete User"
 
