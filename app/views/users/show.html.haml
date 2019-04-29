@@ -3,6 +3,9 @@
 .content
   = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
 
 %div.profile-container.container
   %div.row

@@ -156,4 +156,12 @@ class User < ActiveRecord::Base
   def team_name
     self.team == nil ? "" : self.team.name
   end
+
+  def is_member_of(team)
+    return self.team == team
+  end
+
+  def has_a_team
+    return self.team != nil
+  end
 end

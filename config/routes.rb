@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   post 'teams/create', to: 'teams#new_team', as: 'new_team'
 
+  patch 'teams/add_member/:id', to: 'teams#add_member', as: 'add_member'
+
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'

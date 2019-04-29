@@ -1,6 +1,9 @@
 .content
   = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
 %h1= "#{@team.name}"
 
 %table{:border => 0}
@@ -19,3 +22,10 @@
 
 .content
   = render :partial => 'users/display_users', :locals => { :@users => @team.members - [@team.leader]}
+
+%div.container.title-container
+  %h2 Become a Member
+
+  = form_tag(add_member_path, :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
+    = text_field_tag(:search, params[:password], :placeholder => "password", class: %w[input form-control], :id => "password")
+    = submit_tag "Join Team", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
