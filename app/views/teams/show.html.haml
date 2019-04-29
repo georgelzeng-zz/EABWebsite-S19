@@ -26,6 +26,6 @@
 %div.container.title-container
   %h2 Become a Member
 
-  = form_tag(add_member_path, :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
-    = text_field_tag(:search, params[:password], :placeholder => "password", class: %w[input form-control], :id => "password")
+  = form_tag(add_member_path(@team), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
+    = text_field_tag(:password, :placeholder => "password", class: %w[input form-control], :id => "password")
     = submit_tag "Join Team", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]

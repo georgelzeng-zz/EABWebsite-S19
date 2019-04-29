@@ -37,7 +37,7 @@ class TeamsController < ApplicationController
     elsif current_user.has_a_team
       flash[:alert] = "You can be part of only one team!"
     elsif params[:password] == @team.password
-      current_user.team_id = @team.id
+      current_user.update!(team_id: @team.id)
       flash[:notice] = "Welcome to the team!"
     else
       flash[:alert] = "Wrong password!"
