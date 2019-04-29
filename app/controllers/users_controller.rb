@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :authenticate_admin, only: [:admin_index, :registration_code, :admin_code, :download_roster]
   before_action :validate_change_code_params, only: [:change_code]
 
+  helper_method :sort_column, :sort_direction
+
   def authenticate_admin
     unless current_user.admin?
       redirect_to home_path
@@ -28,22 +30,23 @@ class UsersController < ApplicationController
   def index
     @message = "Hello, #{current_user.first}!"
     @users = User.search(params[:search], false)
+    if @users.nil? || params[:search].nil?
+      @users = User.all
+    end
+
     @autoComplete = Array.new()
     @users.each do |user|
       s = user.first
       s = s + " " + user.last
       @autoComplete.push(s)
     end
-    if @users.empty? & params[:search].nil?
-      redirect_to users_path
-    end
   end
 
   def admin_index
     @message = "Hello, #{current_user.first}!"
-    @users = User.search(params[:search], true) || User.order(params[:sort])
-    if @users.empty? & params[:search].nil?
-      redirect_to users_admin_path
+    @users = User.search(params[:search], true) || User.order(sort_column + ' ' + sort_direction)
+    if @users.nil? || params[:search].nil?
+      @users = User.all
     end
   end
 
@@ -83,5 +86,15 @@ class UsersController < ApplicationController
       type: "application/#{file_name.split('.')[1]}",
       disposition: 'inline'
     )
+  end
+
+
+  private
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "first"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end
