@@ -81,6 +81,12 @@ a:hover {
   padding-top: 24px;
 }
 
+.input {
+
+  border: none;
+  box-shadow: 0px 1px 4px #CCC;
+}
+
 .session-input {
   border: none;
   box-shadow: 0px 1px 4px #CCC;
@@ -126,6 +132,53 @@ a:hover {
 
   /* font-style: italic; */
 }
+
+
+/* Profile Views */
+
+.form-container {
+  margin-bottom: 64px;
+}
+
+.file_input {
+  background-color: coral;
+}
+
+.form-img-wrapper {
+  position: relative;
+  padding: 0px 48px;
+}
+
+.form-img-wrapper .img-upload {
+  width: 100%;
+}
+
+.form-container img {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 24px;
+}
+
+.form-container h4 {
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.form-section {
+  margin-bottom: 60px;
+}
+
+.form-container .btn {
+  /* width: 50%;  */
+}
+
+.danger {
+
+}
+
+/* .form-container .actions {
+  margin-bottom: 48px;
+} */
 
 
 /* Search Members */
