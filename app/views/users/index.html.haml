@@ -1,49 +1,9 @@
-- flash.each do |type, msg|
-  %div{:class => "alert alert-#{type == :notice ? "success" : type} fadeout", "data-dismiss" => "alert"}
-    %button.close &times;
-    = msg if msg.is_a?(String)
 
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
 
-
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %div.container
-    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
-    %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
-      %span.navbar-toggler-icon
-
-    #navbarSupportedContent.collapse.navbar-collapse
-
-      %ul.navbar-nav.mr-auto
-
-        %li.nav-item
-          %a.nav-link{:href => teams_path} Teams
-
-        %li.nav-item
-          %a.nav-link{:href => users_path, :method => :get} Members
-
-      %ul.navbar-nav.ml-auto
-
-        - if !user_signed_in?
-          %li.nav-item
-            %a.nav-link{:href => new_user_session_path} Login
-
-          %li.nav-item
-            %a.nav-link{:href => new_user_registration_path} Create New Account
-
-        - if user_signed_in?
-          %li.nav-item
-            %a.nav-link#user-link{:href => user_path(current_user)}
-              = image_tag current_user.image.url
-              #{current_user.first} #{current_user.last}
-
-          %li.nav-item.dropdown
-            %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              More
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
-              %a.dropdown-item{:href => user_path(current_user)} View Profile
-              %a.dropdown-item{:href => edit_page_path(current_user)} Edit Profile
-              .dropdown-divider
-              %a.dropdown-item{:href => destroy_user_session_path, "data-method" => "delete"} Logout
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
 
 - if current_user.admin?
@@ -81,47 +41,8 @@
   %h6= sortable "major", "Major"
   %h6= sortable "year", "Year"
 
-%div.container
-  - @users.each_slice(4) do |slice|
-    %div.row
-      - slice.each do |user|
-        %div.user-tile-wrapper.col-sm-12.col-md-3
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => @users}
 
-          %div.user-tile
-
-            %a.user-tile-link{:href => user_path(user)}
-              %div.user-tile-img{:style => "background-image: url('#{user.image.url}')"}
-
-                %div.user-tile-img-overlay
-                  %p= "More about #{user.first} #{user.last}"
-
-              %div.user-tile-info
-                %p.team= user.team_name
-
-                -# %a{:href => user_path(user)}
-                %h4= "#{user.first} #{user.last}"
-
-                - if user.major
-                  %p.user-about.year= "#{user.major}"
-                - else
-                  %p.user-about.year= "No major"
-
-                - if user.year
-                  %p.user-about.year= "#{user.year}"
-                - else
-                  %p.user-about.year= "No year"
-
-
-                %p.user-about.skillset= "Skills: #{user.skillset}"
-
-            %div.user-contact
-              %a.contact.fb{:href => "https://www.#{user.facebook}"}
-                %i.fab.fa-lg.fa-facebook-square
-
-              %a.contact.linkedin{:href => "https://www.#{user.linkedinLstring}"}
-                %i.fab.fa-lg.fa-linkedin
-
-
-              -# = link_to "More about #{user.first} #{user.last}", user_path(user)
 
 = link_to 'Back', home_path

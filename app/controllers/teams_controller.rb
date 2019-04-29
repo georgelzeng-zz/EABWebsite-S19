@@ -27,4 +27,22 @@ class TeamsController < ApplicationController
 
   	redirect_to teams_path
   end
+
+  def add_member
+    id = params[:id]
+    @team = Team.find(id)
+
+    if current_user.is_member_of(@team)
+      flash[:alert] = "You're already on this team!"
+    elsif current_user.has_a_team
+      flash[:alert] = "You can be part of only one team!"
+    elsif params[:password] == @team.password
+      current_user.update!(team_id: @team.id)
+      flash[:notice] = "Welcome to the team!"
+    else
+      flash[:alert] = "Wrong password!"
+    end
+
+    redirect_to team_path(@team)
+  end
 end
