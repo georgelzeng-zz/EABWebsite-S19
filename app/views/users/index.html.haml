@@ -74,7 +74,12 @@
     };
     $("#searchField").easyAutocomplete(options);
 
-
+%div.container
+  %h6= sortable "first", "First"
+  %h6= sortable "last", "Last"
+  %h6= sortable "team", "Team"
+  %h6= sortable "major", "Major"
+  %h6= sortable "year", "Year"
 
 %div.container
   - @users.each_slice(4) do |slice|
