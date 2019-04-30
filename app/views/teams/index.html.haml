@@ -8,6 +8,10 @@
   %h2 All Teams
 
 %div.container
+  = form_tag(team_create_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
+    = submit_tag "Create a Team", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+
+%div.container
   - @teams.each_slice(4) do |slice|
     %div.row
       - slice.each do |team|
@@ -27,4 +31,3 @@
               = link_to "More about #{team.name}", team_path(team)
 
 = link_to 'Back', users_path
-= link_to 'Create Team', team_create_path
