@@ -66,6 +66,19 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def leave
+    @user = User.find(params[:id])
+    if !@user.team.nil?
+      if @user.team.user_id == params[:id].to_i
+        flash[:alert] = "Please ensure that there's another admin for this team."
+      else 
+        @user.team = nil
+        @user.save
+      end
+    end
+    redirect_to user_path(@user)
+  end
+
   def change_code
     newCode = params[:registration_code] || params[:admin_code]
 
