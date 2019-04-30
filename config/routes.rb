@@ -17,9 +17,7 @@ Rails.application.routes.draw do
 
   get 'users/edit', to: 'users/registrations#edit', as: 'edit_page'
 
-
   post 'users/edit/:id', to: 'users#leave', as: 'leave_team'
-
 
   patch 'code/:access_level', to: 'users#change_code', as: 'change_code'
 

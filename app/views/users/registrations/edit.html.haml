@@ -51,14 +51,6 @@
               = f.label :Year
               %br/
               = f.text_field :year, :placeholder => "ex. 2", autofocus: true, class: %w[input form-control]
-            .field.col-md-2
-              = f.label "Team"
-              %br/
-              = f.label @user.team_name, autofocus: true, class: %w[input form-control]
-            .field.col-md-3
-              .row.actions.form-section
-                .col-md-15
-                  = button_to "Leave Team", leave_team_path(current_user), method: :put, data: { confirm: "Are you sure?" },  class: %w[btn btn-danger]
 
           .field
             = f.label :skillset
@@ -120,11 +112,9 @@
             = f.password_field :current_password, autocomplete: "current-password", class: %w[input form-control]
 
         .row.actions.form-section
-          / .col-md-4
-          /   = f.submit "Leave Team", class: %w[btn btn-primary]
           .col-md-8
             = f.submit "Update", class: %w[btn btn-primary]
-          .col-md
+          .col
             = link_to "Cancel", :back, class: %w[btn btn-secondary]
 
         %h4 Delete my account
