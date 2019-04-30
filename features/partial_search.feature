@@ -24,6 +24,8 @@ Background: members have been added to database
 Scenario: search for an attribute that starts with keyword as member
   Given I am on the users page
   When I fill in "search" with "mi"
+  Then I should see "Michael"
+  And I should see "Mihir"
   And I press "Search"
   Then I should see "Michael"
   And I should see "Mihir"
@@ -59,3 +61,4 @@ Scenario: search for phrase, see similar matches, part 2
   And I press "Search"
   Then I should see "Jonathan"
   And I should see "Jennifer"
+

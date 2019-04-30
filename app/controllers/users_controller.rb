@@ -41,7 +41,6 @@ class UsersController < ApplicationController
     if @users.nil? || params[:search].nil?
       @users = User.all
     end
-
     auto_complete(@users)
 
     @users = User.search(params[:search], false) || User.order(sort_column + ' ' + sort_direction)
@@ -49,6 +48,8 @@ class UsersController < ApplicationController
 
   def admin_index
     @message = "Hello, #{current_user.first}!"
+    @users = (@users.nil? || params[:search].nil?) ? User.all : ""
+    auto_complete(@users)
     @users = User.search(params[:search], true) || User.order(sort_column + ' ' + sort_direction)
   end
 
