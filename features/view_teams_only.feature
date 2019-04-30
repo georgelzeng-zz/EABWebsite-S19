@@ -16,6 +16,6 @@ Scenario: General member views project teams
   When I follow "Teams"
   Then I should see "All Teams"
   And I should see "Poppy"
-  And I should see the link "Create Team"
+  And I should see the button "Create a Team"
   When I follow "Poppy"
   Then I should see "Teams"
