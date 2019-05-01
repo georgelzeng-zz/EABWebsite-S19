@@ -8,7 +8,7 @@
   %h2 Update Your Account
 
 
-.container.form-container
+-# .container.form-container
 
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, multipart: true }) do |f|
   = render "devise/shared/error_messages", resource: resource
@@ -126,10 +126,13 @@
           .col
             = link_to "Cancel", :back, class: %w[btn btn-secondary]
 
-        .container.form-container
-          %h4 Delete my account
-          .form-section.danger
-            .field
-              %p
-                Danger Zone: Delete your entire account
-              = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]
+.container.form-container
+  .row
+    .col-md-4
+    .col
+      %h4 Delete my account
+      .form-section.danger
+        .field
+          %p
+            Danger Zone: Delete your entire account
+          = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]
