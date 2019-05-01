@@ -17,10 +17,16 @@
       .col-md-4.form-img-wrapper
         = image_tag @user.image.url
 
-        .img-upload.btn.btn-primary
-          Upload new image
-          %span{:style => "display:none;"}
-            = f.file_field :image
+        %label.cabinet.btn.btn-primary
+          .text
+            Upload new image
+          = f.file_field :image, class: %w[file]
+
+
+        -# .img-upload.btn.btn-primary
+        -#   Upload new image
+        -#   %span{:style => "width: 100%;"}
+        -#     = f.file_field :image
 
 
       .col
@@ -32,11 +38,11 @@
             .field.col-md-5
               = f.label :first
               %br/
-              = f.text_field :first, autofocus: true, class: %w[input form-control]
+              = f.text_field :first, :placeholder => "ex. Dwigt", autofocus: true, class: %w[input form-control]
             .field.col-md-4
               = f.label :last
               %br/
-              = f.text_field :last, autofocus: true, class: %w[input form-control]
+              = f.text_field :last, :placeholder => "ex. Schrute", autofocus: true, class: %w[input form-control]
             .field.col
               = f.label :SID
               %br/
@@ -46,7 +52,7 @@
             .field.col-md-5
               = f.label :major
               %br/
-              = f.text_field :major, autofocus: true, class: %w[input form-control]
+              = f.text_field :major, :placeholder => "ex. Paper Salesman", autofocus: true, class: %w[input form-control]
             .field.col-md-2
               = f.label :Year
               %br/
@@ -55,17 +61,17 @@
           .field
             = f.label :skillset
             %br/
-            = f.text_field :skillset, autofocus: true, class: %w[input form-control]
+            = f.text_field :skillset, :placeholder => "ex. Paper, Sales, Quality Assurance", autofocus: true, class: %w[input form-control]
 
-          .row
-            .field.col-md-6
-              = f.label "Full LinkedIn URL"
-              %br/
-              = f.text_field :linkedinLstring, autofocus: true, class: %w[input form-control]
-            .field.col-md-6
-              = f.label "Full Facebook URL"
-              %br/
-              = f.text_field :facebook, autofocus: true, class: %w[input form-control]
+          -# .row
+          -#   .field.col-md-6
+          -#     = f.label "Full LinkedIn URL"
+          -#     %br/
+          -#     = f.text_field :linkedinLstring, autofocus: true, class: %w[input form-control]
+          -#   .field.col-md-6
+          -#     = f.label "Full Facebook URL"
+          -#     %br/
+          -#     = f.text_field :facebook, autofocus: true, class: %w[input form-control]
 
         %h4
           Account Settings
@@ -123,4 +129,3 @@
             %p
               Danger Zone: Delete your entire account
             = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]
-
