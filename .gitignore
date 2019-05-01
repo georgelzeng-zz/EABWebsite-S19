@@ -34,3 +34,6 @@
 
 # Ignore download-roster file
 EAB_roster.xml
+
+# Ignore Procfile - it breaks heroku
+Procfile
