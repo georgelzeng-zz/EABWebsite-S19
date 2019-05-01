@@ -136,6 +136,33 @@ a:hover {
 
 /* Profile Views */
 
+label.cabinet {
+  position: relative;
+  width: 100%;
+  height: 40px;
+
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+label .text {
+  position: absolute;
+  width: 100%; 
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+label.cabinet input.file {
+  position: relative;
+  margin-top: 50px;
+  height: 100%;
+  width: auto;
+  opacity: 0;
+  cursor: pointer;
+
+}
+
 .form-container {
   margin-bottom: 64px;
 }
