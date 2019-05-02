@@ -17,6 +17,7 @@
  body {
   font-family: 'Lato', sans-serif;
   letter-spacing: 1px;
+  height: 100%;
   --blue: #4791ff;
   --yellow: #ffbf00;
   --grey-background: #F8F9FA;
@@ -148,7 +149,7 @@ label.cabinet {
 
 label .text {
   position: absolute;
-  width: 100%; 
+  width: 100%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -229,12 +230,21 @@ label.cabinet input.file {
 
 
 .title-container {
- margin: 24px auto;
+ margin: 24px auto 12px auto;
 }
 
 .input {
- margin-right: 4px;
 }
+
+.title-container .button {
+  margin-left: 8px;
+}
+
+.sort-container {
+  /* display: inline-block; */
+  margin-bottom: 12px;
+}
+
 
 .user-tile-wrapper {
   padding: 8px;
@@ -356,9 +366,24 @@ label.cabinet input.file {
   width: 40%;
 }
 
+.user-contact .inactive i {
+  color: #CCC;
+}
+
 .contact {
   margin-right: 4px;
   /* margin-top: 24px; */
   color: #333;
   display: inline-block;
+}
+
+
+/* Footer */
+footer {
+  background-color: #EEE;
+  margin-top: 48px;
+  padding: 24px 0px;
+  position: ab;
+  width: 100%;
+  bottom: 0;
 }
