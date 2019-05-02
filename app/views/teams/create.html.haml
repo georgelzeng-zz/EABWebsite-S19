@@ -4,22 +4,43 @@
 .content
   = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
-%h1 Create Team Page
+.container.title-container
+  %h1 Create Team Page
 
-= form_for :team, url: team_create_path, html: { multipart: true } do |form|
+= form_for :team, url: team_create_path, html: { multipart: true } do |f|
 
-  = form.label 'Team Name'
-  = form.text_field :name
+  .container.form-container
+    .row
+      .col-md-4.form-img-wrapper
+        %label.cabinet.btn.btn-primary
+          .text
+            Upload team picture
+          = f.file_field :image, class: %w[file]
 
-  = form.label 'Team Picture'
-  = form.file_field :image
+      .col
 
-  = form.label 'Description'
-  = form.text_field :description
+        %h4
+          Team Information
+        %div.form-section
 
-  = form.label 'Team Password'
-  = form.text_field :password
+          .field
+            = f.label :name
+            %br/
+            = f.text_field :name, autofocus: true, class: %w[input form-control]
 
-  = form.submit 'Create Team'
+          .field
+            = f.label "Team Password (Give to new members so they can join)"
+            %br/
+            = f.text_field :password, autofocus: true, class: %w[input form-control]
+            %br/
 
-= link_to 'Back', teams_path
+          .field
+            = f.label "Bio (optional)"
+            %br/
+            = f.text_field :description, autofocus: true, class: %w[input form-control]
+
+        .row.actions.form-section
+          .col-md-8
+            = f.submit "Create Team", class: %w[btn btn-primary]
+          .col
+            = link_to "Cancel", :back, class: %w[btn btn-secondary]
