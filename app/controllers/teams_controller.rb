@@ -15,17 +15,21 @@ class TeamsController < ApplicationController
   end
 
   def new_team
-	  name = params['name']
-    description = params['description']
-  	password = params['password']
-
     if current_user.team == nil
-      Team.seed_team(current_user.email, name, password)
+      newTeam = Team.create!(team_params)
+      newTeam.user_id = current_user.id
+      current_user.team_id = newTeam.id
+      newTeam.save!
+      current_user.save!
     else
       flash[:alert] = "You can only be in one team!"
     end
 
   	redirect_to teams_path
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :description, :password, :image)
   end
 
   def add_member

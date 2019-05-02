@@ -6,17 +6,20 @@
 
 %h1 Create Team Page
 
-= form_tag team_create_path do
+= form_for :team, url: team_create_path, html: { multipart: true } do |form|
 
-  = label :team, 'Team Name'
-  = text_field_tag 'name'
+  = form.label 'Team Name'
+  = form.text_field :name
 
-  = label :team, 'Description'
-  = text_field_tag 'description'
+  = form.label 'Team Picture'
+  = form.file_field :image
 
-  = label :team, 'Team Password'
-  = text_field_tag 'password'
+  = form.label 'Description'
+  = form.text_field :description
 
-  = submit_tag 'Create Team'
+  = form.label 'Team Password'
+  = form.text_field :password
+
+  = form.submit 'Create Team'
 
 = link_to 'Back', teams_path
