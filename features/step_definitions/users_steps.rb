@@ -72,8 +72,8 @@ end
 
 def sign_in_team
   visit '/teams/create'
-  fill_in "name", :with => @team[:name]
-  fill_in "password", :with => @team[:password]
+  fill_in "team_name", :with => @team[:name]
+  fill_in "team_password", :with => @team[:password]
   click_button "Create Team"
 end
 
