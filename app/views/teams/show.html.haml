@@ -13,10 +13,20 @@
       = image_tag @team.image.url
 
     .col-md-4
-
-      %h4= "Team Leader"
+      %div.container.title-container
+        %h4 Team Leader
       .content
         = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
+
+    .row
+      %div.container.title-container
+        %h4 Bio
+    .row
+      %div.container.title-container
+      - if @team.description == nil || @team.description == ""
+        %h6 No bio yet.
+      - else
+        %h6 #{@team.description}
 
 %div.container.title-container
   %h4 Members
