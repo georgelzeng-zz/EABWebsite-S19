@@ -7,24 +7,26 @@
 %div.container.title-container
   %h1= "#{@team.name}"
 
-%table{:border => 0}
-  %tbody
-    %tr
-      %td.some{ style: '' }
-        = image_tag @team.image.url(:medium), :style => "border-radius: 50%; max-height: 200px;", class:"img-responsive img-circle"
-        &nbsp &nbsp
+%div.container.form-container
+  .row
+    .col-md-8.form-img-wrapper
+      = image_tag @team.image.url
 
-%div.container.title-container
-  %h4 Team Leader
+    .col-md-4
 
-.content
-  = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
+      %h4= "Team Leader"
+      .content
+        = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
 
 %div.container.title-container
   %h4 Members
 
-.content
-  = render :partial => 'users/display_users', :locals => { :@users => @team.members - [@team.leader]}
+- if @team.members.length == 1
+  %div.container.title-container
+    %h6 None
+- else
+  .content
+    = render :partial => 'users/display_users', :locals => { :@users => @team.members - [@team.leader]}
 
 %div.container.title-container
   %h2 Become a Member
