@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 	validates :first, :last, :email, :sid, presence: true
   validate :correct_access_code
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/missing.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
     validates_attachment_size :image, :less_than => 5.megabytes
 
@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with search
-  @@member = ["first", "last", "team", "major", "skillset", "year"]
+  @@member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
   @@admin_only = ["email", "sid", "code"]
 
   # Search by keyword, phrase or alphabetically order by first name by default

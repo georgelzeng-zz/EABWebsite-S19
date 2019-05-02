@@ -366,6 +366,10 @@ label.cabinet input.file {
   width: 40%;
 }
 
+.user-contact .inactive i {
+  color: #CCC;
+}
+
 .contact {
   margin-right: 4px;
   /* margin-top: 24px; */

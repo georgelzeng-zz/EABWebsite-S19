@@ -32,8 +32,16 @@
                 %p.user-about.skillset= "Skills: #{user.skillset}"
 
             %div.user-contact
-              %a.contact.fb{:href => "https://www.#{user.facebook}"}
-                %i.fab.fa-lg.fa-facebook-square
+              - if user.facebook
+                %a.contact.fb{:target => "_blank", :href => "https://www.#{user.facebook}"}
+                  %i.fab.fa-lg.fa-facebook-square
+              - else
+                %a.contact.fb.inactive
+                  %i.fab.fa-lg.fa-facebook-square
 
-              %a.contact.linkedin{:href => "https://www.#{user.linkedinLstring}"}
-                %i.fab.fa-lg.fa-linkedin
+              - if user.linkedinLstring
+                %a.contact.linkedin{:target => "_blank", :href => "https://www.#{user.linkedinLstring}"}
+                  %i.fab.fa-lg.fa-linkedin
+              - else
+                %a.contact.linkedin.inactive
+                  %i.fab.fa-lg.fa-linkedin
