@@ -16,3 +16,8 @@ Scenario: Team leader promotes fellow member to team leader
   When I press "Promote to Leader"
   Then I should not be the leader of Team "kiwi"
   And the leader of Team "kiwi" should be the user with email "jbi@berkeley.edu"
+
+Scenario: Non-team leader should not see a "Promote to Leader" button
+  Given I am logged in as the user with email "jbi@berkeley.edu"
+  And I am on the "kiwi" team page
+  Then I should not see the button "Promote to Leader"
