@@ -21,8 +21,6 @@ Rails.application.routes.draw do
 
   patch 'code/:access_level', to: 'users#change_code', as: 'change_code'
 
-  get 'admin/download_roster', to: 'users#download_roster', as: 'download_roster'
-
   get 'teams', to: 'teams#index', as: 'teams'
 
   get 'teams/show/:id', to: 'teams#show', as: 'team'
@@ -34,6 +32,8 @@ Rails.application.routes.draw do
   patch 'teams/add_member/:id', to: 'teams#add_member', as: 'add_member'
 
   patch 'teams/promote_to_leader/:team_id/:user_id', to: 'teams#promote_to_leader', as: 'promote_to_leader'
+
+  get 'users/EAB_roster', to: 'users#spreadsheet', as: 'users_spreadsheet'
 
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 

@@ -14,19 +14,19 @@
 
     .col-md-4
       %div.container.title-container
-        %h4 Team Leader
-      .content
-        = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
-
-    .row
-      %div.container.title-container
         %h4 Bio
-    .row
+
       %div.container.title-container
       - if @team.description == nil || @team.description == ""
-        %h6 No bio yet.
+        %h6 Tesssssssstss  tststs tst stststst stststs tststs Tesssssssstss  tststs tst stststst stststs tststs Tesssssssstss  tststs tst stststst stststs tststs Tesssssssstss  tststs tst stststst stststs tststs Tesssssssstss  tststs tst stststst stststs tststs
       - else
         %h6 #{@team.description}
+
+%div.container.title-container
+  %h4 Team Leader
+.content
+  = render :partial => 'users/display_users', :locals => { :@users => [@team.leader]}
+
 
 %div.container.title-container
   %h4 Members
