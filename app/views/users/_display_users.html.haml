@@ -13,27 +13,39 @@
                   %p= "More about #{user.first} #{user.last}"
 
               %div.user-tile-info
-                %p.team= user.team_name
 
-                -# %a{:href => user_path(user)}
-                %h4= "#{user.first} #{user.last}"
+                - if user.team_name
+                  - team = user.team_name
+                - else
+                  - team = "No team"
 
                 - if user.major
-                  %p.user-about.year= "#{user.major}"
+                  - major = user.major
                 - else
-                  %p.user-about.year= "No major"
+                  - major = "No major"
 
                 - if user.year
-                  %p.user-about.year= "#{user.year}"
+                  - year = user.year
                 - else
-                  %p.user-about.year= "No year"
+                  - year = "No year"
 
-
+                %p.team= "#{team}"
+                %h4= "#{user.first} #{user.last}"
+                %p.user-about.year= "#{major}"
+                %p.user-about.year= "#{year}"
                 %p.user-about.skillset= "Skills: #{user.skillset}"
 
             %div.user-contact
-              %a.contact.fb{:href => "https://www.#{user.facebook}"}
-                %i.fab.fa-lg.fa-facebook-square
+              - if user.facebook
+                %a.contact.fb{:target => "_blank", :href => "https://www.#{user.facebook}"}
+                  %i.fab.fa-lg.fa-facebook-square
+              - else
+                %a.contact.fb.inactive
+                  %i.fab.fa-lg.fa-facebook-square
 
-              %a.contact.linkedin{:href => "https://www.#{user.linkedinLstring}"}
-                %i.fab.fa-lg.fa-linkedin
+              - if user.linkedinLstring
+                %a.contact.linkedin{:target => "_blank", :href => "https://www.#{user.linkedinLstring}"}
+                  %i.fab.fa-lg.fa-linkedin
+              - else
+                %a.contact.linkedin.inactive
+                  %i.fab.fa-lg.fa-linkedin
