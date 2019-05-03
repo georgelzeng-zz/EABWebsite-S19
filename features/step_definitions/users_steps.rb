@@ -460,3 +460,12 @@ Then /^I should not be on a team/ do
   update_user_variable
   expect(@user.team).to eq(nil)
 end
+
+Then /^I should not be the leader of Team "(.*)"/ do |team_name|
+  update_user_variable
+  expect((Team.find_by name: team_name).leader).not_to eq(@user)
+end
+
+Then /^the leader of Team "(.*)" should be the user with email "(.*)"/ do |team_name, user_email|
+  expect((Team.find_by name: team_name).leader).to eq(User.find_by email: user_email)
+end
