@@ -15,17 +15,21 @@
   - @teams.each_slice(4) do |slice|
     %div.row
       - slice.each do |team|
-        %div.team-tile-wrapper.col-sm-12.col-md-3
-          %div.team-tile
+        %div.user-tile-wrapper.col-sm-12.col-md-3
 
-            %div.team-tile-img{:style => "background-image: url('#{team.image.url}')"}
-              -# %div.team-tile-img-overlay
+          %div.user-tile
 
+            %a.user-tile-link{:href => team_path(team)}
+              %div.user-tile-img{:style => "background-image: url('#{team.image.url}')"}
 
-            %div.team-tile-info
-              %h4= "#{team.name}"
-              %p.leader= "Leader: #{team.leader.first} #{team.leader.last}"
+                %div.user-tile-img-overlay
+                  %p= "More about #{team.name}"
 
-              %p.size= "Size: #{team.members.length}"
+              %div.user-tile-info
+                %h4= "#{team.name}"
+                %p.leader= "Leader: #{team.leader.first} #{team.leader.last}"
 
-              = link_to "More about #{team.name}", team_path(team)
+                %p.size= "Size: #{team.members.length}"
+
+= link_to 'Back', users_path
+

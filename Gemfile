@@ -34,8 +34,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # bootstrap for HTML & CSS
 gem 'bootstrap'
 
-# converting record to XML
-gem 'gyoku', '~> 1.0'
+# converting activerecord table to spreadsheet
+gem 'rubyzip', '= 1.0.0'
+gem 'axlsx', '= 2.0.1'
+gem 'axlsx_rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

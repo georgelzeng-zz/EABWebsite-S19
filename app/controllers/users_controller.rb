@@ -71,7 +71,7 @@ class UsersController < ApplicationController
     if !@user.team.nil?
       if @user.team.user_id == params[:id].to_i
         flash[:alert] = "Please ensure that there's another admin for this team."
-      else 
+      else
         @user.team = nil
         @user.save
       end
@@ -91,18 +91,15 @@ class UsersController < ApplicationController
     redirect_to users_admin_path
   end
 
-  def download_roster
-    User.make_XML_file
-    file_name = User.roster_file_name
+  def spreadsheet
+    @users =  User.all
 
-    send_file(
-      User.full_file_path,
-      filename: file_name,
-      type: "application/#{file_name.split('.')[1]}",
-      disposition: 'inline'
-    )
+    respond_to do |format|
+      format.xlsx {
+        response.headers['Content-Disposition'] = "attachment; filename=\"EAB_roster#{Date.today}.xlsx\""
+      }
+    end
   end
-
 
   private
   def sort_column

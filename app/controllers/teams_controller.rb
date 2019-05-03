@@ -1,5 +1,14 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_promote_leader_params, only: [:promote_to_leader]
+
+  def authenticate_promote_leader_params
+    @team = Team.find(params[:team_id])
+    @new_leader = User.find(params[:user_id])
+    if !current_user.is_leader_of(@team) || !(@team.members.include? @new_leader)
+      redirect_to team_path(@team)
+    end
+  end
 
   def index
   	@message = "Hello, #{current_user.first}!"
@@ -15,17 +24,21 @@ class TeamsController < ApplicationController
   end
 
   def new_team
-	  name = params['name']
-    description = params['description']
-  	password = params['password']
-
     if current_user.team == nil
-      Team.seed_team(current_user.email, name, password)
+      newTeam = Team.create!(team_params)
+      newTeam.user_id = current_user.id
+      current_user.team_id = newTeam.id
+      newTeam.save!
+      current_user.save!
     else
       flash[:alert] = "You can only be in one team!"
     end
 
   	redirect_to teams_path
+  end
+
+  def team_params
+    params.require(:team).permit(:name, :description, :password, :image)
   end
 
   def add_member
@@ -43,6 +56,12 @@ class TeamsController < ApplicationController
       flash[:alert] = "Wrong password!"
     end
 
+    redirect_to team_path(@team)
+  end
+
+  def promote_to_leader
+    @team.user_id = @new_leader.id
+    @team.save!
     redirect_to team_path(@team)
   end
 end
