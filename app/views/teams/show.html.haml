@@ -35,8 +35,50 @@
   %div.container.title-container
     %h6 None
 - else
-  .content
-    = render :partial => 'users/display_users', :locals => { :@users => @team.members - [@team.leader]}
+  %div.container
+    - (@team.members - [@team.leader]).each_slice(4) do |slice|
+      %div.row
+        - slice.each do |user|
+          %div.user-tile-wrapper.col-sm-12.col-md-3
+
+            %div.user-tile
+
+              %a.user-tile-link{:href => user_path(user)}
+                %div.user-tile-img{:style => "background-image: url('#{user.image.url}')"}
+
+                  %div.user-tile-img-overlay
+                    %p= "More about #{user.first} #{user.last}"
+
+                %div.user-tile-info
+                  %p.team= user.team_name
+
+                  -# %a{:href => user_path(user)}
+                  %h4= "#{user.first} #{user.last}"
+
+                  - if user.major
+                    %p.user-about.year= "#{user.major}"
+                  - else
+                    %p.user-about.year= "No major"
+
+                  - if user.year
+                    %p.user-about.year= "#{user.year}"
+                  - else
+                    %p.user-about.year= "No year"
+
+
+                  %p.user-about.skillset= "Skills: #{user.skillset}"
+
+              %div.user-contact
+                %a.contact.fb{:href => "https://www.#{user.facebook}"}
+                  %i.fab.fa-lg.fa-facebook-square
+
+                %a.contact.linkedin{:href => "https://www.#{user.linkedinLstring}"}
+                  %i.fab.fa-lg.fa-linkedin
+
+              - if current_user.is_leader_of(@team)
+                %div.container.title-container
+                  = form_tag(promote_to_leader_path(team_id: @team.id, user_id: user.id), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
+                    = submit_tag "Promote to Leader", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
 
 %div.container.title-container
   %h2 Become a Member

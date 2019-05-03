@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 
   patch 'teams/add_member/:id', to: 'teams#add_member', as: 'add_member'
 
+  patch 'teams/promote_to_leader/:team_id/:user_id', to: 'teams#promote_to_leader', as: 'promote_to_leader'
+
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'

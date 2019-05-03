@@ -1,5 +1,14 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_promote_leader_params, only: [:promote_to_leader]
+
+  def authenticate_promote_leader_params
+    @team = Team.find(params[:team_id])
+    @new_leader = User.find(params[:user_id])
+    if !current_user.is_leader_of(@team) || !(@team.members.include? @new_leader)
+      redirect_to team_path(@team)
+    end
+  end
 
   def index
   	@message = "Hello, #{current_user.first}!"
@@ -47,6 +56,12 @@ class TeamsController < ApplicationController
       flash[:alert] = "Wrong password!"
     end
 
+    redirect_to team_path(@team)
+  end
+
+  def promote_to_leader
+    @team.user_id = @new_leader.id
+    @team.save!
     redirect_to team_path(@team)
   end
 end
