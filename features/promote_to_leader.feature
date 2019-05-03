@@ -11,7 +11,7 @@ Background: members and teams have been added to the database
   | Jason     | Bi         | jbi@berkeley.edu           | kiwi   | None     | 13371384  | 123456   | 123456                | registration_code |
 
 Scenario: Team leader promotes fellow member to team leader
-  I am logged in as the user with email "glz@berkeley.edu"
+  Given I am logged in as the user with email "glz@berkeley.edu"
   And I am on the "kiwi" team page
   When I press "Promote to Leader"
   Then I should not be the leader of Team "kiwi"
