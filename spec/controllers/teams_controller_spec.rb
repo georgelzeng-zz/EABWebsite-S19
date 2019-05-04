@@ -13,4 +13,11 @@ RSpec.describe TeamsController, type: :controller do
     expect(@team.leader).not_to eq(@user)
     expect(@team.leader).to eq(@user_with_team)
   end
+
+  it "makes sure only team leader can use the delete action" do
+    #need to reassign @user_with_team variable because record got updated
+    @user_with_team = User.find_by email: "user_with_team@gmail.com"
+    delete "delete", {id: @team.id}
+    expect(@user_with_team.team).not_to eq(nil)
+  end
 end
