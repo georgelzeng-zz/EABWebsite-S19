@@ -20,4 +20,9 @@ RSpec.describe TeamsController, type: :controller do
     delete "delete", {id: @team.id}
     expect(@user_with_team.team).not_to eq(nil)
   end
+
+  it "makes sure attempts to see teams that don't exist go to the team index page" do
+    get "show", {id: 100}
+    expect(response).to redirect_to(home_path)
+  end
 end

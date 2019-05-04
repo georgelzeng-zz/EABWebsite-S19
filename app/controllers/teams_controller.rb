@@ -5,8 +5,9 @@ class TeamsController < ApplicationController
   before_action :ensure_leader, only: [:update, :delete]
 
   def ensure_valid_team_id
-    @team = Team.find(params[:id])
-    if @team == nil
+    begin
+      @team = Team.find(params[:id])
+    rescue
       redirect_to home_path
     end
   end
