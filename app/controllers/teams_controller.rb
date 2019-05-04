@@ -81,7 +81,7 @@ class TeamsController < ApplicationController
     begin
       @team.update!(team_params)
     rescue
-      flash[:alert] = "Team with name #{params[:team][:name]} already exists!"
+      flash[:alert] = "A team with name #{params[:team][:name]} already exists!"
     end
     redirect_to team_path(@team)
   end

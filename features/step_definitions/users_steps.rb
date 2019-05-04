@@ -469,3 +469,8 @@ end
 Then /^the leader of Team "(.*)" should be the user with email "(.*)"/ do |team_name, user_email|
   expect((Team.find_by name: team_name).leader).to eq(User.find_by email: user_email)
 end
+
+Then /^my team's "(.*)" should be "(.*)"/ do |column, value|
+  update_user_variable
+  expect(@user.team.send(column.to_sym)).to eq(value)
+end
