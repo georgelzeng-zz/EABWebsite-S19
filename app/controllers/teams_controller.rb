@@ -1,12 +1,27 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_valid_team_id, except: [:create, :index, :new_team]
   before_action :authenticate_promote_leader_params, only: [:promote_to_leader]
+  before_action :ensure_leader, only: [:update, :delete]
+
+  def ensure_valid_team_id
+    begin
+      @team = Team.find(params[:id])
+    rescue
+      redirect_to home_path
+    end
+  end
 
   def authenticate_promote_leader_params
-    @team = Team.find(params[:team_id])
     @new_leader = User.find(params[:user_id])
     if !current_user.is_leader_of(@team) || !(@team.members.include? @new_leader)
       redirect_to team_path(@team)
+    end
+  end
+
+  def ensure_leader
+    if !current_user.is_leader_of(@team)
+      redirect_to home_path
     end
   end
 
@@ -16,8 +31,6 @@ class TeamsController < ApplicationController
   end
 
   def show
-  	id = params[:id]
-    @team = Team.find(id)
   end
 
   def create
@@ -42,9 +55,6 @@ class TeamsController < ApplicationController
   end
 
   def add_member
-    id = params[:id]
-    @team = Team.find(id)
-
     if current_user.is_member_of(@team)
       flash[:alert] = "You're already on this team!"
     elsif current_user.has_a_team
@@ -63,5 +73,24 @@ class TeamsController < ApplicationController
     @team.user_id = @new_leader.id
     @team.save!
     redirect_to team_path(@team)
+  end
+
+  def edit
+  end
+
+  def update
+    begin
+      @team.update!(team_params)
+    rescue
+      flash[:alert] = "A team with name #{params[:team][:name]} already exists!"
+    end
+    redirect_to team_path(@team)
+  end
+
+  def delete
+    team_name = @team.name
+    Team.destroy(@team.id)
+    flash[:notice] = "Team #{team_name} successfully deleted."
+    redirect_to teams_path
   end
 end

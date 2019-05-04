@@ -40,6 +40,9 @@ module NavigationHelpers
     when /^the "(.*)" team page$/i
       team_path(Team.find_by name: $1)
 
+    when /^the "(.*)" team edit page$/i
+      edit_team_path(Team.find_by name: $1)
+
     when /^the spreadsheet page$/
       users_spreadsheet_path + ".xlsx"
 
