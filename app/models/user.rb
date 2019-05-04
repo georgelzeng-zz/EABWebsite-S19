@@ -119,4 +119,8 @@ class User < ActiveRecord::Base
   def has_a_team
     return self.team != nil
   end
+
+  def is_a_leader
+    return self.team != nil && self.team.leader == self
+  end
 end
