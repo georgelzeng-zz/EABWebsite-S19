@@ -2,7 +2,7 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_valid_team_id, except: [:create, :index, :new_team]
   before_action :authenticate_promote_leader_params, only: [:promote_to_leader]
-  before_action :ensure_leader, only: [:update]
+  before_action :ensure_leader, only: [:update, :delete]
 
   def ensure_valid_team_id
     @team = Team.find(params[:id])
@@ -84,5 +84,12 @@ class TeamsController < ApplicationController
       flash[:alert] = "Team with name #{params[:team][:name]} already exists!"
     end
     redirect_to team_path(@team)
+  end
+
+  def delete
+    team_name = @team.name
+    Team.destroy(@team.id)
+    flash[:notice] = "Team #{team_name} successfully deleted."
+    redirect_to teams_path
   end
 end

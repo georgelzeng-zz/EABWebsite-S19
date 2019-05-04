@@ -46,3 +46,14 @@
             = f.submit "Update Team", class: %w[btn btn-primary]
           .col
             = link_to "Cancel", :back, class: %w[btn btn-secondary]
+
+.container.form-container
+  .row
+    .col-md-4
+    .col
+      %h4 Delete Team
+      .form-section.danger
+        .field
+          %p
+            Danger Zone: Delete your team (not the members)
+          = button_to "Delete my team", delete_team_path(@team), data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]
