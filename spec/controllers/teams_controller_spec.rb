@@ -9,7 +9,7 @@ RSpec.describe TeamsController, type: :controller do
   end
 
   it "makes sure only team leader can use the PATCH promote_to_leader action" do
-    patch "promote_to_leader", {team_id: @team.id, user_id: @user.id}
+    patch "promote_to_leader", {id: @team.id, user_id: @user.id}
     expect(@team.leader).not_to eq(@user)
     expect(@team.leader).to eq(@user_with_team)
   end
