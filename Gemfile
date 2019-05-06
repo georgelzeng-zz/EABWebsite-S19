@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '>= 2.2.0', '< 3.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '5.0.2'
 
 # managing images and profile pictures
 gem "paperclip", "~> 6.0.0"

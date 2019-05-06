@@ -43,14 +43,65 @@ class UsersController < ApplicationController
     end
     auto_complete(@users)
 
-    @users = User.search(params[:search], false) || User.order(sort_column + ' ' + sort_direction)
+    if !params[:search].nil?
+      session[:search] = params[:search]
+    end
+
+    User.uncached do
+      @users = current_user.search(session[:search], false)
+    end
+
+    if !params[:search].nil?
+      session[:search] = params[:search]
+    end
+
+    if !params[:sort].nil?
+      session[:sort] = params[:sort]
+    end
+
+    if !params[:direction].nil?
+      session[:direction] = params[:direction]
+    end
+
+    if @users == User.none
+      @users = User.all.order(sort_column + " " + sort_direction)
+    else
+      User.uncached do
+        @users = @users.order(session[:sort] + " " + session[:direction])
+      end
+    end
   end
 
   def admin_index
     @message = "Hello, #{current_user.first}!"
     @users = (@users.nil? || params[:search].nil?) ? User.all : ""
     auto_complete(@users)
-    @users = User.search(params[:search], true) || User.order(sort_column + ' ' + sort_direction)
+
+    if !params[:search].nil?
+      session[:search] = params[:search]
+    end
+
+    if !params[:sort].nil?
+      session[:sort] = params[:sort]
+    end
+
+    if !params[:direction].nil?
+      session[:direction] = params[:direction]
+    end
+
+    @users = current_user.search(session[:search], true)
+
+    if @users == User.none
+      @users = User.all
+    end
+
+    if !session[:direction].nil?
+      if session[:direction] == "asc"
+        @users.sort { |a, b| a.send(session[:sort].to_sym) <=> b.send(session[:sort].to_sym)}
+      else
+        @users.sort { |a, b| b.send(session[:sort].to_sym) <=> a.send(session[:sort].to_sym)}
+      end
+    end
   end
 
   def show
