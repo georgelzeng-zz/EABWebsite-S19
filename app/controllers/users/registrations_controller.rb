@@ -27,13 +27,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    @user = User.find(params[:toDelete])
+    user = User.find(params[:toDelete])
 
-    if @user.is_a_leader
-      @user.team.destroy
+    users_team = user.team
+    if user.is_a_leader && users_team.members.length == 1
+      users_team.destroy
+    elsif user.is_a_leader && users_team.members.length > 1
+      team_members_without_leader = users_team.members - [users_team.leader]
+      users_team.user_id = team_members_without_leader[0].id
+      users_team.save!
     end
-    
-    @user.destroy
+
+    user.destroy
 
     redirect_to users_path, flash: {notice: "User was successfully deleted"}
   end
