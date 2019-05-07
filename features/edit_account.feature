@@ -12,5 +12,5 @@ Scenario: User can edit their profile info
     And I follow "View Profile"
     Then I should see the link "Edit Account"
     When I follow "Edit Account"
-    Then I should see "leave blank if you don't want to change it"
-    And I should see "we need your current password to confirm your changes"
+    Then I should see "New password"
+    And I should see "needed to make changes to email or password"
