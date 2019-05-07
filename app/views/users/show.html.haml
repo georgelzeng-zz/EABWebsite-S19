@@ -66,9 +66,6 @@
       %table
         %tr
           %td
-            = link_to 'Back', users_path
-            &nbsp &nbsp
-          %td
             - if current_user.id == @user.id
               = link_to 'Edit Account', edit_page_path(@user)
               &nbsp &nbsp
