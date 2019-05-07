@@ -68,11 +68,11 @@
 
           .row
             .field.col-md-6
-              = f.label "Full LinkedIn URL"
+              = f.label "LinkedIn URL \(no https or www\)"
               %br/
               = f.text_field :linkedinLstring, autofocus: true, class: %w[input form-control]
             .field.col-md-6
-              = f.label "Full Facebook URL"
+              = f.label "Facebook URL \(no https or www\)"
               %br/
               = f.text_field :facebook, autofocus: true, class: %w[input form-control]
 
@@ -88,15 +88,6 @@
             %div
               Currently waiting confirmation for: #{resource.unconfirmed_email}
 
-          .row
-            .field.col-md-6
-              = f.label "Full LinkedIn URL"
-              %br/
-              = f.text_field :linkedinLstring, autofocus: true, class: %w[input form-control]
-            .field.col-md-6
-              = f.label "Full Facebook URL"
-              %br/
-              = f.text_field :facebook, autofocus: true, class: %w[input form-control]
           .field
             = f.label :password
             %i (leave blank if you don't want to change it)

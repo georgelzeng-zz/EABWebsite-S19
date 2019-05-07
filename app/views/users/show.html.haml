@@ -29,11 +29,19 @@
               = @emailDomain
         %tr
           %td.socialMedia{ style: 'font-size: 2.6rem; text-align: center;' }
-            %a{:href => "https://www.#{@user.facebook}"}
-              %i.fab.fa-facebook-square
+            - if @user.facebook && !@user.facebook.empty?
+              %a.contact.fb{:target => "_blank", :href => "https://www.#{@user.facebook}"}
+                %i.fab.fa-lg.fa-facebook-square
+            - else
+              %a.contact.fb.inactive
+                %i.fab.fa-lg.fa-facebook-square
 
-            %a{:href => "https://www.#{@user.linkedinLstring}"}
-              %i.fab.fa-linkedin
+            - if @user.linkedinLstring && !@user.linkedinLstring.empty?
+              %a.contact.linkedin{:target => "_blank", :href => "https://www.#{@user.linkedinLstring}"}
+                %i.fab.fa-lg.fa-linkedin
+            - else
+              %a.contact.linkedin.inactive
+                %i.fab.fa-lg.fa-linkedin
 
     %div.profile-filler-wrapper.col-1
     %div.profile-main-wrapper.col-9
