@@ -36,14 +36,14 @@
                 %p.user-about.skillset= "Skills: #{user.skillset}"
 
             %div.user-contact
-              - if user.facebook
+              - if user.facebook && !user.facebook.empty?
                 %a.contact.fb{:target => "_blank", :href => "https://www.#{user.facebook}"}
                   %i.fab.fa-lg.fa-facebook-square
               - else
                 %a.contact.fb.inactive
                   %i.fab.fa-lg.fa-facebook-square
 
-              - if user.linkedinLstring
+              - if user.linkedinLstring && !user.linkedinLstring.empty?
                 %a.contact.linkedin{:target => "_blank", :href => "https://www.#{user.linkedinLstring}"}
                   %i.fab.fa-lg.fa-linkedin
               - else
