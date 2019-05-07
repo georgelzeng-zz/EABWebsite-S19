@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   ##Methods dealing with search
-  @@member = ["first", "last", "team", "major", "skillset", "linkedinLstring", "facebook", "year"]
+  @@member = ["first", "last", "team", "major", "skillset", "year"]
   @@admin_only = ["email", "sid", "code"]
 
   # Search by keyword, phrase or alphabetically order by first name by default
