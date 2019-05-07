@@ -2,7 +2,8 @@ class TeamsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_valid_team_id, except: [:create, :index, :new_team]
   before_action :authenticate_promote_leader_params, only: [:promote_to_leader]
-  before_action :ensure_leader, only: [:update, :delete]
+  before_action :ensure_leader, only: [:update]
+  before_action :ensure_leader_or_admin, only: [:delete]
 
   def ensure_valid_team_id
     begin
@@ -21,6 +22,12 @@ class TeamsController < ApplicationController
 
   def ensure_leader
     if !current_user.is_leader_of(@team)
+      redirect_to home_path
+    end
+  end
+
+  def ensure_leader_or_admin
+    if !current_user.is_leader_of(@team) && !current_user.admin?
       redirect_to home_path
     end
   end
