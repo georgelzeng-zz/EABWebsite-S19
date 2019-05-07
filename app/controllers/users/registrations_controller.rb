@@ -60,13 +60,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     redirect_to users_path, flash: {notice: "User was successfully deleted"}
   end
 
-  # def update_resource(resource, params)
-  #   if params[:password].blank? && params[:password_confirmation].blank? && params[:email].blank?
-  #     resource.update_without_password(params)
-  #   else
-  #     super
-  #   end
-  # end
+  def update_resource(resource, params)
+    if params[:password].blank? && params[:password_confirmation].blank? && params[:email].blank?
+      resource.update_without_password(params)
+    else
+      super
+    end
+  end
   
   # def update_resource(resource, params)
   #   resource.update_without_password(params)
