@@ -17,6 +17,9 @@ Scenario: Team leader deletes the team
   Then I should be on the Team Database page
   And I should see "Team kiwi successfully deleted"
   And I should not be on a team
+  When I go to the Database page
+  And I go to the Team Database page
+  Then I should not see "kiwi"
 
 Scenario: Non-team leader cannot get to the team delete button
   Given I am logged in as the user with email "jbi@berkeley.edu"
