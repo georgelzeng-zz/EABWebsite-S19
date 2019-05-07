@@ -20,7 +20,7 @@
           %td.profileEmail{ style: 'font-size: 14px;' }
             - if current_user.admin?
               = @user.email
-            -else
+            - else
               = "      "
               = @emailName
               = image_tag "atSymbol.jpg", :size => "50x50"

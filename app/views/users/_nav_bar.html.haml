@@ -13,8 +13,16 @@
         %li.nav-item
           %a.nav-link{:href => teams_path} Teams
 
-        %li.nav-item
-          %a.nav-link{:href => users_path, :method => :get} Members
+        - if current_user.try(:admin?)
+          %li.nav-item
+            %a.nav-link{:href => users_path, :method => :get} Regular View
+        - else
+          %li.nav-item
+            %a.nav-link{:href => users_path, :method => :get} Members
+
+        - if current_user.try(:admin?)
+          %li.nav-item
+            %a.nav-link{:href => users_admin_path, :method => :get} Admin View
 
       %ul.navbar-nav.ml-auto
 
