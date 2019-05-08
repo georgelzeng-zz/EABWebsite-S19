@@ -332,12 +332,9 @@ end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I am on the homepage}
-  step %{I press "Members"}
-
-  step %{I should be on the Database page}
   step %{I should be an admin}
 
-  step %{I follow "Admin View"}
+  step %{I follow "Members (Admin View)"}
 
   case code_type
   when "Regular Access Code"

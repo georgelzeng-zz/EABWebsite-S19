@@ -2,7 +2,7 @@
 
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
   %div.container
-    %a.navbar-brand{:href => home_path} Entrepreneurs @ Berkeley
+    %a.navbar-brand{:href => "https://entrepreneurs.berkeley.edu"} Entrepreneurs@Berkeley
     %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
 
@@ -23,6 +23,9 @@
         - if current_user.try(:admin?)
           %li.nav-item
             %a.nav-link{:href => users_admin_path, :method => :get} Members (Admin View)
+
+        %li.nav-item
+          %a.nav-link{:href => home_path} Dashboard
 
       %ul.navbar-nav.ml-auto
 

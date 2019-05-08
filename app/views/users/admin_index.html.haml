@@ -64,7 +64,10 @@
           %td= user.last
           %td= user.email
           %td= user.team_name
-          %td= user.is_a_leader.to_s
+          - if user.is_a_leader
+            %td Yes
+          - else
+            %td No
           %td= user.skillset
           %td= user.sid
           %td= user.major
