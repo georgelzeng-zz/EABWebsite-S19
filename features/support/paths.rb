@@ -46,6 +46,12 @@ module NavigationHelpers
     when /^the spreadsheet page$/
       users_spreadsheet_path + ".xlsx"
 
+    when /^the profile page for the user with email "(.*)"$/i
+      user_path(User.find_by email: $1)
+
+    when /^the edit page for the user with email "(.*)"$/i
+      edit_page_path(User.find_by email: $1)
+
     else
       begin
         page_name =~ /^the (.*) page$/

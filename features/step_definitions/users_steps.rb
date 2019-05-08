@@ -358,6 +358,10 @@ Then /^I should be an admin$/ do
   expect(@user.admin?).to be(true)
 end
 
+Then /^I should not be logged in$/ do
+  page.should have_content "Login"
+end
+
 Then /^I should be signed in$/ do
   page.should have_content "Logout"
   page.should_not have_content "Sign up"

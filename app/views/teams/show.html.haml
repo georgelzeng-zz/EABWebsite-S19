@@ -78,11 +78,25 @@
               - if current_user.is_leader_of(@team)
                 %div.container.title-container
                   = form_tag(promote_to_leader_path(team_id: @team.id, user_id: user.id), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
-                    = submit_tag "Promote to Leader", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+                    = submit_tag "Promote to Leader", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0], data: { confirm: "Are you sure?" }
 
-%div.container.title-container
-  %h2 Become a Member
+%div.container.form-container
+  .row
+    .col-md-6
+      %div.container.title-container
+        %h2 Become a Member
 
-  = form_tag(add_member_path(@team), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
-    = text_field_tag(:password, nil, :placeholder => "Team Password", class: %w[input form-control], :id => "password")
-    = submit_tag "Join Team", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+        = form_tag(add_member_path(@team), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
+          = text_field_tag(:password, nil, :placeholder => "Team Password", class: %w[input form-control], :id => "password")
+          = submit_tag "Join Team", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+
+    .col-md-6
+      %div.profile-button-wrapper.col-12
+        %table
+          %tr
+            %td
+              - if current_user.is_member_of(@team)
+                = button_to "Leave Team", leave_team_path(current_user),  { confirm: "Are you sure?" }
+            %td
+              - if current_user.admin?
+                = button_to "Delete Team", delete_team_path(@team), data: { confirm: "Are you sure?" }, method: :delete
