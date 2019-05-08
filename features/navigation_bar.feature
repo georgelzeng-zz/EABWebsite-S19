@@ -1,19 +1,19 @@
-Feature: navigate to homepage with logo and profile with profile image
+Feature: navigate using navbar options
 
 As a user
-So I may quickly navigate to the homepage and profile
-I want to be able to quickly navigate between pages
+So I may quickly navigate between pages
+I want to be able to use navigation bar tabs
 
-Scenario: navigate to homepage from users database
+Scenario: navigate to database homepage from viewing members
   Given I am logged in as "a regular user"
   When I view users
-  And I follow "Entrepreneurs @ Berkeley"
+  And I follow "Dashboard"
   Then I should be on the homepage
 
-Scenario: navigate to homepage from admin database
+Scenario: navigate to database homepage from admin database
   Given I am logged in as "an admin"
   When I go to the Admin Database page
-  And I follow "Entrepreneurs @ Berkeley"
+  And I follow "Dashboard"
   Then I should be on the homepage
 
 Scenario: navigate to profile page from users database
@@ -39,5 +39,5 @@ Scenario: navigate to home from profile page
   When I go to the Database page
   And I follow "More"
   And I follow "View Profile"
-  And I follow "Entrepreneurs @ Berkeley"
+  And I follow "Dashboard"
   Then I should be on the homepage
