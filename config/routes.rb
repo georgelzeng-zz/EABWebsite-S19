@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get 'users/EAB_roster', to: 'users#spreadsheet', as: 'users_spreadsheet'
 
+  get 'users/clear', to: 'users#clear', as: 'users_clear'
 
   get 'teams', to: 'teams#index', as: 'teams'
 

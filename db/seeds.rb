@@ -8,6 +8,7 @@
 
 Code.create!(code_type: "regular", code: ENV["REGULAR_CODE"])
 Code.create!(code_type: "admin", code: ENV["ADMIN_CODE"])
+Code.create!(code_type: "superadmin", code: ENV["SUPERADMIN_CODE"])
 
 User.create!(first: 'Kyle', last: 'Ngo', email: 'kylengo357@berkeley.edu', year: 'Senior', major: 'Basket Weaving', skillset: 'None', facebook: 'facebook.com/kylengo357', linkedinLstring: 'linkedin.com/in/kyle-ngo-a78815155/', sid: '87654321', password: 'pancakes', password_confirmation: 'pancakes', code: Code.admin_code)
 
@@ -35,3 +36,5 @@ User.create!(first: 'Michael', last: 'Wu', email: 'wuxiaohua1011@berkeley.edu', 
 User.create!(first: 'Nick', last: 'Cai', email: 'ncaia@berkeley.edu', team_id: team_kiwi.id, year: 'Freshman', major: 'Computer Science', skillset: 'None', sid: '87654301', password: 'pancakes', password_confirmation: 'pancakes', code: Code.admin_code)
 
 User.create!(first: 'Eric', last: 'Brown', email: 'ebrown@gmail.com', team_id: team_chair.id, year: '2020', major: 'Computer Science', skillset: 'None', sid: '8241025001', password: 'pancakes', password_confirmation: 'pancakes', code: Code.regular_code)
+
+User.create!(first: 'Billy', last: 'Bob', email: 'billybob@gmail.com', password:"PANCAKES", sid: '42069420', code: Code.superadmin_code)

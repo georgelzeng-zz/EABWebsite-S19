@@ -100,6 +100,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def clear
+    @users = User.all
+    @teams = Team.destroy_all
+    @users.each do |user|
+      next if user.code == Code.admin_code
+      user.delete
+    end
+    redirect_to users_path
+  end
+
   private
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "first"

@@ -66,5 +66,12 @@
   = text_field_tag(:admin_code, Code.admin_code)
   = submit_tag "Change Admin Access Code", name: nil
 
+- if current_user.code == Code.superadmin_code
+  = form_tag(change_code_path(access_level: "superadmin"), :method => 'PATCH') do
+    = text_field_tag(:superadmin_code, Code.superadmin_code)
+    = submit_tag "Change Superadmin Access Code", name: nil
+
+
 = link_to 'Back', home_path
+= link_to 'Delete All Users', users_clear_path
 = link_to "Export users as spreadsheet", users_spreadsheet_path(format: "xlsx")
