@@ -49,3 +49,9 @@
               - else
                 %a.contact.linkedin.inactive
                   %i.fab.fa-lg.fa-linkedin
+
+            - if promotable
+              - if current_user.is_leader_of(@team)
+                %div.container.title-container
+                  = form_tag(promote_to_leader_path(team_id: @team.id, user_id: user.id), :method => 'PATCH', class: %w[form form-inline my-2 my-lg-0]) do
+                    = submit_tag "Promote to Leader", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0], data: { confirm: "Are you sure?" }
