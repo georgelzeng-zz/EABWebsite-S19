@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     self.code == Code.admin_code
   end
 
-  def admin?
+  def superadmin?
     self.code == Code.superadmin_code
   end
 
