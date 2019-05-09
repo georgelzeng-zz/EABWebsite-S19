@@ -349,6 +349,9 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I press "Change #{code_type}"}
 end
 
+When /^(?:|I )fill in "([^"]*)" with my password$/ do |field|
+  fill_in(field, :with => @visitor[:password])
+end
 
 ### THEN ###
 Then /^I should be an admin$/ do
@@ -475,3 +478,5 @@ Then /^my team's "(.*)" should be "(.*)"/ do |column, value|
   update_user_variable
   expect(@user.team.send(column.to_sym)).to eq(value)
 end
+
+
