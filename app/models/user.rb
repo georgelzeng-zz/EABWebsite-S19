@@ -49,51 +49,51 @@ class User < ActiveRecord::Base
   @@admin_only = ["email", "sid", "code"]
 
   # Search by keyword, phrase or alphabetically order by first name by default
-  def self.search(search, admin)
+  def search(search, admin)
     if !search.blank?
-      @@results = []
+      @results = []
       if !search.strip.include? " "
-        @@results = self.search_keyword(search, admin)
+        @results = self.search_keyword(search, admin)
       else
-        @@results = self.search_phrase(search, admin)
+        @results = self.search_phrase(search, admin)
       end
     end
   end
 
   # Search keyword within respective member or admin fields
-  def self.search_keyword(search, admin)
-    permissions = admin ? @@member.concat(@@admin_only) : @@member
-    @@results = []
+  def search_keyword(search, admin)
+    permissions = admin ? @@member + @@admin_only : @@member
+    @results = []
 
     for col in permissions
       self.update_results(col, search)
     end
-    @@results
+    @results
   end
 
   # Search for a phrase within respective member or admin fields
-  def self.search_phrase(search, admin)
+  def search_phrase(search, admin)
     search = search.split(" ")
-    permissions = admin ? @@member.concat(@@admin_only) : @@member
-    @@results = []
+    permissions = admin ? @@member + @@admin_only : @@member
+    @results = []
 
     for col in permissions
       for word in search
         self.update_results(col, word)
       end
     end
-    @@results
+    @results
   end
 
   #generalize updating @results for search
-  def self.update_results(column, search)
+  def update_results(column, search)
     if column == "team"
       find = User.search_team_name(search)
     else
       find = User.where("lower(#{column}) LIKE lower(?)", "%#{search}%").order(:first)
     end
 
-    @@results = @@results | find
+    @results = @results | find
   end
 
   ##Methods dealing with download-roster
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
 
   ##methods dealing with teams
 
-  #for calling in index.html
+  #for calling in index.html and other views
   def team_name
     self.team == nil ? "" : self.team.name
   end
