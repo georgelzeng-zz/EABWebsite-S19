@@ -1,0 +1,28 @@
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
+
+.content
+  = render :partial => 'users/flash_messages', :locals => { :flash => flash }
+
+.container-fluid.session-container
+  .row
+    .col
+    .form-wrapper.col-md-4.col-10
+      %h2 Change your password
+      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, class: %w[form form-inline my-2 my-lg-0]) do |f|
+        = render "devise/shared/error_messages", resource: resource
+        = f.hidden_field :reset_password_token
+        .field
+          = f.label :password, "New password"
+          - if @minimum_password_length
+            %p!= "(#{@minimum_password_length} characters minimum)"
+          %br/
+          = f.password_field :password, autofocus: true, autocomplete: "new-password", class: %w[input form-control session-input]
+        .field
+          = f.label :password, "Confirm new password"
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off", class: %w[input form-control session-input]
+        .actions
+          = f.submit "Change my password", class: %w[btn btn-secondary]
+      = render "users/shared/links"
+    .col
