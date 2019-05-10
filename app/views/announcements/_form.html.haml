@@ -1,4 +1,4 @@
-= simple_form_for @announcement do |f|
-  = f.input :title, label: "Announcement"
+= simple_form_for(@announcement, html: { class: 'form-horizontal' }) do |f|
+  = f.input :title, label: "Title"
   = f.input :description
   = f.button :submit

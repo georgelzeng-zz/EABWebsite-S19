@@ -6,3 +6,11 @@
   = @message
 
 %h4 Dashboard
+
+- if current_user.admin?
+  %h6= button_to "Make Announcement", new_announcement_path, method: :get
+
+%div.container
+  - @announcements.each do |announcement|
+    %h2= announcement.title
+    = link_to "View", announcement_path(announcement), class: 'btn btn-primary'
