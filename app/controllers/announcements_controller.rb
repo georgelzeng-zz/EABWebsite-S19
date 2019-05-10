@@ -7,7 +7,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def create
-    @announcement = Announcemeent.new(content_params)
+    @announcement = Announcement.new(content_params)
   end
 
   private
