@@ -332,12 +332,9 @@ end
 
 When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I am on the homepage}
-  step %{I press "Members"}
-
-  step %{I should be on the Database page}
   step %{I should be an admin}
 
-  step %{I follow "Admin View"}
+  step %{I follow "Members (Admin View)"}
 
   case code_type
   when "Regular Access Code"
@@ -352,10 +349,17 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   step %{I press "Change #{code_type}"}
 end
 
+When /^(?:|I )fill in "([^"]*)" with my password$/ do |field|
+  fill_in(field, :with => @visitor[:password])
+end
 
 ### THEN ###
 Then /^I should be an admin$/ do
   expect(@user.admin?).to be(true)
+end
+
+Then /^I should not be logged in$/ do
+  page.should have_content "Login"
 end
 
 Then /^I should be signed in$/ do
@@ -474,3 +478,5 @@ Then /^my team's "(.*)" should be "(.*)"/ do |column, value|
   update_user_variable
   expect(@user.team.send(column.to_sym)).to eq(value)
 end
+
+

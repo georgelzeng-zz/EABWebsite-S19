@@ -66,14 +66,11 @@
       %table
         %tr
           %td
-            = link_to 'Back', users_path
-            &nbsp &nbsp
-          %td
             - if current_user.id == @user.id
               = link_to 'Edit Account', edit_page_path(@user)
               &nbsp &nbsp
           %td
-            - if current_user.id == @user.id
+            - if current_user.id == @user.id && current_user.has_a_team
               = button_to "Leave Team", leave_team_path(@user),  { confirm: "Are you sure?" }
           %td
             - if current_user.admin?

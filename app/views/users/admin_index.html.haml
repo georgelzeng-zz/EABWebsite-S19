@@ -4,74 +4,80 @@
 .content
   = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
-%h2 All Users
+%div.container.title-container
+  %h2 Admin Duties
+  = form_tag(change_code_path(access_level: "regular"), :method => 'PATCH') do
+    = text_field_tag(:registration_code, Code.regular_code)
+    = submit_tag "Change Regular Access Code", name: nil
 
-= form_tag(users_admin_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
-  = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
-  = submit_tag "Search", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
-:javascript
-  var list = #{raw @autoComplete};
-  var json = [];
-  for (var i = 0; i < list.length; i++) {
-    var dict = {};
-    dict["name"] = list[i];
-    json.push(dict)
-  }
-  var options = {
-    data: json,
-    getValue: "name",
-    list: {
-      match: {
-        enabled: true
-      }
+  = form_tag(change_code_path(access_level: "admin"), :method => 'PATCH') do
+    = text_field_tag(:admin_code, Code.admin_code)
+    = submit_tag "Change Admin Access Code", name: nil
+
+  - if current_user.code == Code.superadmin_code
+    = form_tag(change_code_path(access_level: "superadmin"), :method => 'PATCH') do
+      = text_field_tag(:superadmin_code, Code.superadmin_code)
+      = submit_tag "Change Superadmin Access Code", name: nil
+
+  = link_to "Export users as spreadsheet", users_spreadsheet_path(format: "xlsx")
+  = link_to 'Delete All Users', users_clear_path, :data => {:confirm => 'Are you sure?'}
+
+%div.container.title-container
+  %h2 All Users
+
+  = form_tag(users_admin_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
+    = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
+    = submit_tag "Search", name: nil, class: %w[button btn btn-outline-success my-2 my-sm-0]
+  :javascript
+    var list = #{raw @autoComplete};
+    var json = [];
+    for (var i = 0; i < list.length; i++) {
+      var dict = {};
+      dict["name"] = list[i];
+      json.push(dict)
     }
-  };
-    $("#searchField").easyAutocomplete(options);
+    var options = {
+      data: json,
+      getValue: "name",
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+      $("#searchField").easyAutocomplete(options);
 
-%table.table-striped.col-md-10#users
-  %thead
-    %tr
-      %th= sortable "first", "First"
-      %th= sortable "last", "Last"
-      %th= sortable "email", "Email"
-      %th= sortable "team", "Team"
-      %th Skillset
-      %th= sortable "sid", "SID"
-      %th= sortable "year", "Year"
-      %th= sortable "major", "Major"
-      %th Facebook
-      %th LinkedIn
-      %th Privileges
-
-  %tbody
-    - @users.each do |user|
+  %table.table-striped.col-md-10#users
+    %thead
       %tr
-        %td= user.first
-        %td= user.last
-        %td= user.email
-        %td= user.team_name
-        %td= user.skillset
-        %td= user.sid
-        %td= user.major
-        %td= user.facebook
-        %td= user.linkedinLstring
-        %td= user.privileges
-        %td= link_to "More about #{user.first}", user_path(user)
+        %th= sortable "first", "First"
+        %th= sortable "last", "Last"
+        %th= sortable "email", "Email"
+        %th= sortable "team", "Team"
+        %th Team-Leader?
+        %th Skillset
+        %th= sortable "sid", "SID"
+        %th= sortable "year", "Year"
+        %th= sortable "major", "Major"
+        %th Facebook
+        %th LinkedIn
+        %th Privileges
 
-= form_tag(change_code_path(access_level: "regular"), :method => 'PATCH') do
-  = text_field_tag(:registration_code, Code.regular_code)
-  = submit_tag "Change Regular Access Code", name: nil
-
-= form_tag(change_code_path(access_level: "admin"), :method => 'PATCH') do
-  = text_field_tag(:admin_code, Code.admin_code)
-  = submit_tag "Change Admin Access Code", name: nil
-
-- if current_user.code == Code.superadmin_code
-  = form_tag(change_code_path(access_level: "superadmin"), :method => 'PATCH') do
-    = text_field_tag(:superadmin_code, Code.superadmin_code)
-    = submit_tag "Change Superadmin Access Code", name: nil
-
-
-= link_to 'Back', home_path
-= link_to 'Delete All Users', users_clear_path
-= link_to "Export users as spreadsheet", users_spreadsheet_path(format: "xlsx")
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user.first
+          %td= user.last
+          %td= user.email
+          %td= user.team_name
+          - if user.is_a_leader
+            %td Yes
+          - else
+            %td No
+          %td= user.skillset
+          %td= user.sid
+          %td= user.major
+          %td= user.facebook
+          %td= user.linkedinLstring
+          %td= user.privileges
+          %td= link_to "More about #{user.first}", user_path(user)

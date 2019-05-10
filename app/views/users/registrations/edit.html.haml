@@ -89,13 +89,12 @@
               Currently waiting confirmation for: #{resource.unconfirmed_email}
 
           .field
-            = f.label :password
-            %i (leave blank if you don't want to change it)
+            = f.label "New Password"
             %br/
             = f.password_field :password, autocomplete: "new-password", class: %w[input form-control]
 
           .field
-            = f.label :password_confirmation
+            = f.label "Confirm new password"
             %br/
             = f.password_field :password_confirmation, autocomplete: "new-password", class: %w[input form-control]
 
@@ -107,7 +106,7 @@
 
           .field
             = f.label :current_password
-            %i (we need your current password to confirm your changes)
+            %i (needed to make changes to email or password)
             %br/
             = f.password_field :current_password, autocomplete: "current-password", class: %w[input form-control]
 
@@ -126,4 +125,4 @@
         .field
           %p
             Danger Zone: Delete your entire account
-          = button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]
+          = button_to "Delete my account", registration_path(resource_name), params: {toDelete: current_user.id}, data: { confirm: "Are you sure?" }, method: :delete, class: %w[btn btn-danger]

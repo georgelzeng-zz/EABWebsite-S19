@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   patch 'teams/update/:id', to: 'teams#update', as: 'update_team'
 
   delete 'teams/delete/:id', to: 'teams#delete', as: 'delete_team'
+  
 
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
