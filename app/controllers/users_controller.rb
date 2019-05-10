@@ -111,6 +111,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def sign_out
+    redirect_to users_path
+  end
+
   private
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "first"
