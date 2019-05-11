@@ -14,10 +14,10 @@
 
               %div.user-tile-info
 
-                - if user.team_name
-                  - team = user.team_name
-                - else
+                - if user.team_name.blank?
                   - team = "No team"
+                - else
+                  - team = user.team_name
 
                 - if user.major
                   - major = user.major

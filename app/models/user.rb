@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validate :correct_access_code
 
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/assets/missing.png"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
     validates_attachment_size :image, :less_than => 5.megabytes
 
@@ -26,6 +26,11 @@ class User < ActiveRecord::Base
     if self.code != Code.regular_code && self.code != Code.admin_code
       errors.add(:code, "-- Wrong access code")
     end
+  end
+
+  ##Methods dealing with user images
+  def picture_missing?
+    self.image.url.include?("missing.png")
   end
 
   ##Methods dealing with access codes
