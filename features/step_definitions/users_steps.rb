@@ -387,7 +387,6 @@ end
 
 Then /^I should see a successful sign up message$/ do
   page.should have_content "Welcome! You have signed up successfully."
-
 end
 
 Then /^I should see I am not logged in$/ do

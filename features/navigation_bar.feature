@@ -8,13 +8,13 @@ Scenario: navigate to database homepage from viewing members
   Given I am logged in as "a regular user"
   When I view users
   And I follow "Dashboard"
-  Then I should be on the homepage
+  Then I should be on the dashboard page
 
 Scenario: navigate to database homepage from admin database
   Given I am logged in as "an admin"
   When I go to the Admin Database page
   And I follow "Dashboard"
-  Then I should be on the homepage
+  Then I should be on the dashboard page
 
 Scenario: navigate to profile page from users database
   Given I am logged in as "a regular user"
@@ -40,4 +40,4 @@ Scenario: navigate to home from profile page
   And I follow "More"
   And I follow "View Profile"
   And I follow "Dashboard"
-  Then I should be on the homepage
+  Then I should be on the dashboard page
