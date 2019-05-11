@@ -107,7 +107,7 @@ class UsersController < ApplicationController
       next if user.code == Code.superadmin_code
       user.delete
     end
-    redirect_to users_path
+    redirect_to users_admin_path
   end
 
   def sign_out
