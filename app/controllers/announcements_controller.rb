@@ -15,10 +15,8 @@ class AnnouncementsController < ApplicationController
 
   def create
     @announcement = Announcement.new(content_params)
-    if @announcement.save!
+    if @announcement.save! 
       redirect_to announcements_path
-    else
-      render 'new'
     end
   end
 

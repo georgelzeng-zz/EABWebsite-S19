@@ -5,10 +5,10 @@
 %ul#details
   = @message
 
-
 - if current_user.admin?
   %h4 Make Announcement
   = render 'form'
 - else
   %p Restricted Access!
-  = link_to "Back", announcements_path
+
+= link_to "Back", announcements_path
