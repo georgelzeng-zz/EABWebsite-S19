@@ -153,7 +153,6 @@ Then /^(?:|I )should see the button "([^"]*)"$/ do |text|
   page.should have_button(text)
 end
 
-
 Then /^(?:|I )should not see the button "([^"]*)"$/ do |text|
   page.should have_no_button(text)
 end

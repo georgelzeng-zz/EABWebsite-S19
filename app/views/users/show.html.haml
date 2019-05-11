@@ -17,9 +17,15 @@
           %td.profileName{ style: 'font-size: 18px; text-align: center;' }
             %h3 #{@user.first} #{@user.last}
         %tr
-          %td.profileEmail{ style: 'font-size: 14px;' }
+          %td.profileEmail{ style: 'font-size: 14px; text-align: center;' }
             - if current_user.admin?
               = @user.email
+              - if @user.code == Code.regular_code
+                = "Standard User"
+              - elsif @user.code == Code.admin_code
+                = "Admin"
+              - else
+                = "Superadmin"
             - else
               = "      "
               = @emailName
@@ -27,6 +33,11 @@
               = @emailHost
               = image_tag "period.png",  :size => "50x50"
               = @emailDomain
+            %div.container.title-container
+            - if current_user.id == @user.id
+              = link_to 'Edit Account', edit_page_path(@user), class: %w[button btn btn-outline-success]
+              &nbsp
+
         %tr
           %td.socialMedia{ style: 'font-size: 2.6rem; text-align: center;' }
             - if @user.facebook && !@user.facebook.empty?
@@ -62,16 +73,27 @@
             Skills: #{@user.skillset}
 
 
-    %div.profile-button-wrapper.col-12
+    %div.profile-button-wrapper.col-16
+
       %table
         %tr
-          %td
-            - if current_user.id == @user.id
-              = link_to 'Edit Account', edit_page_path(@user)
-              &nbsp &nbsp
-          %td
-            - if current_user.id == @user.id && current_user.has_a_team
-              = button_to "Leave Team", leave_team_path(@user),  { confirm: "Are you sure?" }
-          %td
-            - if current_user.admin?
-              = button_to "Delete User", users_path(@user), params: {:toDelete => @user.id}, data: { confirm: "Are you sure?" }, method: :delete
+          - if current_user.id == @user.id && current_user.has_a_team
+            = button_to "Leave Team", leave_team_path(@user),  { confirm: "Are you sure?" }
+            &nbsp
+          - if current_user.code == Code.superadmin_code 
+            - if @user.code != Code.admin_code
+              = form_tag(make_admin_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+                = submit_tag "Make Admin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+              &nbsp
+            - if @user.code == Code.admin_code
+              = form_tag(make_super_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+                = submit_tag "Make Superadmin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+              &nbsp
+            - if @user.code != Code.regular_code
+              = form_tag(make_regular_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+                = submit_tag "Make Regular", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+              &nbsp
+          - if current_user.admin?
+            = button_to "Delete User", users_path(@user), class: %w[button btn btn-outline-success], params: {:toDelete => @user.id},data: { confirm: "Are you sure?" }, method: :delete
+            &nbsp
+
