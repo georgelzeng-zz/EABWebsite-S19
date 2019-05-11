@@ -85,7 +85,7 @@
               = form_tag(make_admin_path, :method => 'PATCH', class: %w[form form-horizontal]) do
                 = submit_tag "Make Admin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
               &nbsp
-            - if @user.code != Code.superadmin_code
+            - if @user.code == Code.admin_code
               = form_tag(make_super_path, :method => 'PATCH', class: %w[form form-horizontal]) do
                 = submit_tag "Make Superadmin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
               &nbsp
