@@ -5,6 +5,37 @@ Link to our Web App: https://entrepreneurs-at-berkeley.herokuapp.com/
 Bugs Found: https://docs.google.com/document/d/1hyodf9-vgdNBPCZqunVijffsQrNUKcYby2YvOsiL9Ks/edit?usp=sharing
 
 
+Types of Users:
+
+1) Regular: Regular members of EAB. Can:
+    - search other members
+    - create a team or join a team
+    - edit their profile (ie. add a picture, fb Profile, etc.)
+
+2) Admin: Administrative members of EAB. Can:
+    - do everything a regular user can do
+    - delete users
+    - delete teams
+    - download a spreadsheet of all users
+    - view users' emails in a copy-and-pastable way (ie. regular users see pictures of @ symbols instead of actual @ symbol)
+
+3) Super-Admin: Highest responsibility for EAB website. Can:
+    - do everything an admin user can do
+    - delete all regular users with a single button
+    - promote or demote users (ie. promote regular user to admin user)
+
+
+About Teams:
+
+There are two types of Team Members: leaders and members. Whoever creates the team, starts out as leader of the team.
+Leaders can:
+    - edit the team's info
+    - kick members from the team
+    - promote other members to leader
+
+Every team has a password determined by the creator. New team-members can be invited by giving them the team-password.
+    
+
 To run Locally:
 
 After navigating to main directory of repo, run the following commands:
@@ -29,7 +60,7 @@ Then create the file config/application.yml and add the following lines (to crea
 (2) is the password to (1)
 (3) is some string, and is the code required to register a regular account
 (4) is a string different from (3), and is the code required to register an admin account
-(5) is a string different from both (3) and (4), and is the code required to register a super-admin account (every privilege an admin has plus the ability to remove all regular users in one action)
+(5) is a string different from both (3) and (4), and is the code required to register a super-admin account
 The first 4 lines are environment variables required for password-recovery-emails to work.
 The last 3 lines are environment variables required for anything to work.
 
