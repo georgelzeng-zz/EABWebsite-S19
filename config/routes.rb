@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   get 'users/EAB_roster', to: 'users#spreadsheet', as: 'users_spreadsheet'
 
+  get 'users/clear', to: 'users#clear', as: 'users_clear'
 
   get 'teams', to: 'teams#index', as: 'teams'
 
@@ -44,6 +45,14 @@ Rails.application.routes.draw do
 
   resources :announcements
 
+  get '/users/sign_out', to: 'users#sign_out'
+
+  patch '/users/admin/:id', to: 'users#make_admin', as: 'make_admin'
+
+  patch '/users/superadmin/:id', to: 'users#make_super', as: 'make_super'
+
+  patch '/users/regular/:id', to: 'users#make_regular', as: 'make_regular'
+  
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_page'
 
   # post 'users/:id/edit', to: 'users#edit', as: 'edit'

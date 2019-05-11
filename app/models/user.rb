@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   ##Custom Validation methods
   def correct_access_code
-    if self.code != Code.regular_code && self.code != Code.admin_code
+    if self.code != Code.regular_code && self.code != Code.admin_code && self.code != Code.superadmin_code
       errors.add(:code, "-- Wrong access code")
     end
   end
@@ -32,7 +32,11 @@ class User < ActiveRecord::Base
 
   #to tell whether a user is an admin
   def admin?
-    self.code == Code.admin_code
+    self.code == Code.admin_code or self.code == Code.superadmin_code
+  end
+
+  def superadmin?
+    self.code == Code.superadmin_code
   end
 
   #to change an access code, as well as current members' access code (if having corresponding code)

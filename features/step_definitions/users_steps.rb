@@ -111,6 +111,8 @@ Given /^I am logged in as "(.*)"$/ do |userType|
     @code = Code.regular_code
   when "an admin"
     @code = Code.admin_code
+  when "a superadmin"
+    @code = Code.superadmin_code
   end
 
   create_visitor
@@ -226,6 +228,8 @@ When /^I register my "(.*)" as "(.*)"$/ do |field, value|
     value = Code.admin_code
   when "the access code"
     value = Code.regular_code
+  when "the superadmin code"
+    value = Code.superadmin_code
   when "not the admin code"
     value = Code.admin_code + Code.regular_code + 'nonsense'
   end
@@ -356,6 +360,10 @@ end
 ### THEN ###
 Then /^I should be an admin$/ do
   expect(@user.admin?).to be(true)
+end
+
+Then /^I should be a superadmin$/ do
+  expect(@user.superadmin?).to be(true)
 end
 
 Then /^I should not be logged in$/ do
