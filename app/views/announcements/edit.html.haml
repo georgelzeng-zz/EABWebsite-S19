@@ -5,9 +5,8 @@
 %ul#details
   = @message
 
-
 - if current_user.admin?
-  %h4 Make Announcement
+  %h4 Edit Announcement
   = render 'form'
 - else
   %p Restricted Access!
