@@ -100,11 +100,9 @@ class UsersController < ApplicationController
   end
 
   def clear
-    @users = User.all
+    @users = User.where(code: Code.regular_code)
     @teams = Team.destroy_all
     @users.each do |user|
-      next if user.code == Code.admin_code
-      next if user.code == Code.superadmin_code
       user.delete
     end
     redirect_to users_admin_path
