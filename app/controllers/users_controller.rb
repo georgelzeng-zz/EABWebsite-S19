@@ -55,8 +55,7 @@ class UsersController < ApplicationController
 
   def show
     @message = "Hello, #{current_user.first}!"
-    id = params[:id]
-    @user = User.find(id)
+    @user = find_curr
     @emailName = @user.email.split("@").first
     @emailHost = @user.email.split("@").last.split(".").first
     @emailDomain = @user.email.split(".").last
@@ -66,7 +65,7 @@ class UsersController < ApplicationController
   end
 
   def leave
-    @user = User.find(params[:id])
+    @user = find_curr
     if !@user.team.nil?
       if @user.team.user_id == params[:id].to_i
         flash[:alert] = "Please ensure that there's another admin for this team."
@@ -113,6 +112,32 @@ class UsersController < ApplicationController
 
   def sign_out
     redirect_to users_path
+  end
+
+  def make_admin
+    @user = find_curr
+    @user.code = Code.admin_code
+    @user.save!
+    redirect_to user_path(@user)
+  end
+
+  def make_super
+    @user = find_curr
+    @user.code = Code.superadmin_code
+    @user.save!
+    redirect_to user_path(@user)
+  end
+
+  def make_regular
+    @user = find_curr
+    @user.code = Code.regular_code
+    @user.save!
+    redirect_to user_path(@user)
+  end
+
+
+  def find_curr
+    User.find(params[:id])
   end
 
   private
