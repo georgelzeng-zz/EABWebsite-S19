@@ -26,8 +26,6 @@ class AnnouncementsController < ApplicationController
   def update
     if @announcement.update(content_params)
       redirect_to announcement_path
-    else
-      render 'edit'
     end
   end
 
