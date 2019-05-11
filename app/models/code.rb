@@ -2,7 +2,7 @@ class Code < ActiveRecord::Base
   validates :code_type, uniqueness: true
   validates :code, uniqueness: true
   validate :correct_type
-  @@valid_access_levels = ["regular", "admin"]
+  @@valid_access_levels = ["regular", "admin", "superadmin"]
 
   ##Custom validation methods
   def correct_type
@@ -40,6 +40,10 @@ class Code < ActiveRecord::Base
 
   def self.admin_code
     Code.get_code("admin")
+  end
+
+  def self.superadmin_code
+    Code.get_code("superadmin")
   end
 
   def self.valid_access_levels

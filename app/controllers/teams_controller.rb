@@ -53,7 +53,7 @@ class TeamsController < ApplicationController
     else
       flash[:alert] = "You can only be in one team!"
     end
-
+    
   	redirect_to teams_path
   end
 
