@@ -34,7 +34,7 @@ Leaders can:
     - promote other members to leader
 
 Every team has a password determined by the creator. New team-members can be invited by giving them the team-password.
-    
+
 
 To run Locally:
 
@@ -66,9 +66,17 @@ The last 3 lines are environment variables required for anything to work.
 
 In order to upload pictures locally, install imageMagick by following https://imagemagick.org/index.php
 
-Then run the following commands:
+Then run the following command:
 
   $ rake db:seed
+
+To make sure all tests are passing, run:
+
+  $ bundle exec rspec
+
+  $ bundle exec rake cucumber
+
+Now you can start your local app by running:
 
   $ rails server
 
