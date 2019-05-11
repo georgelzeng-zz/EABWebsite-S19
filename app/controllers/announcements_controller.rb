@@ -14,10 +14,11 @@ class AnnouncementsController < ApplicationController
   end
 
   def create
-    @announcement = Announcement.new(content_params)
-    if @announcement.save! 
-      redirect_to announcements_path
+    if !(content_params["title"].blank? || content_params["description"].blank?)
+      @announcement = Announcement.new(content_params)
+      @announcement.save!
     end
+    redirect_to announcements_path
   end
 
   def edit
