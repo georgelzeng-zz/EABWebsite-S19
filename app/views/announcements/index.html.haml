@@ -8,11 +8,21 @@
 %h4 Dashboard
 
 - if current_user.admin?
-  %h6= button_to "Make Announcement", new_announcement_path, method: :get
+  %h6{align: "right"}= button_to "Make Announcement", new_announcement_path, method: :get, class: %w[button btn btn-outline-success my-2 my-sm-0]
 
 %div.container
   - @announcements.each_slice(4) do |slice|
     %div.row
       - slice.each do |announcement|
-        %h2= announcement.title
-        = link_to "View", announcement_path(announcement), class: 'btn btn-primary'
+        %div.ann-tile-wrapper.col-sm-12.col-md-3
+
+          %div.ann-tile
+
+            %a.ann-tile-link{:href => announcement_path(announcement)}
+              %div.user-tile-img-overlay
+                %p= announcement.description
+
+              %div.user-tile-info
+                %h4{align: "center"}= announcement.title
+                = link_to "View", announcement_path(announcement), { class: 'btn btn-primary'}
+

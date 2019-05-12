@@ -351,9 +351,31 @@ label.cabinet input.file {
 /* Footer */
 footer {
   background-color: #EEE;
-  margin-top: 48px;
   padding: 24px 0px;
   position: ab;
   width: 100%;
   bottom: 0;
+  margin-top: 96px;
 }
+
+/* Announcement */
+.ann-tile-wrapper {
+  padding: 14px;
+  height: auto;
+}
+
+.ann-tile {
+  overflow: hidden;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px #CCC;
+  transition: 0.2s;
+}
+
+.ann-tile:hover {
+  transform: scale(1.03);
+}
+
+.ann-tile-link:hover .user-tile-img-overlay {
+  opacity: 1;
+}
+
