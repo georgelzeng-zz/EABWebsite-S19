@@ -78,7 +78,7 @@ class UsersController < ApplicationController
   end
 
   def change_code
-    newCode = params[:registration_code] || params[:admin_code]
+    newCode = params[:registration_code] || params[:admin_code] || params[:superadmin_code]
 
     begin
       flash[:notice] = User.change_code(params[:access_level], newCode)

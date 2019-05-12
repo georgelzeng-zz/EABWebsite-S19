@@ -185,10 +185,11 @@ Given /^the current "(.*)" is "(.*)"$/ do |code_type, code|
     User.change_code("regular", code)
   when "admin access code"
     User.change_code("admin", code)
+  when "superadmin access code"
+    User.change_code("superadmin", code)
   else
     raise ArgumentError, 'Not a valid code type'
   end
-
   find_user
 end
 
@@ -231,7 +232,7 @@ When /^I register my "(.*)" as "(.*)"$/ do |field, value|
   when "the superadmin code"
     value = Code.superadmin_code
   when "not the admin code"
-    value = Code.admin_code + Code.regular_code + 'nonsense'
+    value = Code.admin_code + Code.regular_code + Code.superadmin_code + 'nonsense'
   end
 
   @visitor = @visitor.merge(field.to_sym => value)
@@ -344,7 +345,9 @@ When /^I change the "(.*)" to "(.*)"$/ do |code_type, code|
   when "Regular Access Code"
     textField = :registration_code
   when "Admin Access Code"
-    textField = "admin_code"
+    textField = :admin_code
+  when "Superadmin Access Code"
+    textField = :superadmin_code
   end
 
   step %{I should be on the Admin Database page}
@@ -486,5 +489,3 @@ Then /^my team's "(.*)" should be "(.*)"/ do |column, value|
   update_user_variable
   expect(@user.team.send(column.to_sym)).to eq(value)
 end
-
-
