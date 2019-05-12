@@ -27,7 +27,7 @@
 
 
 %div.container.title-container
-  %h2 All Users
+  %h2 Members
 
   = form_tag(users_admin_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
     = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")

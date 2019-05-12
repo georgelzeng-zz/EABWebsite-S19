@@ -15,7 +15,7 @@ Scenario: Superadmin clears all users
     And I go to the Team Database page
     Then I should see "kiwi"
     When I go to the Admin Database page
-    And I press "Delete All Users"
+    And I press "Delete All Regular Members"
     When I go to the Database page
     Then I should not see "George"
     And I should see "Testy"
@@ -25,5 +25,5 @@ Scenario: Superadmin clears all users
 Scenario: Admin cannot clear other users
     Given I am logged in as "an admin"
     When I go to the Admin Database page
-    Then I should see the button "Export as XLSX"
-    And I should not see the button "Delete All Users"
+    Then I should see the button "Export Members as XLSX"
+    And I should not see the button "Delete All Regular Members"
