@@ -16,18 +16,18 @@
   .container.form-container
     .row
       .col-md-4.form-img-wrapper
-        = image_tag @user.image.url
+        = image_tag(@user.image.url, :style => "border-radius: 50%; max-height: 260px; max-width:260px;", alt: "missing.png")
 
-        %label.cabinet.btn.btn-primary
+        %label.cabinet.btn.btn-primary.upload-image-col
           .text
             Upload new image
           = f.file_field :image, class: %w[file]
 
+        %div.upload-image-col
+          .text
+            (Upload a square image for the best user experience)
 
-        -# .img-upload.btn.btn-primary
-        -#   Upload new image
-        -#   %span{:style => "width: 100%;"}
-        -#     = f.file_field :image
+
 
 
       .col
