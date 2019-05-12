@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validate :correct_access_code
 
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "/assets/missing.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100#" }, default_url: "https://profilepicturesdp.com/wp-content/uploads/2018/06/default-good-youtube-profile-pictures-3.jpg"
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
     validates_attachment_size :image, :less_than => 5.megabytes
 
@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   ##Methods dealing with user images
   def picture_missing?
-    self.image.url.include?("missing.png")
+    self.image.url.include?("https://profilepicturesdp.com/wp-content/uploads/2018/06/default-good-youtube-profile-pictures-3.jpg")
   end
 
   ##Methods dealing with access codes
