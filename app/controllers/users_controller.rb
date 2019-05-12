@@ -16,14 +16,12 @@ class UsersController < ApplicationController
   end
 
   def home
+    flash.keep
+
     if current_user
-      if !flash[:notice].blank?
-        @message = flash[:notice]
-      else
-        @message = "Hello, #{current_user.first}!"
-      end
+      redirect_to user_path(current_user)
     else
-      @message = "You aren't logged in!"
+      redirect_to new_user_session_path
     end
   end
 

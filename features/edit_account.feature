@@ -16,6 +16,7 @@ Scenario: User can edit their profile info
     And I should see "needed to make changes to email or password"
     When I fill in "user_linkedinLstring" with "reddit.com"
     And I press "Update"
+    Then I should be on the profile page for the user with email "example@example.com"
     Then I should see "Your account has been updated successfully."
 
 
@@ -48,4 +49,3 @@ Scenario: User can edit their password with current password
     And I fill in "user_current_password" with my password
     And I press "Update"
     Then I should see "Your account has been updated successfully."
-

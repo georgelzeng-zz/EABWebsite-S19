@@ -12,7 +12,7 @@ Scenario: Admin user visits /admin
 Scenario: Regular user visits /admin
   Given I am logged in as "a regular user"
   When I go to the Admin Database page
-  Then I should be on the homepage
+  Then I should be on the profile page for the user with email "example@example.com"
 
 Scenario: Non-signed in user visits /admin
   Given I am not logged in
