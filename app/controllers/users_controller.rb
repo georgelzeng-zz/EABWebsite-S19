@@ -108,10 +108,6 @@ class UsersController < ApplicationController
     redirect_to users_admin_path
   end
 
-  def sign_out
-    redirect_to users_path
-  end
-
   def make_admin
     @user = find_curr
     @user.code = Code.admin_code
