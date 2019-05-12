@@ -83,6 +83,8 @@ The last 3 lines are environment variables required for anything to work.
 
 Make sure (4), (5), and (6) don't have spaces and are readable as environment variables! ie. try "heroku config:set ENV_VAR=Value" where Value is your environment variable's value, and see that all of the characters are copied into the heroku environment variable
 
+Also, config/application.yml is already in .gitignore. DO NOT REMOVE IT FROM .gitignore. Or else your private information (environment variables) will be visible to the public! config/application.yml should NEVER be commited to version control, for security concerns.
+
 In order to upload pictures locally, install imageMagick by following https://imagemagick.org/index.php
 
 Then run the following command:
