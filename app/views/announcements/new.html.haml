@@ -1,0 +1,14 @@
+.content
+  = render :partial => 'users/nav_bar', :locals => { :current_user => current_user }
+
+
+%ul#details
+  = @message
+
+- if current_user.admin?
+  %h4 Make Announcement
+  = render 'form'
+- else
+  %p Restricted Access!
+
+= link_to "Cancel", announcements_path

@@ -43,6 +43,8 @@ Rails.application.routes.draw do
 
   delete 'teams/delete/:id', to: 'teams#delete', as: 'delete_team'
 
+  resources :announcements
+
   patch '/users/admin/:id', to: 'users#make_admin', as: 'make_admin'
 
   patch '/users/superadmin/:id', to: 'users#make_super', as: 'make_super'

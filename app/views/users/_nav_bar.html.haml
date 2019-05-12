@@ -11,11 +11,14 @@
       %ul.navbar-nav.mr-auto
 
         %li.nav-item
+          %a.nav-link{:href => announcements_path} Dashboard
+
+        %li.nav-item
           %a.nav-link{:href => teams_path} Teams
 
         - if current_user.try(:admin?)
           %li.nav-item
-            %a.nav-link{:href => users_path, :method => :get} Members (Regular View)
+            %a.nav-link{:href => users_path, :method => :get} Members
         - else
           %li.nav-item
             %a.nav-link{:href => users_path, :method => :get} Members
@@ -23,9 +26,6 @@
         - if current_user.try(:admin?)
           %li.nav-item
             %a.nav-link{:href => users_admin_path, :method => :get} Members (Admin View)
-
-        %li.nav-item
-          %a.nav-link{:href => home_path} Dashboard
 
       %ul.navbar-nav.ml-auto
 
