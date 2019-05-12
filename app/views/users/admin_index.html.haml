@@ -21,13 +21,13 @@
 
   %table
     %tr
-      = button_to "Export as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
+      = button_to "Export Members as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
       - if current_user.code == Code.superadmin_code
-        = button_to "Delete All Users", users_clear_path, class: %w[button btn btn-outline-success], :data => {:confirm => 'Are you sure?'}, method: :get
+        = button_to "Delete All Regular Members", users_clear_path, class: %w[button btn btn-outline-success], :data => {:confirm => 'Are you sure?'}, method: :get
 
 
 %div.container.title-container
-  %h2 All Users
+  %h2 Members
 
   = form_tag(users_admin_path, :method => 'GET', class: %w[form form-inline my-2 my-lg-0]) do
     = text_field_tag(:search, params[:search], :placeholder => "ex. Michael", class: %w[input form-control], :id => "searchField")
@@ -80,8 +80,9 @@
             %td No
           %td= user.skillset
           %td= user.sid
+          %td= user.year
           %td= user.major
           %td= user.facebook
           %td= user.linkedinLstring
-          %td= user.privileges
+          %td= user.access
           %td= link_to "More about #{user.first}", user_path(user)

@@ -112,7 +112,14 @@ class User < ActiveRecord::Base
 
   ##Methods dealing with download-roster
   def access
-    self.admin? ? "admin" : "regular"
+    case self.code
+    when Code.regular_code
+      return "regular"
+    when Code.admin_code
+      return "admin"
+    when Code.superadmin_code
+      return "super-admin"
+    end
   end
 
   ##methods dealing with teams
