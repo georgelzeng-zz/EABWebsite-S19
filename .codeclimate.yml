@@ -5,3 +5,4 @@ exclude_patterns:
  - "spec/"
  - "db/"
  - "config/environments/"
+ - "config/initializers/"

@@ -43,11 +43,7 @@ To run Locally:
 After navigating to main directory of repo, run the following commands:
 
   $ bundle install --without production
-
-  $ rake db:setup
-
-  $ rake db:migrate
-
+  
 Then create the file config/application.yml and add the following lines (to create environment variables):
 
   SERVER_ADDRESS: smtp.gmail.com
@@ -59,18 +55,24 @@ Then create the file config/application.yml and add the following lines (to crea
   SUPERADMIN_CODE: (5)
 
 (1) is an existing gmail account without 2-Step authentication
+
 (2) is the password to (1)
+
 (3) is some string, and is the code required to register a regular account
+
 (4) is a string different from (3), and is the code required to register an admin account
+
 (5) is a string different from both (3) and (4), and is the code required to register a super-admin account
+
 The first 4 lines are environment variables required for password-recovery-emails to work.  
+
 The last 3 lines are environment variables required for anything to work.
 
 In order to upload pictures locally, install imageMagick by following https://imagemagick.org/index.php
 
 Then run the following command:
 
-  $ rake db:seed
+  $ rake db:setup
 
 To make sure all tests are passing, run:
 
@@ -87,7 +89,7 @@ You can now use the website locally by visiting: "localhost:3000"
 
 To run on Heroku:
 
-After navigating to main directory of repo, run the following commands:
+After adding your heroku app to your local repo, and navigating to the main directory of your local repo, run the following commands:
 
   $ bundle install
 
