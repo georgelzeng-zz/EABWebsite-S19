@@ -5,24 +5,25 @@
 %ul#details
   = @message
 
-%h4 Dashboard
+%div.container.title-container
+  %h2 Dashboard
 
-- if current_user.admin?
-  %h6{align: "left"}= button_to "Make Announcement", new_announcement_path, method: :get, class: %w[button btn btn-outline-success my-2 my-sm-0]
+  - if current_user.admin?
+    %h6{align: "left"}= button_to "Make Announcement", new_announcement_path, method: :get, class: %w[button btn btn-outline-success my-2 my-sm-0]
 
-%div.container
-  - @announcements.each_slice(4) do |slice|
-    %div.row
-      - slice.each do |announcement|
-        %div.ann-tile-wrapper.col-sm-12.col-md-3
+  %div.container
+    - @announcements.each_slice(4) do |slice|
+      %div.row
+        - slice.each do |announcement|
+          %div.ann-tile-wrapper.col-sm-12.col-md-3
 
-          %div.ann-tile
+            %div.ann-tile
 
-            %a.ann-tile-link{:href => announcement_path(announcement)}
-              %div.user-tile-img-overlay
-                %p= announcement.description
+              %a.ann-tile-link{:href => announcement_path(announcement)}
+                %div.user-tile-img-overlay
+                  %p= announcement.description
 
-              %div.user-tile-info
-                %h4{align: "center"}= announcement.title
-                = link_to "View", announcement_path(announcement), { class: 'btn btn-primary'}
+                %div.user-tile-info
+                  %h4{align: "center"}= announcement.title
+                  = link_to "View", announcement_path(announcement), { class: 'btn btn-primary'}
 
