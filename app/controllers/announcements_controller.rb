@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-  before_action :authenticate_user!, except: :home
+  before_action :authenticate_user!
   before_action :find_message, only: [:show, :edit, :update, :destroy]
 
   def index

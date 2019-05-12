@@ -401,7 +401,7 @@ Then /^I should see a successful sign up message$/ do
 end
 
 Then /^I should see I am not logged in$/ do
-  page.should have_content "You aren't logged in!"
+  page.should have_content "Login"
 end
 
 Then /^I should see an invalid email message$/ do

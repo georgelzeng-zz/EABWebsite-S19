@@ -6,11 +6,20 @@
 .content
   = render :partial => 'users/flash_messages', :locals => { :flash => flash }
 
-%h2= @announcement.title
-%p= @announcement.description
+%div.container.title-container
+  %h2= @announcement.title
 
-- if current_user.admin?
-  = link_to "Edit", edit_announcement_path(@announcement)
-  = link_to "Delete", announcement_path(@announcement), method: :delete, data: { confirm: "Are you sure?" }
+  %div.container
+    &nbsp
+    %p= @announcement.description
 
-= link_to "Back", announcements_path
+  &nbsp
+
+%div.container
+  - if current_user.admin?
+    = link_to "Edit", edit_announcement_path(@announcement), class: %w[button btn btn-outline-success]
+    &nbsp &nbsp
+    = link_to "Delete", announcement_path(@announcement), method: :delete, data: { confirm: "Are you sure?" }, class: %w[button btn btn-outline-success]
+  &nbsp &nbsp &nbsp &nbsp
+  = link_to "Back", announcements_path, class: %w[button btn btn-outline-success]
+
