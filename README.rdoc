@@ -9,11 +9,13 @@ Types of Users:
 
 1) Regular: Regular members of EAB. Can:
     - search other members
+    - view the dashboard (list of announcements from Admins)
     - create a team or join a team
     - edit their profile (ie. add a picture, fb Profile, etc.)
 
 2) Admin: Administrative members of EAB. Can:
     - do everything a regular user can do
+    - create announcements on the dashboard
     - delete users
     - delete teams
     - download a spreadsheet of all users
@@ -34,7 +36,7 @@ Leaders can:
     - promote other members to leader
 
 Every team has a password determined by the creator. New team-members can be invited by giving them the team-password.
-    
+
 
 To run Locally:
 
@@ -61,14 +63,22 @@ Then create the file config/application.yml and add the following lines (to crea
 (3) is some string, and is the code required to register a regular account
 (4) is a string different from (3), and is the code required to register an admin account
 (5) is a string different from both (3) and (4), and is the code required to register a super-admin account
-The first 4 lines are environment variables required for password-recovery-emails to work.
+The first 4 lines are environment variables required for password-recovery-emails to work.  
 The last 3 lines are environment variables required for anything to work.
 
 In order to upload pictures locally, install imageMagick by following https://imagemagick.org/index.php
 
-Then run the following commands:
+Then run the following command:
 
   $ rake db:seed
+
+To make sure all tests are passing, run:
+
+  $ bundle exec rspec
+
+  $ bundle exec rake cucumber
+
+Now you can start your local app by running:
 
   $ rails server
 
@@ -96,27 +106,6 @@ Then run:
   $ heroku run rake db:seed
 
 You can now visit your Heroku app.
-
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 
 
 Please feel free to use a different markup language if you do not plan to run
