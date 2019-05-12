@@ -179,6 +179,7 @@ label.cabinet input.file {
 .form-img-wrapper {
   position: relative;
   padding: 0px 48px;
+  padding-top: 5px;
 }
 
 .form-img-wrapper .img-upload {
@@ -249,6 +250,9 @@ label.cabinet input.file {
   margin-bottom: 12px;
 }
 
+.upload-image-col {
+  max-width: 260px;
+}
 
 .user-tile-wrapper {
   padding: 8px;
