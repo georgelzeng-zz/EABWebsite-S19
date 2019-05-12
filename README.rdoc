@@ -9,11 +9,13 @@ Types of Users:
 
 1) Regular: Regular members of EAB. Can:
     - search other members
+    - view the dashboard (list of announcements from Admins)
     - create a team or join a team
     - edit their profile (ie. add a picture, fb Profile, etc.)
 
 2) Admin: Administrative members of EAB. Can:
     - do everything a regular user can do
+    - create announcements on the dashboard
     - delete users
     - delete teams
     - download a spreadsheet of all users
@@ -104,27 +106,6 @@ Then run:
   $ heroku run rake db:seed
 
 You can now visit your Heroku app.
-
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 
 
 Please feel free to use a different markup language if you do not plan to run
