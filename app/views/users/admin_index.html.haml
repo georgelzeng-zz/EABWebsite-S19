@@ -21,9 +21,9 @@
 
   %table
     %tr
-      = button_to "Export as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
+      = button_to "Export Members as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
       - if current_user.code == Code.superadmin_code
-        = button_to "Delete All Users", users_clear_path, class: %w[button btn btn-outline-success], :data => {:confirm => 'Are you sure?'}, method: :get
+        = button_to "Delete All Regular Members", users_clear_path, class: %w[button btn btn-outline-success], :data => {:confirm => 'Are you sure?'}, method: :get
 
 
 %div.container.title-container
