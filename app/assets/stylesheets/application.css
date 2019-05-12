@@ -367,7 +367,7 @@ footer {
 
 /* Announcement */
 .ann-tile-wrapper {
-  padding: 14px;
+  padding: 15px;
   height: auto;
 }
 
@@ -379,10 +379,14 @@ footer {
 }
 
 .ann-tile:hover {
-  transform: scale(1.03);
+  transform: scale(0.9);
 }
 
 .ann-tile-link:hover .user-tile-img-overlay {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   opacity: 1;
+  
 }
 

@@ -19,6 +19,7 @@
       = text_field_tag(:superadmin_code, Code.superadmin_code)
       = submit_tag "Change Superadmin Access Code", name: nil
 
+%div.container.title-container
   %table
     %tr
       = button_to "Export Members as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
@@ -70,9 +71,9 @@
     %tbody
       - @users.each do |user|
         %tr
-          %td= user.first
-          %td= user.last
-          %td= user.email
+          %td= link_to "#{user.first}", user_path(user)
+          %td= link_to "#{user.last}", user_path(user)
+          %td= link_to "#{user.email}", user_path(user)
           %td= user.team_name
           - if user.is_a_leader
             %td Yes

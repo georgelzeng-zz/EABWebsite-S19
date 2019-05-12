@@ -80,7 +80,7 @@
       %table
         %tr
           - if current_user.id == @user.id && current_user.has_a_team
-            = button_to "Leave Team", leave_team_path(@user),  { confirm: "Are you sure?" }
+            = button_to "Leave Team", leave_team_path(@user), class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
             &nbsp
           - if current_user.code == Code.superadmin_code 
             - if @user.code != Code.admin_code
