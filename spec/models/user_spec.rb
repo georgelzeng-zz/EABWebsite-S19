@@ -64,4 +64,10 @@ RSpec.describe User, type: :model do
       expect(user.code).to eq(current_code)
     end
   end
+
+  it "correctly tells whether it's missing a picture" do
+    @regular_users.each do |user|
+      expect(user.picture_missing?).to eq(true)
+    end
+  end
 end
