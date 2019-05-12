@@ -81,6 +81,8 @@ The last 3 lines are environment variables required for anything to work.
 
 (6) must be different from both (4) and (5), and will be the code required to register a super-admin account
 
+Make sure (4), (5), and (6) don't have spaces and are readable as environment variables! ie. try "heroku config:set ENV_VAR=Value" where Value is your environment variable's value, and see that all of the characters are copied into the heroku environment variable
+
 In order to upload pictures locally, install imageMagick by following https://imagemagick.org/index.php
 
 Then run the following command:
@@ -122,9 +124,6 @@ Then run:
 
 You can now visit your Heroku app.
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
 
 {<img src="https://travis-ci.org/georgelzeng/EABWebsite-S19.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/georgelzeng/EABWebsite-S19]
 
