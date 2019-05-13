@@ -72,33 +72,25 @@
 
 
     %div.profile-button-wrapper.col-16
-
-      .row
-        .field.col-md-4
-          - if current_user.id == @user.id
-            = link_to 'Edit Account', edit_page_path(@user), class: %w[button btn btn-outline-success]
-            &nbsp
-        .field.col-md-4
-          - if current_user.id == @user.id && current_user.has_a_team
-            = button_to "Leave Team", leave_team_path(@user), class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
-            &nbsp
-        .field.col-md-4
-          - if current_user.admin?
-            = button_to "Delete User", users_path(@user), class: %w[button btn btn-outline-success], params: {:toDelete => @user.id},data: { confirm: "Are you sure?" }, method: :delete
-            &nbsp
-        - if current_user.code == Code.superadmin_code
-          .field.col-md-4
-            - if @user.code != Code.admin_code
-              = form_tag(make_admin_path, :method => 'PATCH', class: %w[form form-horizontal]) do
-                = submit_tag "Make Admin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
-              &nbsp
-          .field.col-md-4
-            - if @user.code == Code.admin_code
-              = form_tag(make_super_path, :method => 'PATCH', class: %w[form form-horizontal]) do
-                = submit_tag "Make Superadmin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
-              &nbsp
-          .field.col-md-4
-            - if @user.code != Code.regular_code
-              = form_tag(make_regular_path, :method => 'PATCH', class: %w[form form-horizontal]) do
-                = submit_tag "Make Regular", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
-              &nbsp
+      - if current_user.id == @user.id
+        = link_to 'Edit Account', edit_page_path(@user), class: %w[button btn btn-outline-success]
+        &nbsp
+      - if current_user.id == @user.id && current_user.has_a_team
+        = button_to "Leave Team", leave_team_path(@user), class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+        &nbsp
+      - if current_user.admin?
+        = button_to "Delete User", users_path(@user), class: %w[button btn btn-outline-success], params: {:toDelete => @user.id},data: { confirm: "Are you sure?" }, method: :delete
+        &nbsp
+      - if current_user.code == Code.superadmin_code
+        - if @user.code != Code.admin_code
+          = form_tag(make_admin_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+            = submit_tag "Make Admin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+          &nbsp
+        - if @user.code == Code.admin_code
+          = form_tag(make_super_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+            = submit_tag "Make Superadmin", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+          &nbsp
+        - if @user.code != Code.regular_code
+          = form_tag(make_regular_path, :method => 'PATCH', class: %w[form form-horizontal]) do
+            = submit_tag "Make Regular", name: nil, class: %w[button btn btn-outline-success], data: { confirm: "Are you sure?" }
+          &nbsp
