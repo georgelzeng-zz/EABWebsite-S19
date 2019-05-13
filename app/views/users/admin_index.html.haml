@@ -19,10 +19,11 @@
       = text_field_tag(:superadmin_code, Code.superadmin_code)
       = submit_tag "Change Superadmin Access Code", name: nil
 
-%div.container.title-container
-  %table
-    %tr
+.container.form-container
+  .row
+    .field.col-md-5
       = button_to "Export Members as XLSX", users_spreadsheet_path(format: "xlsx"), class: %w[button btn btn-outline-success], method: :get
+    .field.col-md-5
       - if current_user.code == Code.superadmin_code
         = button_to "Delete All Regular Members", users_clear_path, class: %w[button btn btn-outline-success], :data => {:confirm => 'Are you sure?'}, method: :get
 
